@@ -1,7 +1,7 @@
 module Aypex
   class ProductsController < Aypex::StoreController
     include Aypex::ProductHelper
-    include Aypex::FrontendHelper
+    include Aypex::StorefrontHelper
     include Aypex::CacheHelper
 
     before_action :load_product, only: [:show, :related]

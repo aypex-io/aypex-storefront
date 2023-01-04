@@ -47,9 +47,9 @@ module Aypex
 
     describe '#should_render_store_chooser?' do
       context 'enabled' do
-        before { Aypex::Frontend::Config.show_store_selector = true }
+        before { Aypex::Storefront::Config.show_store_selector = true }
 
-        after { Aypex::Frontend::Config.show_store_selector = false }
+        after { Aypex::Storefront::Config.show_store_selector = false }
 
         context 'with 1 store' do
           it { expect(should_render_store_chooser?).to be_falsey }

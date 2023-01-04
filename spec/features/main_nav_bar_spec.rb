@@ -12,7 +12,7 @@ describe 'Main navigation bar', type: :feature do
       let!(:stores) { create_list(:store, stores_number, default_country: create(:country)) }
 
       before do
-        Aypex::Frontend::Config[:show_store_selector] = true
+        Aypex::Storefront::Config[:show_store_selector] = true
 
         visit aypex.root_path
       end
@@ -49,7 +49,7 @@ describe 'Main navigation bar', type: :feature do
       let!(:stores) { create_list(:store, stores_number) }
 
       before do
-        Aypex::Frontend::Config[:show_store_selector] = false
+        Aypex::Storefront::Config[:show_store_selector] = false
 
         visit aypex.root_path
       end

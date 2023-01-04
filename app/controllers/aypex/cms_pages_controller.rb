@@ -2,7 +2,7 @@ module Aypex
   class CmsPagesController < Aypex::StoreController
     before_action :load_cms_page, only: [:show]
 
-    include Aypex::FrontendHelper
+    include Aypex::StorefrontHelper
     include Aypex::CacheHelper
 
     def show

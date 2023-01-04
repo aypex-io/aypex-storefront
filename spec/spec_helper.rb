@@ -9,7 +9,7 @@ if ENV['COVERAGE']
     add_filter '/script/'
     add_filter '/spec/'
 
-    coverage_dir "#{ENV['COVERAGE_DIR']}/frontend" if ENV['COVERAGE_DIR']
+    coverage_dir "#{ENV['COVERAGE_DIR']}/storefront" if ENV['COVERAGE_DIR']
   end
 end
 

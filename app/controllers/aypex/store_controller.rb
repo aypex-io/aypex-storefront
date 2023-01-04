@@ -55,8 +55,8 @@ module Aypex
     def title
       title_string = @title.present? ? @title : accurate_title
       if title_string.present?
-        if Aypex::Frontend::Config[:always_put_site_name_in_title] && !title_string.include?(default_title)
-          [title_string, default_title].join(" #{Aypex::Frontend::Config[:title_site_name_separator]} ")
+        if Aypex::Storefront::Config[:always_put_site_name_in_title] && !title_string.include?(default_title)
+          [title_string, default_title].join(" #{Aypex::Storefront::Config[:title_site_name_separator]} ")
         else
           title_string
         end
@@ -75,7 +75,7 @@ module Aypex
     end
 
     def config_locale
-      Aypex::Frontend::Config[:locale]
+      Aypex::Storefront::Config[:locale]
     end
 
     # Returns which layout to render.
@@ -85,7 +85,7 @@ module Aypex
     # Default layout is: +app/views/aypex/layouts/aypex_application+
     #
     def get_layout
-      layout ||= Aypex::Frontend::Config[:layout]
+      layout ||= Aypex::Storefront::Config[:layout]
     end
 
     def store_etag

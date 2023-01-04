@@ -10,6 +10,6 @@ task default: :spec
 
 desc "Generates a dummy app for testing"
 task :test_app do
-  ENV['LIB_NAME'] = 'aypex/frontend'
+  ENV['LIB_NAME'] = 'aypex/storefront'
   Rake::Task['common:test_app'].execute( { install_storefront: true, install_admin: false } )
 end

@@ -10,7 +10,7 @@
       <div data-hook="empty_cart" class="shopping-cart-empty">
         <div class="d-flex flex-column justify-content-between h-100">
           <div class="d-flex flex-column align-items-center">
-            <%= aypex_frontend_svg_tag('empty-cart.svg', width: 83, height: 83) %>
+            <%= aypex_storefront_svg_tag('empty-cart.svg', width: 83, height: 83) %>
             <p class="text-center shopping-cart-empty-info"><%= Aypex.t('cart_page.empty_info').html_safe %></p>
           </div>
           <%= link_to Aypex.t(:continue_shopping), aypex.products_path, class: 'btn btn-primary text-uppercase font-weight-bold shopping-cart-empty-continue-link' %>
@@ -26,9 +26,9 @@
   <div class="col-12 col-lg-4">
     <h3 class="text-uppercase mb-4"><%= Aypex.t('summary') %></h3>
 
-    <% if Aypex::Frontend::Config[:coupon_codes_enabled] %>
+    <% if Aypex::Storefront::Config[:coupon_codes_enabled] %>
       <a href="#promoCodeContainer" class="pb-4" data-bs-toggle="collapse" data-bs-target="#promoCodeContainer" aria-expanded="false" aria-controls="promoCodeContainer">
-        <%= I18n.t('aypex.frontend.cart.do_you_have_a_promo_code') %> <%= aypex_frontend_svg_tag('arrow-down.svg', width: 16, height: 16) %>
+        <%= I18n.t('aypex.storefront.cart.do_you_have_a_promo_code') %> <%= aypex_storefront_svg_tag('arrow-down.svg', width: 16, height: 16) %>
       </a>
       <div class="mb-4">
         <div class="collapse" id="promoCodeContainer">
@@ -48,7 +48,7 @@
 
     <% if !@order.cart_promo_total.zero? %>
       <hr>
-      <h5><%= I18n.t('aypex.frontend.cart.discounts') %></h5>
+      <h5><%= I18n.t('aypex.storefront.cart.discounts') %></h5>
 
       <% @order.valid_coupon_promotions.each do |promo| %>
         <div class="d-flex">
@@ -57,7 +57,7 @@
           </div>
 
           <%= link_to aypex.remove_coupon_path(coupon_code: promo.code), data: { turbo_method: :patch } do %>
-            <%= aypex_frontend_svg_tag('garbage.svg', width: 16, height: 16, class: 'mb-1') %>
+            <%= aypex_storefront_svg_tag('garbage.svg', width: 16, height: 16, class: 'mb-1') %>
           <% end %>
         </div>
       <% end %>

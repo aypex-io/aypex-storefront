@@ -1,6 +1,6 @@
 en:
   aypex:
-    frontend:
+    storefront:
       cart_form:
         reset: Reset
       cart:

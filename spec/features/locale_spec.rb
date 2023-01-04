@@ -91,13 +91,13 @@ describe 'setting locale', type: :feature, js: true do
   context 'without store locale set' do
     before do
       I18n.locale = locale
-      Aypex::Frontend::Config[:locale] = locale
+      Aypex::Storefront::Config[:locale] = locale
       visit aypex.cart_path
     end
 
     after do
       I18n.locale = 'en'
-      Aypex::Frontend::Config[:locale] = 'en'
+      Aypex::Storefront::Config[:locale] = 'en'
     end
 
     it_behaves_like 'translates cart page'

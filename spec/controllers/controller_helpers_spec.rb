@@ -13,7 +13,7 @@ describe Aypex::ProductsController, type: :controller do
   end
 
   after do
-    Aypex::Frontend::Config[:locale] = :en
+    Aypex::Storefront::Config[:locale] = :en
     Rails.application.config.i18n.default_locale = :en
     I18n.locale = :en
     I18n.enforce_available_locales = true
@@ -25,9 +25,9 @@ describe Aypex::ProductsController, type: :controller do
       session[:locale] = nil
     end
 
-    context 'when Aypex::Frontend::Config[:locale] not present' do
+    context 'when Aypex::Storefront::Config[:locale] not present' do
       before do
-        Aypex::Frontend::Config[:locale] = nil
+        Aypex::Storefront::Config[:locale] = nil
       end
 
       context 'when rails application default locale not set' do
@@ -57,10 +57,10 @@ describe Aypex::ProductsController, type: :controller do
       end
     end
 
-    context 'when Aypex::Frontend::Config[:locale] is present' do
+    context 'when Aypex::Storefront::Config[:locale] is present' do
       context 'and not in available_locales' do
         before do
-          Aypex::Frontend::Config[:locale] = unavailable_locale
+          Aypex::Storefront::Config[:locale] = unavailable_locale
         end
 
         # FIXME: after adding supported_locales to Store this should be testable again
@@ -72,10 +72,10 @@ describe Aypex::ProductsController, type: :controller do
 
       context 'and not in available_locales' do
         before do
-          Aypex::Frontend::Config[:locale] = available_locale
+          Aypex::Storefront::Config[:locale] = available_locale
         end
 
-        it 'sets the default locale based on Aypex::Frontend::Config[:locale]' do
+        it 'sets the default locale based on Aypex::Storefront::Config[:locale]' do
           expect(I18n.locale).to eq(:en)
           get :index
           expect(I18n.locale).to eq(available_locale)

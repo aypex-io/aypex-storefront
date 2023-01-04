@@ -1,11 +1,11 @@
 <div class="container dropdown d-none d-lg-flex justify-content-end mt-5 pe-4 pb-3 plp-sort">
   <a data-toggle="dropdown" class="plp-sort-header" href="#" role="button" aria-haspopup="true" aria-expanded="false">
     <%= Aypex.t("plp.#{ params[:sort_by].blank? ? 'sort_by': params[:sort_by].gsub('-', '_') }") %>
-    <%= aypex_frontend_svg_tag('arrow-right.svg',
+    <%= aypex_storefront_svg_tag('arrow-right.svg',
              class: 'aypex-icon-arrow aypex-icon-arrow-up ml-3 plp-sort-header-arrow--up',
              width: 18,
              height: 18) %>
-    <%= aypex_frontend_svg_tag('arrow-right.svg',
+    <%= aypex_storefront_svg_tag('arrow-right.svg',
              class: 'aypex-icon-arrow aypex-icon-arrow-down ml-3 plp-sort-header-arrow--down',
              width: 18,
              height: 18) %>

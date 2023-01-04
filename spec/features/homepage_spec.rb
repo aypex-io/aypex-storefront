@@ -8,7 +8,7 @@ describe 'homepage', type: :feature, js: true do
 
     eu_store_hp.update(default_locale: nil)
     I18n.locale = :en
-    Aypex::Frontend::Config[:locale] = :en
+    Aypex::Storefront::Config[:locale] = :en
   end
 
   context 'meta title' do
@@ -105,7 +105,7 @@ describe 'homepage', type: :feature, js: true do
     let!(:hp_section_de) { create(:cms_featured_article_section, cms_page: homepage_de) }
 
     before do
-      Aypex::Frontend::Config[:locale] = :fr
+      Aypex::Storefront::Config[:locale] = :fr
 
       hp_sec_de = Aypex::CmsSection.find(hp_section_de.id)
 
@@ -117,7 +117,7 @@ describe 'homepage', type: :feature, js: true do
     end
 
     after do
-      Aypex::Frontend::Config[:locale] = nil
+      Aypex::Storefront::Config[:locale] = nil
     end
 
     it 'displays the cms_homepage for the stores default language' do
@@ -132,7 +132,7 @@ describe 'homepage', type: :feature, js: true do
     let!(:hp_section_fr) { create(:cms_featured_article_section, cms_page: homepage_fr) }
 
     before do
-      Aypex::Frontend::Config[:locale] = :fr
+      Aypex::Storefront::Config[:locale] = :fr
 
       hp_sec_de = Aypex::CmsSection.find(hp_section_de.id)
 
@@ -150,7 +150,7 @@ describe 'homepage', type: :feature, js: true do
     end
 
     after do
-      Aypex::Frontend::Config[:locale] = nil
+      Aypex::Storefront::Config[:locale] = nil
     end
 
     it 'displays the correct cms_homepage' do

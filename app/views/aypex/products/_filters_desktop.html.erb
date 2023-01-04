@@ -11,11 +11,11 @@
 
           <button class="card-header <%= 'collapsed' if collapsed %> px-1 plp-filters-card-header" id="filters<%= option_type_name %>" data-toggle="collapse" data-target="#collapseFilter<%= option_type_name %>" aria-expanded="<%= !collapsed %>" aria-controls="collapseFilter<%= option_type_name %>" role="heading" aria-level="2">
             <%= option_type.presentation %>
-            <%= aypex_frontend_svg_tag('plus.svg',
+            <%= aypex_storefront_svg_tag('plus.svg',
                     class: 'mt-1 float-end arrow plp-filters-card-header-arrow--plus',
                     width: 16,
                     height: 16) %>
-            <%= aypex_frontend_svg_tag('minus.svg',
+            <%= aypex_storefront_svg_tag('minus.svg',
                     class: 'mt-1 float-end arrow plp-filters-card-header-arrow--minus',
                     width: 16,
                     height: 16) %>
@@ -37,11 +37,11 @@
             <% collapsed = params.dig(:properties, property.filter_param).blank? %>
             <button class="card-header <%= 'collapsed' if collapsed %> px-1 plp-filters-card-header" id="filters<%= property_name %>" data-toggle="collapse" data-target="#collapseFilter<%= property_name %>" aria-expanded="<%= !collapsed %>" aria-controls="collapseFilter<%= property_name %>" role="heading" aria-level="2">
               <%= property.presentation.titleize %>
-              <%= aypex_frontend_svg_tag('plus.svg',
+              <%= aypex_storefront_svg_tag('plus.svg',
                       class: 'mt-1 float-end arrow plp-filters-card-header-arrow--plus',
                       width: 16,
                       height: 16) %>
-              <%= aypex_frontend_svg_tag('minus.svg',
+              <%= aypex_storefront_svg_tag('minus.svg',
                       class: 'mt-1 float-end arrow plp-filters-card-header-arrow--minus',
                       width: 16,
                       height: 16) %>
@@ -63,11 +63,11 @@
       <div class="w-100 card plp-filters-card">
         <button class="card-header text-capitalize <%= 'collapsed' if price_collapsed %> px-1 plp-filters-card-header" id="filtersPrice" data-toggle="collapse" data-target="#collapseFilterPrice" aria-expanded="<% !price_collapsed %>" aria-controls="collapseFilterPrice" role="heading" aria-level="2">
           <%= Aypex.t('plp.price') %>
-          <%= aypex_frontend_svg_tag('plus.svg',
+          <%= aypex_storefront_svg_tag('plus.svg',
                   class: 'mt-1 float-end arrow plp-filters-card-header-arrow--plus',
                   width: 16,
                   height: 16) %>
-          <%= aypex_frontend_svg_tag('minus.svg',
+          <%= aypex_storefront_svg_tag('minus.svg',
                   class: 'mt-1 float-end arrow plp-filters-card-header-arrow--minus',
                   width: 16,
                   height: 16) %>

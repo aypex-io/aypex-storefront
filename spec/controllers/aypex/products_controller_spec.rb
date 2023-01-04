@@ -87,7 +87,7 @@ describe Aypex::ProductsController, type: :controller do
     end
 
     context 'when http_cache_enabled is set to false' do
-      before { Aypex::Frontend::Config[:http_cache_enabled] = false }
+      before { Aypex::Storefront::Config[:http_cache_enabled] = false }
 
       it 'does not call fresh_when method' do
         expect(subject).not_to receive(:fresh_when)

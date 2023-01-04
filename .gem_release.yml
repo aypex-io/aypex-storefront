@@ -1,7 +1,7 @@
 
 bump:
   recurse: false
-  file: 'frontend/lib/aypex/frontend/version.rb'
+  file: 'storefront/lib/aypex/storefront/version.rb'
 
 release:
   recurse: true

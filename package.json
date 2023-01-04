@@ -1,15 +1,15 @@
 {
-  "name": "@matthewkennedy/aypex-frontend",
+  "name": "@matthewkennedy/aypex-storefront",
   "version": "0.0.4",
   "description": "A Modern Rails Storefront For Aypex",
-  "main": "app/assets/javascripts/aypex_frontend.js",
-  "module": "app/javascript/aypex/frontend/index.js",
+  "main": "app/assets/javascripts/aypex_storefront.js",
+  "module": "app/javascript/aypex/storefront/index.js",
   "type": "module",
-  "repository": "https://github.com/MatthewKennedy/aypex_frontend",
+  "repository": "https://github.com/MatthewKennedy/aypex_storefront",
   "author": "Matthew Kennedy <m.kennedy@me.com>",
   "license": "MIT",
   "files": [
-    "app/javascript/aypex/frontend"
+    "app/javascript/aypex/storefront"
   ],
   "dependencies": {
     "@hotwired/stimulus": "^3.1.0",

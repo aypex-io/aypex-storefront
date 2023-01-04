@@ -1,6 +1,6 @@
 module Aypex
   class TaxonsController < Aypex::StoreController
-    include Aypex::FrontendHelper
+    include Aypex::StorefrontHelper
     include Aypex::CacheHelper
     helper 'aypex/products'
 

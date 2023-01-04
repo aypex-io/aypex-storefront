@@ -2,7 +2,7 @@
 extends: standard
 
 globals:
-  AypexFrontend: true
+  AypexStorefront: true
   Aypex: true
   analytics: true
   DOMPurify: true

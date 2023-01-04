@@ -55,7 +55,7 @@ module Aypex
                      raw(Aypex.t(:state) + content_tag(:abbr, " #{Aypex.t(:required)}")),
                      class: [have_states ? 'state-select-label' : nil, ' text-uppercase'].compact,
                      id: address_id + '_state_label') +
-          aypex_frontend_svg_tag('arrow.svg',
+          aypex_storefront_svg_tag('arrow.svg',
                     class: [!have_states ? 'hidden' : nil, 'position-absolute aypex-flat-select-arrow'].compact)
       ].join.tr('"', "'").delete("\n")
 

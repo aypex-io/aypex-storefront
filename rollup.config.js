@@ -8,7 +8,7 @@ import pkg from './package.json'
 export default [
   { // CSS
     input: './app/sass/main.scss',
-    output: [{ file: './app/assets/stylesheets/aypex/frontend/aypex_frontend.min.css' }],
+    output: [{ file: './app/assets/stylesheets/aypex/storefront/aypex_storefront.min.css' }],
     plugins: [
       postcss({
         minimize: true,

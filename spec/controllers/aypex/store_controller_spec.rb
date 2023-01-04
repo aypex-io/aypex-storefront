@@ -97,8 +97,8 @@ describe Aypex::StoreController, type: :controller do
 
   describe '#title' do
     before do
-      Aypex::Frontend::Config[:always_put_site_name_in_title] = true
-      Aypex::Frontend::Config[:title_site_name_separator] = '-'
+      Aypex::Storefront::Config[:always_put_site_name_in_title] = true
+      Aypex::Storefront::Config[:title_site_name_separator] = '-'
     end
 
     context 'when title with current store name is present' do

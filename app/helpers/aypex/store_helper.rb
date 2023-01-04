@@ -28,7 +28,7 @@ module Aypex
     end
 
     def should_render_store_chooser?
-      Aypex::Frontend::Config[:show_store_selector] && stores.size > 1
+      Aypex::Storefront::Config[:show_store_selector] && stores.size > 1
     end
 
     def store_link(store = nil, html_opts = {})

@@ -17,7 +17,7 @@
           <div class="card plp-overlay-card">
             <div class="card-header text-uppercase <%= 'collapsed' if params[ot_downcase_name].blank? %> plp-overlay-card-header" data-toggle="collapse" id="filtersMobile<%= option_type_name %>" data-target="#collapseFilterMobile<%= option_type_name %>" aria-expanded="true" aria-controls="collapseFilterMobile<%= option_type_name %>" role="heading" aria-level="3">
               <%= option_type_name %>
-              <%= aypex_frontend_svg_tag('arrow-right.svg',
+              <%= aypex_storefront_svg_tag('arrow-right.svg',
                       class: 'aypex-icon-arrow aypex-icon-arrow-right mt-1 float-end arrow plp-overlay-card-header-arrow',
                       width: 16,
                       height: 16) %>
@@ -37,7 +37,7 @@
             <div class="card plp-overlay-card">
               <div class="card-header text-uppercase <%= 'collapsed' if collapsed %> plp-overlay-card-header" data-toggle="collapse" id="filtersMobile<%= property_name %>" data-target="#collapseFilterMobile<%= property_name %>" aria-expanded="true" aria-controls="collapseFilterMobile<%= property_name %>" role="heading" aria-level="3">
                 <%= property_name %>
-                <%= aypex_frontend_svg_tag('arrow-right.svg',
+                <%= aypex_storefront_svg_tag('arrow-right.svg',
                          class: 'aypex-icon-arrow aypex-icon-arrow-right mt-1 float-end arrow plp-overlay-card-header-arrow',
                          width: 16,
                          height: 16) %>
@@ -58,7 +58,7 @@
         <div class="card plp-overlay-card">
           <div class="card-header text-uppercase <%= 'collapsed' if params[:price].blank? %> plp-overlay-card-header" id="headingFour" data-toggle="collapse" data-target="#collapseFour" aria-expanded="true" aria-controls="collapseFour" role="heading" aria-level="3">
             <%= Aypex.t('plp.price') %>
-            <%= aypex_frontend_svg_tag('arrow-right.svg',
+            <%= aypex_storefront_svg_tag('arrow-right.svg',
                     class: 'aypex-icon-arrow aypex-icon-arrow-right mt-1 float-end arrow plp-overlay-card-header-arrow',
                     width: 16,
                     height: 16) %>

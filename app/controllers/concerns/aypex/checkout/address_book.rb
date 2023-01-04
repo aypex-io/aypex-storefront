@@ -16,7 +16,7 @@ module Aypex
         if params[:order][:ship_address_id].to_i > 0
           params[:order].delete(:ship_address_attributes)
 
-          Aypex::Address.find(params[:order][:ship_address_id]).user_id != try_aypex_current_user&.id && raise('Frontend address forging')
+          Aypex::Address.find(params[:order][:ship_address_id]).user_id != try_aypex_current_user&.id && raise('Storefront address forging')
         else
           params[:order].delete(:ship_address_id)
         end
@@ -24,7 +24,7 @@ module Aypex
         if params[:order][:bill_address_id].to_i > 0
           params[:order].delete(:bill_address_attributes)
 
-          Aypex::Address.find(params[:order][:bill_address_id]).user_id != try_aypex_current_user&.id && raise('Frontend address forging')
+          Aypex::Address.find(params[:order][:bill_address_id]).user_id != try_aypex_current_user&.id && raise('Storefront address forging')
         else
           params[:order].delete(:bill_address_id)
         end
