@@ -1,0 +1,9 @@
+<%= turbo_stream.update "cartItemCount" do %>
+  <% if @order %>
+    <%= @order.item_count %>
+  <% end %>
+<% end %>
+
+<%= turbo_stream.update "universal_modal" do %>
+  <%= render partial: "aypex/orders/notices/variant_added" %>
+<% end %>

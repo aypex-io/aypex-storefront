@@ -1,0 +1,4 @@
+**/vendor/**
+**/dummy/**
+**/sandbox/**
+/cli/lib/aypex_cli/templates/**

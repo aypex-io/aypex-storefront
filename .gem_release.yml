@@ -1,0 +1,7 @@
+
+bump:
+  recurse: false
+  file: 'frontend/lib/aypex/frontend/version.rb'
+
+release:
+  recurse: true

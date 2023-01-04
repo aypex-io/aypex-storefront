@@ -1,0 +1,9 @@
+// scss-docs-start theme-color-variables
+$enable-cssgrid: true;
+
+$primary:       #000;
+$success:       rgb(250, 84, 0);
+$light:         rgba(241, 241, 241, 1);
+$border-radius: 3px;
+
+@import '~bootstrap/scss/bootstrap';

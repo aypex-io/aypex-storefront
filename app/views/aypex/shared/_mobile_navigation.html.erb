@@ -1,0 +1,33 @@
+<% if aypex_menu.present? %>
+  <nav id="mobileNav">
+    <ul>
+      <% aypex_menu.children.each do |parent| %>
+        <li><%= aypex_nav_link_tag(parent) %>
+          <% if parent.children.any? %>
+            <ul>
+              <% parent.children.each do |child| %>
+                <li><%= aypex_nav_link_tag(child) %>
+                  <% if child.children.any? %>
+                    <ul>
+                      <% child.children.each do |grand_child| %>
+                        <li><%= aypex_nav_link_tag(grand_child) %>
+                          <% if grand_child.children.any? %>
+                            <ul>
+                              <% grand_child.children.each do |great_grand_child| %>
+                                <li><%= aypex_nav_link_tag(great_grand_child) %></li>
+                              <% end %>
+                            </ul>
+                          <% end %>
+                        </li>
+                      <% end %>
+                    </ul>
+                  <% end %>
+                </li>
+              <% end %>
+            </ul>
+          <% end %>
+        </li>
+      <% end %>
+    </ul>
+  </nav>
+<% end %>

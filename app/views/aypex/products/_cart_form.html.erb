@@ -1,0 +1,51 @@
+<%= form_with url: aypex.product_path(@product), method: :get,
+              html: { id: 'addToCartForm',
+                      data: { controller: :form }
+                    } do |f| %>
+
+  <div id="inside-product-cart-form" data-hook="inside_product_cart_form">
+
+    <div id="cartForm_productPrice" class="mb-2 text-center text-md-start add-to-cart-form-price" data-hook="product_price">
+      <%= render partial: "aypex/products/cart_form/price" %>
+    </div>
+
+    <div id="cartForm_productAvailability" class="text-center text-md-start text-uppercase">
+      <%= render partial: "aypex/products/cart_form/variant_availability" %>
+    </div>
+
+    <% if @product.variants_and_option_values(current_currency).any? %>
+      <hr>
+
+      <ul id="productVariants" class="list-unstyled">
+        <% used_variants_options(@variants, @product).each_with_index do |option_type, index| %>
+          <li data-option-type-id="<%= option_type[:id] %>"
+              data-form-target="optionTypeContainer"
+              data-controller="micro-form">
+
+            <%= turbo_frame_tag "option_set_#{index}" do %>
+              <%= render "option_type", option_type: option_type, index: index %>
+            <% end %>
+
+            <% if option_type[:id] == used_variants_options(@variants, @product).last[:id] %>
+              <%= f.submit "Search", data: { micro_form_target: "submitButton", turbo_stream: true } %>
+            <% else %>
+              <%= f.submit "update_cart_form", data: { micro_form_target: "submitButton", turbo_frame: "option_set_#{index + 1}" } %>
+            <% end %>
+          </li>
+        <% end %>
+      </ul>
+    <% end %>
+  </div>
+<% end %>
+
+<%= form_with url: aypex.add_to_cart_path do |f| %>
+  <div id="cartForm_variantId">
+    <%= hidden_field_tag "variant_id", @variant.id %>
+  </div>
+
+  <hr>
+
+  <div id="cartForm_addToCart">
+    <%= render partial: 'aypex/products/cart_form/add_to_cart_section' %>
+  </div>
+<% end %>

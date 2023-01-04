@@ -1,0 +1,29 @@
+<% is_color = color_option_type_name.present? && color_option_type_name == option_type[:name] %>
+<% is_color_image = option_type[:name] == "color-image" %>
+
+<div class="d-flex">
+  <div class="flex-fill text-uppercase">
+    <%= option_type[:presentation] %>
+  </div>
+</div>
+
+<ol class="product-variants-variant-values row mb-4" style="padding-left: .75rem;">
+  <% option_type[:option_values].each do |option_value| %>
+    <li class="list-group ps-0 col-2 col-md-4 col-lg-3 mb-3">
+      <%= cart_form_radio_tag(option_type, option_value, index) %>
+
+      <%= label_tag "ov_id_#{option_value[:id]}",
+                    class: "btn form-check-label",
+                    aria_label: option_value[:presentation] do %>
+
+        <% if is_color %>
+          <%= render partial: "aypex/shared/color_select", locals: { color: option_value[:presentation], selected: false } %>
+        <% elsif is_color_image %>
+          <%= render partial: "aypex/products/option_selectors/color_images", locals: { option_value_id: option_value[:id] } %>
+        <% else %>
+          <span><%= option_value[:presentation] %></span>
+        <% end %>
+      <% end %>
+    </li>
+  <% end %>
+</ol>

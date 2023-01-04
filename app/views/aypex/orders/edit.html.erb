@@ -1,0 +1,9 @@
+<% @body_id = 'cart' %>
+
+<div data-hook="cart_container" class="container mb-5">
+  <%= render 'aypex/shared/breadcrumbs', current_page_name: Aypex.t('cart_page.title') %>
+
+  <div id="cartContent">
+    <%= render 'cart_content' %>
+  </div>
+</div>

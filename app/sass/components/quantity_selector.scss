@@ -1,0 +1,18 @@
+.quantity-input {
+  max-width: 6ch;
+  button {
+    padding-right: 8px;
+    padding-left: 8px;
+  }
+}
+
+.shopping-cart-item-quantity {
+  .btn-link {
+    padding-right: 8px;
+    padding-left: 8px;
+    --bs-btn-bg: transparent;
+    --bs-btn-hover-bg: transparent;
+    --bs-btn-border-color: var(--bs-gray-500);
+    --bs-btn-hover-border-color: var(--bs-gray-600);
+  }
+}

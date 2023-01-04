@@ -1,0 +1,42 @@
+<% if @product_images.size > 0 %>
+  <div class="modal fade" id="picturesModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog--zoom modal-dialog mw-100 vh-100 mt-0 mb-0" role="document">
+      <div class="modal-content h-100">
+        <div class="modal-body h-100">
+          <button type="button" class="close position-absolute mr-3" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">
+              <%= aypex_frontend_svg_tag('close.svg',
+                       class: 'd-block d-lg-none',
+                       width: 16,
+                       height: 16) %>
+              <%= aypex_frontend_svg_tag('close.svg',
+                       class: 'd-none d-lg-block',
+                       width: 30,
+                       height: 30) %>
+            </span>
+          </button>
+          <div class="d-flex justify-content-center align-items-center product-details-images h-100">
+            <% if @product_images.size > 1 %>
+              <div class="h-100 d-none d-sm-block product-details-thumbnails">
+                <%= render 'aypex/shared/carousel/thumbnails',
+                            images: @product_images,
+                            group_id: 'main-product-modal-carousel',
+                            id: 'productModalThumbnailsCarousel',
+                            trigger_id: 'productCarousel',
+                            per_page: 4 %>
+              </div>
+            <% end %>
+            <div class="product-details-single">
+              <%= render 'aypex/shared/carousel/single',
+                          images: @product_images,
+                          group_id: 'main-product-modal-carousel',
+                          id: 'productModalCarousel',
+                          trigger_id: 'productCarousel',
+                          zoomed: true %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+<% end %>

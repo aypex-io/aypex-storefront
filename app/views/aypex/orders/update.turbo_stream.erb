@@ -1,0 +1,13 @@
+<%= turbo_stream.update "cartItemCount" do %>
+  <%= current_order.item_count %>
+<% end %>
+
+<%= turbo_stream.update "cartContent" do %>
+  <%= render partial: "cart_content" %>
+<% end %>
+
+<% if @result %>
+  <%= turbo_stream.update "universal_modal" do %>
+    <%= render partial: "aypex/orders/notices/coupon_code_status" %>
+  <% end %>
+<% end %>

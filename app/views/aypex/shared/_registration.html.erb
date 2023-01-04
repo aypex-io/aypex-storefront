@@ -1,0 +1,4 @@
+<% if defined?(aypex_signup_path) %>
+  <h3 class="aypex-mb-large aypex-mt-large aypex-header"><%= Aypex.t('dont_have_account') %></h3>
+  <%= link_to Aypex.t(:sign_up), aypex_signup_path, class: "btn btn-block btn-outline-primary aypex-btn #{registration_button}" %>
+<% end %>

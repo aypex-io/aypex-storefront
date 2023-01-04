@@ -1,0 +1,48 @@
+<% variant = line_item.variant %>
+
+<%= order_form.fields_for :line_items, line_item do |item_form| %>
+  <div class="d-grid pb-4 mb-4 border-bottom" style="grid-template-columns: minmax(70px, 180px) 1fr;">
+    <%= link_to aypex.product_path(variant.product) do %>
+      <div class="product-image-container img-zoom-1-3 rounded border">
+        <%#= variant_image(variant, size: "360x360") %>
+      </div>
+    <% end %>
+
+    <div>
+      <div class="d-flex">
+        <h4 class="flex-fill">
+          <%= link_to line_item.name, aypex.product_path(variant.product) %>
+        </h4>
+        <div id="lineItemTotal">
+          <strong><%= line_item.display_amount.to_html unless line_item.quantity.nil? %></strong>
+        </div>
+      </div>
+
+      <% if line_item.insufficient_stock? %>
+        <span class="out-of-stock text-secondary">
+          <%= Aypex.t(:out_of_stock) %>
+        </span>
+      <% end %>
+
+      <% if variant.option_values.any? %>
+        <div class="list-unstyled text-muted d-grid"
+             data-hook="line_item_description"
+             style="grid-template-columns: auto 1fr; gap: .5rem;">
+          <div>
+            <% variant.option_values.each do |ov| %>
+              <strong><%= "#{ov.option_type.presentation}:" %></strong><br>
+            <% end %>
+          </div>
+
+          <div>
+            <% variant.option_values.each do |ov| %>
+              <%= "#{ov.name.titleize}" %><br>
+            <% end %>
+          </div>
+        </div>
+      <% end %>
+
+      <%= render 'line_item_data', line_item: line_item, item_form: item_form %>
+    </div>
+  </div>
+<% end %>

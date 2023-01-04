@@ -1,0 +1,13 @@
+<% content_for :modal_body do %>
+  <div class="container">
+    <div class="d-flex">
+      <div class="flex-fill">
+        <%= @result.success %>
+        <%= @result.error %>
+      </div>
+      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+    </div>
+  </div>
+<% end %>
+
+<%= render partial: 'aypex/shared/modal', locals: { modal_dialog_settings: 'modal-dialog-scrollable modal-dialog modal-dialog-centered modal-lg' } %>

@@ -1,0 +1,25 @@
+<title><%= title %></title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<%== og_meta_data_tags %>
+<%== meta_data_tags %>
+<%== meta_robots %>
+<%= canonical_tag(current_store.url) %>
+<%#= favicon_link_tag(aypex_favicon_path) %>
+
+<%= csrf_meta_tags %>
+
+<script>
+  window.addEventListener('turbo:load', function() {
+    AypexPaths = <%== {
+      mounted_at: Rails.application.routes.url_helpers.aypex_path(trailing_slash: true),
+      admin: Aypex.respond_to?(:admin_path) ? Aypex.admin_path.gsub(/\A(\/)?(.*[^\/])(\/)?\z/, '\\2/') : '/admin'
+    }.to_json %>
+  })
+
+  window.lazyLoadOptions = {}
+</script>
+
+<%= stylesheet_link_tag 'aypex/frontend/aypex_frontend.min', media: 'screen', data: { turbo_track: 'reload' } %>
+<%= javascript_include_tag "aypex_frontend.min", data: { turbo_track: "reload" }, async: true %>
+
+<%= yield :head %>

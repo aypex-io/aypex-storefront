@@ -1,0 +1,13 @@
+<div id="no-product-available" class="no-product-available-dropdown col-12">
+  <%= render partial: 'aypex/shared/no_product_available' %>
+</div>
+
+<%= form_for @order, url: aypex.update_cart_path,
+                     html: { id: 'update-cart' },
+                     data: { controller: :form, form_delay_value: 800} do |order_form| %>
+  <%= render partial: 'aypex/orders/line_item', collection: order_form.object.line_items, locals: { order_form: order_form } %>
+
+  <div class="col-12 mt-2 text-end">
+    <%= order_form.submit class: "btn btn-outline-primary", data: {form_target: "submitButton"} %>
+  </div>
+<% end %>

@@ -1,0 +1,10 @@
+<% case type %>
+<% when "not-available-in-currency" %>
+  <span id="availabilityValue" class="text-danger"><%= Aypex.t(:product_not_available_in_this_currency) %></span>
+<% when "in-stock" %>
+  <span id="availabilityValue"><%= Aypex.t(:in_stock) %></span>
+<% when "backorderable" %>
+  <span id="availabilityValue" class="text-warning"><%= Aypex.t(:backordered_info) %></span>
+<% when "out-of-stock" %>
+  <span id="availabilityValue" class="text-danger"><%= Aypex.t(:out_of_stock) %></span>
+<% end %>

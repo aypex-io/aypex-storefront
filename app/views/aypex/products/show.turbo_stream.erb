@@ -1,0 +1,19 @@
+<%= turbo_stream.update "cartForm_productPrice" do %>
+   <%= render partial: "aypex/products/cart_form/price" %>
+<% end %>
+
+<%= turbo_stream.update "cartForm_productAvailability" do %>
+   <%= render partial: "aypex/products/cart_form/variant_availability" %>
+<% end %>
+
+<%= turbo_stream.update "cartForm_variantId" do %>
+   <%= hidden_field_tag "variant_id", @variant.id %>
+<% end %>
+
+<%= turbo_stream.update "cartForm_addToCart" do %>
+  <%= render partial: "aypex/products/cart_form/add_to_cart_section" %>
+<% end %>
+
+<%= turbo_stream.update :images do %>
+  <%= render partial: 'gallery' %>
+<% end %>

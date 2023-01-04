@@ -1,0 +1,32 @@
+<% if @option_images %>
+  <div class="row">
+    <% @option_images.each_with_index do |image, image_index| %>
+      <% img_width = "#{image.attachment.blob.metadata[:width]}px" %>
+      <% img_height = "#{image.attachment.blob.metadata[:height]}px" %>
+
+      <div class="col-6 mb-4">
+        <div style='--aspect-ratio:4/5;'>
+          <%# ASPECT RATIO CALC ->    https://andrew.hedges.name/experiments/aspect_ratio    %>
+
+          <%= image_tag main_app.cdn_image_url(image.url(:large)), width: img_width, height: img_height, loading: :lazy, class: "w-100 h-100 lazy" %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+<% else %>
+  <% if @product_images.size > 0 %>
+    <div class="row">
+      <% @product_images.each_with_index do |image, image_index| %>
+        <% img_width = "#{image.attachment.blob.metadata[:width]}px" %>
+        <% img_height = "#{image.attachment.blob.metadata[:height]}px" %>
+
+        <div class="col-6 mb-4">
+          <%= image.private_metadata[:variant_ids] %>
+          <div style='--aspect-ratio:4/5;'>
+            <%= image_tag main_app.cdn_image_url(image.url(:large)), width: img_width, height: img_height, loading: :lazy, data: { src: main_app.cdn_image_url(image.url(:pdp_large)) }, class: "w-100 h-100" %>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  <% end %>
+<% end %>

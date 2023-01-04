@@ -1,0 +1,4 @@
+<% img = option_value_default_image(@product, option_value_id) %>
+  <div class="cart_form_img_cont rounded">
+    <%= image_tag main_app.cdn_image_url(img.url(:large)), width: '128px', height: '1px', loading: :lazy, class: "w-100 h-100" %>
+  </div>

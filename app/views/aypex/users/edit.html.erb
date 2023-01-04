@@ -1,0 +1,11 @@
+<div class="col-lg-6 offset-lg-3 mb-5">
+  <h3 class="aypex-mb-large aypex-mt-large aypex-header"><%= Aypex.t(:editing_user) %></h3>
+  <%= render partial: 'aypex/shared/error_messages', locals: { target: @user } %>
+
+  <%= form_for Aypex.user_class.new, as: @user, url: aypex.user_path(@user), method: :put do |f| %>
+    <%= render partial: 'aypex/shared/user_form', locals: { f: f, remember_me_field: false } %>
+    <div>
+      <%= f.submit Aypex.t(:update), class: 'btn btn-lg btn-block btn-primary text-uppercase font-weight-bold' %>
+    </div>
+  <% end %>
+</div>

@@ -1,0 +1,10 @@
+<%= Aypex.t(:availability) %>:
+<% if !product_available_in_currency? %>
+  <%= render 'cart_form_availability_templates', type: 'not-available-in-currency' %>
+<% elsif @variant.in_stock? %>
+  <%= render 'cart_form_availability_templates', type: 'in-stock' %>
+<% elsif @variant.backorderable? %>
+  <%= render 'cart_form_availability_templates', type: 'backorderable' %>
+<% else %>
+  <%= render 'cart_form_availability_templates', type: 'out-of-stock' %>
+<% end %>

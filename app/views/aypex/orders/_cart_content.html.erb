@@ -1,0 +1,89 @@
+<div class="row">
+  <div class="col-12 col-lg-8">
+    <div class='border p-3 mb-3'>
+      <h4 class="text-success">Free Delivery For Members</h4>
+      Become a Member to get fast and free delivery. Join us or Sign in
+    </div>
+    <h3 class="text-uppercase"><%= Aypex.t('cart_page.cart') %></h3>
+
+    <% if @order.line_items.empty? %>
+      <div data-hook="empty_cart" class="shopping-cart-empty">
+        <div class="d-flex flex-column justify-content-between h-100">
+          <div class="d-flex flex-column align-items-center">
+            <%= aypex_frontend_svg_tag('empty-cart.svg', width: 83, height: 83) %>
+            <p class="text-center shopping-cart-empty-info"><%= Aypex.t('cart_page.empty_info').html_safe %></p>
+          </div>
+          <%= link_to Aypex.t(:continue_shopping), aypex.products_path, class: 'btn btn-primary text-uppercase font-weight-bold shopping-cart-empty-continue-link' %>
+        </div>
+      </div>
+    <% else %>
+      <div data-hook="outside_cart_form">
+        <%= render partial: 'form' %>
+      </div>
+    <% end %>
+  </div>
+
+  <div class="col-12 col-lg-4">
+    <h3 class="text-uppercase mb-4"><%= Aypex.t('summary') %></h3>
+
+    <% if Aypex::Frontend::Config[:coupon_codes_enabled] %>
+      <a href="#promoCodeContainer" class="pb-4" data-bs-toggle="collapse" data-bs-target="#promoCodeContainer" aria-expanded="false" aria-controls="promoCodeContainer">
+        <%= I18n.t('aypex.frontend.cart.do_you_have_a_promo_code') %> <%= aypex_frontend_svg_tag('arrow-down.svg', width: 16, height: 16) %>
+      </a>
+      <div class="mb-4">
+        <div class="collapse" id="promoCodeContainer">
+          <%= render 'coupon_code' %>
+        </div>
+      </div>
+    <% end %>
+
+    <div class="d-flex">
+      <div class="flex-fill">
+        <%= Aypex.t(:subtotal) %>
+      </div>
+      <div class="shopping-cart-total-amount align-self-end">
+        <%= @order.display_item_total %>
+      </div>
+    </div>
+
+    <% if !@order.cart_promo_total.zero? %>
+      <hr>
+      <h5><%= I18n.t('aypex.frontend.cart.discounts') %></h5>
+
+      <% @order.valid_coupon_promotions.each do |promo| %>
+        <div class="d-flex">
+          <div class="flex-fill">
+            <%= promo.name %><% if promo.description.present? %> - <%= promo.description %><% end %>
+          </div>
+
+          <%= link_to aypex.remove_coupon_path(coupon_code: promo.code), data: { turbo_method: :patch } do %>
+            <%= aypex_frontend_svg_tag('garbage.svg', width: 16, height: 16, class: 'mb-1') %>
+          <% end %>
+        </div>
+      <% end %>
+      <div class="d-flex mt-2">
+        <div class="flex-fill">
+          Total Discounts
+        </div>
+        <div class="text-end ">
+          <%= @order.display_cart_promo_total %>
+        </div>
+      </div>
+    <% end %>
+
+    <hr>
+      <div class="d-flex">
+        <div class="flex-fill">
+          <strong><%= I18n.t('aypex.total') %></strong>
+        </div>
+        <div>
+          <strong><%= @order.display_total %></strong>
+        </div>
+      </div>
+    <hr>
+
+    <div class="d-flex flex-column text-center mt-4" data-hook="cart_buttons">
+      <%= link_to Aypex.t('cart_page.checkout'), aypex.checkout_root_path, class: 'btn btn-primary text-uppercase font-weight-bold cart-checkout-btn shopping-cart-buttons-checkout', id: 'checkout-link', method: :get %>
+    </div>
+  </div>
+</div>

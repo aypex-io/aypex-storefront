@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="<%= I18n.locale %>">
+
+  <head>
+    <%= render partial: 'aypex/shared/head' %>
+  </head>
+
+  <body>
+    <%= render partial: 'aypex/shared/header' %>
+
+    <main>
+      <%= yield %>
+      <%= yield :templates %>
+    </main>
+
+    <%= render partial: 'aypex/shared/footer' %>
+
+    <%= flash_messages %>
+
+    <%= render partial: 'aypex/shared/mobile_navigation' %>
+    <%= turbo_frame_tag :universal_modal %>
+  </body>
+</html>

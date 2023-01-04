@@ -1,0 +1,19 @@
+<div class="shopping-cart-item-quantity d-flex">
+  <div class="ms-auto">
+    <div class="input-group">
+      <%= link_to set_item_quantity_path(line_item, quantity: (line_item.quantity - 1)), class: 'btn btn-link align-top', data: {turbo_method: :patch} do %>
+        <%= aypex_frontend_svg_tag('minus.svg', class: 'shopping-cart-empty-image align-text-top', width: 20, height: 20) %>
+      <% end %>
+
+      <%= item_form.text_field :quantity, required: true, inputmode: :numeric, pattern: "[1-9]*", autocomplete: 'off', class: "form-control text-center quantity-input px-0", data: { action: 'form#submitViaClick' } %>
+
+      <%= link_to set_item_quantity_path(line_item, quantity: (line_item.quantity + 1)), class: 'btn btn-link align-top', data: {turbo_method: :patch} do %>
+        <%= aypex_frontend_svg_tag('plus.svg', class: 'shopping-cart-empty-image align-text-top', width: 20, height: 20) %>
+      <% end %>
+    </div>
+  </div>
+</div>
+
+<div class="text-end mt-2">
+  <%= link_to I18n.t('aypex.frontend.cart.remove_item'), set_item_quantity_path(line_item), data: {turbo_method: :patch}, class: 'btn btn-link btn-sm pe-0' %>
+</div>

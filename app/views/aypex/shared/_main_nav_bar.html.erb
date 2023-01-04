@@ -1,0 +1,79 @@
+<% if aypex_menu.present? %>
+  <ul style="z-index: 1050;"
+      id="pointerOnlyNav"
+      class="d-none d-lg-flex nav h-100 flex-fill justify-content-center text-decoration-none"
+      role="navigation"
+      aria-label="<%= Aypex.t('nav_bar.desktop') %>">
+
+    <% aypex_menu.children.each do |parent| %>
+      <% has_dropdown = parent.children.present? %>
+      <% dropdown_toggle_class = has_dropdown ? "dropdown-toggle" : "" %>
+      <% data_attr = has_dropdown ? { bs_toggle: "dropdown" } : {} %>
+      <% aria_attr = has_dropdown ? { haspopup: true, expanded: false } : {} %>
+
+      <li class="p-0 nav-item <% if parent.children.present? %>dropdown<% end %>">
+        <div class="drop-cont d-flex h-100 align-items-center">
+          <% if parent.container? %>
+            <%= content_tag :span, parent.name, class: "nav-link" %>
+          <% else %>
+            <%= aypex_nav_link_tag(parent, { class: "nav-link"}) %>
+          <% end %>
+        </div>
+        <% if has_dropdown %>
+          <div class="mega-menu w-100 border-0 rounded-0 border-bottom">
+            <div class="container p-0 d-flex justify-content-xl-around mx-auto">
+              <div class="row pb-5">
+                <% parent.children.each do |child| %>
+
+                  <!-- Categories -->
+                  <div class="m-2 col">
+                    <div class="text-uppercase pb-2">
+                      <% if child.container? %>
+                        <%= child.name %>
+                      <% else %>
+                        <%= aypex_nav_link_tag(child, { class: "text-uppercase fw-semibold text-decoration-none" }) %>
+                      <% end %>
+                    </div>
+                    <% if child.children.present? %>
+                      <ul class="ps-0 list-unstyled">
+                        <% child.children.each do |category_link| %>
+                          <li class="mb-1">
+                            <%= aypex_nav_link_tag(category_link, { class: "truncate text-decoration-none text-muted" }) %>
+                          </li>
+                        <% end %>
+                      </ul>
+                    <% end %>
+                  </div>
+
+                  <!-- Promos -->
+                  <% if child.container? && child.code?('promo') %>
+                    <% if child.children.present? %>
+                      <% child.children.each do |promo_banner| %>
+                        <%= aypex_nav_link_tag(promo_banner, { class: "dropdown-item" }) do %>
+                          <div class="category-image text-center my-4 mx-3">
+                            <% if promo_banner.icon.present? %>
+                              <%= image_tag main_app.cdn_image_url(promo_banner.icon.attachment), alt: promo_banner.icon.alt ,title: promo_banner.subtitle %>
+                            <% end %>
+                            <div class="category-box">
+                              <div class="category-box-small-text">
+                                <%= promo_banner.subtitle %>
+                              </div>
+                              <div class="category-box-big-text">
+                                <%= promo_banner.name %>
+                              </div>
+                            </div>
+                          </div>
+                        <% end %>
+                      <% end %>
+                    <% end %>
+                  <% end %>
+
+                <% end %>
+              </div>
+            </div>
+          </div>
+        <% end %>
+      </li>
+    <% end %>
+  </ul>
+<% end %>

@@ -1,0 +1,34 @@
+<% cache aypex_menu_cache_key('header') do %>
+  <div id="microNav" class="bg-light d-flex align-items-center position-fixed top-0 start-0 w-100" style="z-index: 1050;">
+    <div class="container d-flex ">
+      <div class="flex-fill"></div>
+      <div>
+        <% if defined?(aypex.account_link_path) %>
+        <small>
+          <%= link_to Aypex.t('login'), aypex.account_link_path %>
+          </small>
+        <% end %>|
+      </div>
+    </div>
+  </div>
+
+  <header id="mainHeader"
+          class="py-0 navbar d-flex align-items-center border-bottom bg-white sticky-top w-100"
+          style="z-index: 1050; height: 60px;">
+    <div class="container h-100">
+      <div class="d-flex h-100 w-100 align-items-center">
+        <div class="logo" style="width: 110px">
+          <%= logo %>
+        </div>
+        <%= render partial: 'aypex/shared/main_nav_bar' %>
+        <%= render partial: 'aypex/shared/nav_bar' %>
+
+        <div id="mobileNavOpener" class="d-lg-none">
+          <a href="#mobileNav" class="btn btn-sm pe-0">
+            <%= aypex_frontend_svg_tag('burger.svg', class: 'aypex-icon-arrow aypex-icon-arrow-left', width: 27, height: 27) %>
+          </a>
+        </div>
+      </div>
+    </div>
+  </header>
+<% end %>

@@ -1,0 +1,18 @@
+<% disable_cart_button = if product_available_in_currency? && @variant.can_supply?
+                  false
+                else
+                  true
+                end %>
+
+<% if Aypex::Frontend::Config[:show_quantity_input_on_product_page] %>
+  <div class="mb-5 mt-4 text-center text-md-start">
+    <%= render 'aypex/shared/quantity_select', input_name: :quantity %>
+  </div>
+
+<% else %>
+  <%= hidden_field_tag "quantity", 1 %>
+<% end %>
+
+<%= button_tag id: 'addToCartButton', class: 'btn btn-primary w-100 text-uppercase font-weight-bold', type: :submit, disabled: disable_cart_button do %>
+  <%= Aypex.t(:add_to_cart) %>
+<% end %>
