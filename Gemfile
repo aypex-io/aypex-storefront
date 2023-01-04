@@ -22,35 +22,39 @@ platforms :ruby do
 end
 
 group :test do
-  gem 'capybara', '~> 3.24'
-  gem 'capybara-screenshot', '~> 1.0'
-  gem 'capybara-select-2'
-  gem 'database_cleaner', '~> 2.0'
-  gem 'email_spec'
-  gem 'factory_bot_rails', '~> 6.0'
-  gem 'multi_json'
-  gem 'rspec-activemodel-mocks', '~> 1.0'
-  gem 'rspec-rails', '~> 5.0'
-  gem 'rspec-retry'
-  gem 'rspec_junit_formatter'
-  gem 'rswag-specs'
-  gem 'jsonapi-rspec'
-  gem 'simplecov', '0.17.1'
-  gem 'webmock', '~> 3.7'
-  gem 'timecop'
-  gem 'rails-controller-testing'
+  gem "capybara"
+  gem "capybara-screenshot"
+  gem "database_cleaner-active_record"
+  gem "factory_bot_rails"
+  gem "ffaker"
+  gem "propshaft"
+  gem "puma"
+  gem "redis"
+  gem "rails-controller-testing"
+  gem "rspec-activemodel-mocks"
+  gem "rspec_junit_formatter"
+  gem "rspec-rails"
+  gem "rspec-retry"
+  gem "rswag-specs"
+  gem "simplecov"
+  gem "timecop"
+  gem "webdrivers"
+  gem "webmock"
 end
 
 group :test, :development do
-  gem 'awesome_print'
-  gem 'gem-release'
-  gem 'redis'
-  gem 'rubocop', '~> 1.22.3', require: false # bumped
-  gem 'rubocop-rspec', require: false
-  gem 'pry-byebug'
-  gem 'webdrivers', '~> 4.1'
-  gem 'puma'
-  gem 'ffaker'
+  gem "awesome_print"
+  gem "debug"
+  gem "gem-release"
+  gem "i18n-tasks"
+  gem "rubocop"
+  gem "rubocop-rspec"
+  gem "standard", "~> 1.20.0"
+end
+
+group :development do
+  gem "solargraph"
+  gem "erb_lint"
 end
 
 aypex_opts = { path: '../aypex' }
