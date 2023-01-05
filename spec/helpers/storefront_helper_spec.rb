@@ -82,7 +82,7 @@ THIS IS THE BEST PRODUCT EVER!
 
           product.description = initial_description
 
-          Aypex::Storefront::Config[:show_raw_product_description] = true
+          Aypex::Storefront::Config.show_raw_product_description = true
           description = product_description(product)
           expect(description).to eq(initial_description)
         end

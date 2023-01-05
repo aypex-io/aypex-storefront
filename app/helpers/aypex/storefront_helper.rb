@@ -14,10 +14,10 @@ module Aypex
         options[:alt] ||= product.name
         image_path = default_image_for_product_or_variant(product)
         img = if image_path.present?
-                create_product_image_tag image_path, product, options, style
-              else
-                inline_svg_tag 'aypex/storefront/aypex-logo.svg', class: 'noimage', size: '60px'
-              end
+          create_product_image_tag image_path, product, options, style
+        else
+          inline_svg_tag "aypex/storefront/aypex-logo.svg", class: "noimage", size: "60px"
+        end
 
         content_tag(:div, img, class: "product-image-container #{style}-img")
       end
@@ -25,7 +25,7 @@ module Aypex
 
     # Returns style of image or nil
     def image_style_from_method_name(method_name)
-      style = method_name.to_s.sub(/_image$/, '')
+      style = method_name.to_s.sub(/_image$/, "")
 
       if method_name.to_s.match(/_image$/) && (style.in? Aypex::Image.styles.with_indifferent_access)
         style
@@ -33,37 +33,37 @@ module Aypex
     end
 
     def body_class
-      @body_class ||= content_for?(:sidebar) ? 'two-col' : 'one-col'
+      @body_class ||= content_for?(:sidebar) ? "two-col" : "one-col"
       @body_class
     end
 
     def logo(image_path = nil, options = {})
       logo_attachment = if defined?(Aypex::StoreLogo) && current_store.logo.is_a?(Aypex::StoreLogo)
-                          current_store.logo.attachment
-                        end
+        current_store.logo.attachment
+      end
 
       image_path ||= if logo_attachment&.attached? && logo_attachment&.variable?
-                       main_app.cdn_image_url(logo_attachment.variant(resize_to_limit: [244, 104]))
-                     else
-                       asset_path('aypex/storefront/aypex-logo.svg')
-                     end
+        main_app.cdn_image_url(logo_attachment.variant(resize_to_limit: [244, 104]))
+      else
+        asset_path("aypex/storefront/aypex-logo.svg")
+      end
 
       path = aypex.respond_to?(:root_path) ? aypex.root_path : main_app.root_path
 
-      link_to path, 'aria-label': current_store.name, method: options[:method] do
-        image_tag image_path, alt: current_store.name, title: current_store.name, class: 'mw-100'
+      link_to path, "aria-label": current_store.name, method: options[:method] do
+        image_tag image_path, alt: current_store.name, title: current_store.name, class: "mw-100"
       end
     end
 
-    def aypex_breadcrumbs(taxon, _separator = '', product = nil)
-      return '' if current_page?('/') || taxon.nil?
+    def aypex_breadcrumbs(taxon, _separator = "", product = nil)
+      return "" if current_page?("/") || taxon.nil?
 
       # breadcrumbs for root
       crumbs = [content_tag(:li, content_tag(
         :a, content_tag(
-          :span, Aypex.t(:home), itemprop: 'name'
-        ) << content_tag(:meta, nil, itemprop: 'position', content: '0'), itemprop: 'url', href: aypex.root_path
-      ) << content_tag(:span, nil, itemprop: 'item', itemscope: 'itemscope', itemtype: 'https://schema.org/Thing', itemid: aypex.root_path), itemscope: 'itemscope', itemtype: 'https://schema.org/ListItem', itemprop: 'itemListElement', class: 'breadcrumb-item')]
+          :span, Aypex.t(:home), itemprop: "name"
+        ) << content_tag(:meta, nil, itemprop: "position", content: "0"), itemprop: "url", href: aypex.root_path
+      ) << content_tag(:span, nil, itemprop: "item", itemscope: "itemscope", itemtype: "https://schema.org/Thing", itemid: aypex.root_path), itemscope: "itemscope", itemtype: "https://schema.org/ListItem", itemprop: "itemListElement", class: "breadcrumb-item")]
 
       if taxon
         ancestors = taxon.ancestors.where.not(parent_id: nil)
@@ -72,98 +72,98 @@ module Aypex
         crumbs << ancestors.each_with_index.map do |ancestor, index|
           content_tag(:li, content_tag(
             :a, content_tag(
-              :span, ancestor.name, itemprop: 'name'
-            ) << content_tag(:meta, nil, itemprop: 'position', content: index + 1), itemprop: 'url', href: seo_url(ancestor, params: permitted_product_params)
-          ) << content_tag(:span, nil, itemprop: 'item', itemscope: 'itemscope', itemtype: 'https://schema.org/Thing', itemid: seo_url(ancestor, params: permitted_product_params)), itemscope: 'itemscope', itemtype: 'https://schema.org/ListItem', itemprop: 'itemListElement', class: 'breadcrumb-item')
+              :span, ancestor.name, itemprop: "name"
+            ) << content_tag(:meta, nil, itemprop: "position", content: index + 1), itemprop: "url", href: seo_url(ancestor, params: permitted_product_params)
+          ) << content_tag(:span, nil, itemprop: "item", itemscope: "itemscope", itemtype: "https://schema.org/Thing", itemid: seo_url(ancestor, params: permitted_product_params)), itemscope: "itemscope", itemtype: "https://schema.org/ListItem", itemprop: "itemListElement", class: "breadcrumb-item")
         end
 
         # breadcrumbs for current taxon
         crumbs << content_tag(:li, content_tag(
           :a, content_tag(
-            :span, taxon.name, itemprop: 'name'
-          ) << content_tag(:meta, nil, itemprop: 'position', content: ancestors.size + 1), itemprop: 'url', href: seo_url(taxon, params: permitted_product_params)
-        ) << content_tag(:span, nil, itemprop: 'item', itemscope: 'itemscope', itemtype: 'https://schema.org/Thing', itemid: seo_url(taxon, params: permitted_product_params)), itemscope: 'itemscope', itemtype: 'https://schema.org/ListItem', itemprop: 'itemListElement', class: 'breadcrumb-item')
+            :span, taxon.name, itemprop: "name"
+          ) << content_tag(:meta, nil, itemprop: "position", content: ancestors.size + 1), itemprop: "url", href: seo_url(taxon, params: permitted_product_params)
+        ) << content_tag(:span, nil, itemprop: "item", itemscope: "itemscope", itemtype: "https://schema.org/Thing", itemid: seo_url(taxon, params: permitted_product_params)), itemscope: "itemscope", itemtype: "https://schema.org/ListItem", itemprop: "itemListElement", class: "breadcrumb-item")
 
         # breadcrumbs for product
         if product
           crumbs << content_tag(:li, content_tag(
             :span, content_tag(
-              :span, product.name, itemprop: 'name'
-            ) << content_tag(:meta, nil, itemprop: 'position', content: ancestors.size + 2), itemprop: 'url', href: aypex.product_path(product, taxon_id: taxon&.id)
-          ) << content_tag(:span, nil, itemprop: 'item', itemscope: 'itemscope', itemtype: 'https://schema.org/Thing', itemid: aypex.product_path(product, taxon_id: taxon&.id)), itemscope: 'itemscope', itemtype: 'https://schema.org/ListItem', itemprop: 'itemListElement', class: 'breadcrumb-item')
+              :span, product.name, itemprop: "name"
+            ) << content_tag(:meta, nil, itemprop: "position", content: ancestors.size + 2), itemprop: "url", href: aypex.product_path(product, taxon_id: taxon&.id)
+          ) << content_tag(:span, nil, itemprop: "item", itemscope: "itemscope", itemtype: "https://schema.org/Thing", itemid: aypex.product_path(product, taxon_id: taxon&.id)), itemscope: "itemscope", itemtype: "https://schema.org/ListItem", itemprop: "itemListElement", class: "breadcrumb-item")
         end
       else
         # breadcrumbs for product on PDP
         crumbs << content_tag(:li, content_tag(
-          :span, Aypex.t(:products), itemprop: 'item'
-        ) << content_tag(:meta, nil, itemprop: 'position', content: '1'), class: 'active', itemscope: 'itemscope', itemtype: 'https://schema.org/ListItem', itemprop: 'itemListElement')
+          :span, Aypex.t(:products), itemprop: "item"
+        ) << content_tag(:meta, nil, itemprop: "position", content: "1"), class: "active", itemscope: "itemscope", itemtype: "https://schema.org/ListItem", itemprop: "itemListElement")
       end
-      crumb_list = content_tag(:ol, raw(crumbs.flatten.map(&:mb_chars).join), class: 'breadcrumb', itemscope: 'itemscope', itemtype: 'https://schema.org/BreadcrumbList')
-      content_tag(:nav, crumb_list, id: 'breadcrumbs', class: 'col-12 mt-1 mt-sm-3 mt-lg-4', aria: { label: Aypex.t(:breadcrumbs) })
+      crumb_list = content_tag(:ol, raw(crumbs.flatten.map(&:mb_chars).join), class: "breadcrumb", itemscope: "itemscope", itemtype: "https://schema.org/BreadcrumbList")
+      content_tag(:nav, crumb_list, id: "breadcrumbs", class: "col-12 mt-1 mt-sm-3 mt-lg-4", aria: {label: Aypex.t(:breadcrumbs)})
     end
 
     def class_for(flash_type)
       {
-        success: 'success',
-        registration_error: 'danger',
-        error: 'danger',
-        alert: 'danger',
-        warning: 'warning',
-        notice: 'success'
+        success: "success",
+        registration_error: "danger",
+        error: "danger",
+        alert: "danger",
+        warning: "warning",
+        notice: "success"
       }[flash_type.to_sym]
     end
 
     def checkout_progress(numbers: false)
-      states = @order.checkout_steps - ['complete']
+      states = @order.checkout_steps - ["complete"]
       items = states.each_with_index.map do |state, i|
         text = Aypex.t("order_state.#{state}").titleize
         text.prepend("#{i.succ}. ") if numbers
 
-        css_classes = ['text-uppercase nav-item']
+        css_classes = ["text-uppercase nav-item"]
         current_index = states.index(@order.state)
         state_index = states.index(state)
 
         if state_index < current_index
-          css_classes << 'completed'
-          link_content = content_tag :span, nil, class: 'checkout-progress-steps-image checkout-progress-steps-image--full'
+          css_classes << "completed"
+          link_content = content_tag :span, nil, class: "checkout-progress-steps-image checkout-progress-steps-image--full"
           link_content << text
-          text = link_to(link_content, aypex.checkout_state_path(state), class: 'd-flex flex-column align-items-center', method: :get)
+          text = link_to(link_content, aypex.checkout_state_path(state), class: "d-flex flex-column align-items-center", method: :get)
         end
 
-        css_classes << 'next' if state_index == current_index + 1
-        css_classes << 'active' if state == @order.state
-        css_classes << 'first' if state_index == 0
-        css_classes << 'last' if state_index == states.length - 1
+        css_classes << "next" if state_index == current_index + 1
+        css_classes << "active" if state == @order.state
+        css_classes << "first" if state_index == 0
+        css_classes << "last" if state_index == states.length - 1
         # No more joined classes. IE6 is not a target browser.
         # Hack: Stops <a> being wrapped round previous items twice.
         if state_index < current_index
-          content_tag('li', text, class: css_classes.join(' '))
+          content_tag("li", text, class: css_classes.join(" "))
         else
           link_content = if state == @order.state
-                           content_tag :span, nil, class: 'checkout-progress-steps-image checkout-progress-steps-image--full'
-                         else
-                           inline_svg_tag 'aypex/storefront/circle.svg', class: 'checkout-progress-steps-image'
-                         end
+            content_tag :span, nil, class: "checkout-progress-steps-image checkout-progress-steps-image--full"
+          else
+            inline_svg_tag "aypex/storefront/circle.svg", class: "checkout-progress-steps-image"
+          end
           link_content << text
-          content_tag('li', content_tag('a', link_content, class: "d-flex flex-column align-items-center #{'active' if state == @order.state}"),
-                      class: css_classes.join(' '))
+          content_tag("li", content_tag("a", link_content, class: "d-flex flex-column align-items-center #{"active" if state == @order.state}"),
+            class: css_classes.join(" "))
         end
       end
-      content = content_tag('ul', raw(items.join("\n")), class: 'nav justify-content-between checkout-progress-steps',
-                                                         id: "checkout-step-#{@order.state}")
-      hrs = '<hr />' * (states.length - 1)
-      content << content_tag('div', raw(hrs), class: "checkout-progress-steps-line state-#{@order.state}")
+      content = content_tag("ul", raw(items.join("\n")), class: "nav justify-content-between checkout-progress-steps",
+        id: "checkout-step-#{@order.state}")
+      hrs = "<hr />" * (states.length - 1)
+      content << content_tag("div", raw(hrs), class: "checkout-progress-steps-line state-#{@order.state}")
     end
 
     def flash_messages(opts = {})
-      flashes = ''
+      flashes = ""
       excluded_types = opts[:excluded_types].to_a.map(&:to_s)
 
-      flash.to_h.except('order_completed').each do |msg_type, text|
+      flash.to_h.except("order_completed").each do |msg_type, text|
         next if msg_type.blank? || excluded_types.include?(msg_type)
 
         flashes << content_tag(:div, class: "alert alert-#{class_for(msg_type)} mb-0") do
-          content_tag(:button, '&times;'.html_safe, class: 'close', data: { dismiss: 'alert', hidden: true }) +
+          content_tag(:button, "&times;".html_safe, class: "close", data: {dismiss: "alert", hidden: true}) +
             content_tag(:span, text)
         end
       end
@@ -178,14 +178,14 @@ module Aypex
       end
     end
 
-    def plp_and_carousel_image(product, image_class = '')
+    def plp_and_carousel_image(product, image_class = "")
       image = default_image_for_product_or_variant(product)
 
       image_url = if image.present?
-                    main_app.cdn_image_url(image.url('plp'))
-                  else
-                    asset_path('aypex/storefront/aypex-logo.svg', width: '30px')
-                  end
+        main_app.cdn_image_url(image.url("plp"))
+      else
+        asset_path("aypex/storefront/aypex-logo.svg", width: "30px")
+      end
 
       image_style = image&.style(:plp)
 
@@ -199,11 +199,11 @@ module Aypex
       )
     end
 
-    def lazy_image(src:, alt:, width:, height:, srcset: '', **options)
+    def lazy_image(src:, alt:, width:, height:, srcset: "", **options)
       # We need placeholder image with the correct size to prevent page from jumping
       placeholder = "data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20#{width}%20#{height}'%3E%3C/svg%3E"
 
-      image_tag placeholder, data: { src: src, srcset: srcset }, class: "#{options[:class]} lazy", alt: alt
+      image_tag placeholder, data: {src: src, srcset: srcset}, class: "#{options[:class]} lazy", alt: alt
     end
 
     def permitted_product_params
@@ -212,41 +212,41 @@ module Aypex
     end
 
     def carousel_image_source_set(image)
-      return '' unless image
+      return "" unless image
 
-      widths = { lg: 1200, md: 992, sm: 768, xs: 576 }
+      widths = {lg: 1200, md: 992, sm: 768, xs: 576}
       set = []
       widths.each do |key, value|
         file = main_app.cdn_image_url(image.url("plp_and_carousel_#{key}"))
 
         set << "#{file} #{value}w"
       end
-      set.join(', ')
+      set.join(", ")
     end
 
     def image_source_set(name)
       widths = {
-        desktop: '1200',
-        tablet_landscape: '992',
-        tablet_portrait: '768',
-        mobile: '576'
+        desktop: "1200",
+        tablet_landscape: "992",
+        tablet_portrait: "768",
+        mobile: "576"
       }
       set = []
       widths.each do |key, value|
-        filename = key == :desktop ? name : "#{name}_#{key}"
+        filename = (key == :desktop) ? name : "#{name}_#{key}"
         file = asset_path("#{filename}.jpg")
 
         set << "#{file} #{value}w"
       end
-      set.join(', ')
+      set.join(", ")
     end
 
     def taxons_tree(root_taxon, current_taxon, max_level = 1)
-      return '' if max_level < 1 || root_taxon.leaf?
+      return "" if max_level < 1 || root_taxon.leaf?
 
-      content_tag :div, class: 'list-group' do
+      content_tag :div, class: "list-group" do
         taxons = root_taxon.children.map do |taxon|
-          css_class = current_taxon&.self_and_ancestors&.include?(taxon) ? 'list-group-item list-group-item-action active' : 'list-group-item list-group-item-action'
+          css_class = current_taxon&.self_and_ancestors&.include?(taxon) ? "list-group-item list-group-item-action active" : "list-group-item list-group-item-action"
           link_to(taxon.name, seo_url(taxon), class: css_class) + taxons_tree(taxon, current_taxon, max_level - 1)
         end
         safe_join(taxons, "\n")
@@ -270,7 +270,7 @@ module Aypex
       DEPRECATION
 
       @price_filter_values ||= [
-        "#{I18n.t('activerecord.attributes.aypex/product.less_than')} #{formatted_price(50)}",
+        "#{I18n.t("activerecord.attributes.aypex/product.less_than")} #{formatted_price(50)}",
         "#{formatted_price(50)} - #{formatted_price(100)}",
         "#{formatted_price(101)} - #{formatted_price(150)}",
         "#{formatted_price(151)} - #{formatted_price(200)}",
@@ -279,11 +279,11 @@ module Aypex
     end
 
     def static_filters
-      @static_filters ||= Aypex::Storefront::Config[:products_filters]
+      @static_filters ||= Aypex::Storefront::Config.products_filters
     end
 
     def additional_filters_partials
-      @additional_filters_partials ||= Aypex::Storefront::Config[:additional_filters_partials]
+      @additional_filters_partials ||= Aypex::Storefront::Config.additional_filters_partials
     end
 
     def filtering_params
@@ -298,17 +298,17 @@ module Aypex
           next if value.blank?
 
           if value.is_a?(String)
-            cache_key_parts << [key, value].join('-')
+            cache_key_parts << [key, value].join("-")
           else
             value.each do |part_key, part_value|
               next if part_value.blank?
 
-              cache_key_parts << [part_key, part_value].join('-')
+              cache_key_parts << [part_key, part_value].join("-")
             end
           end
         end
 
-        cache_key_parts.join('-').parameterize
+        cache_key_parts.join("-").parameterize
       end
     end
 
@@ -342,7 +342,7 @@ module Aypex
       @available_option_types_cache_key ||= [
         Aypex::OptionType.filterable.maximum(:updated_at).to_f,
         products_for_filters_cache_key
-      ].flatten.join('/')
+      ].flatten.join("/")
     end
 
     def available_option_types
@@ -356,7 +356,7 @@ module Aypex
       @available_properties_cache_key ||= [
         Aypex::Property.filterable.maximum(:updated_at).to_f,
         products_for_filters_cache_key
-      ].flatten.join('/')
+      ].flatten.join("/")
     end
 
     def available_properties
@@ -367,10 +367,10 @@ module Aypex
     end
 
     def aypex_social_link(service)
-      return '' if current_store.send(service).blank?
+      return "" if current_store.send(service).blank?
 
-      link_to "https://#{service}.com/#{current_store.send(service)}", target: :blank, rel: 'nofollow noopener', 'aria-label': service do
-        content_tag :figure, id: service, class: 'px-2' do
+      link_to "https://#{service}.com/#{current_store.send(service)}", target: :blank, rel: "nofollow noopener", "aria-label": service do
+        content_tag :figure, id: service, class: "px-2" do
           aypex_storefront_svg_tag("#{service}.svg", width: 22, height: 22)
         end
       end
@@ -404,11 +404,11 @@ module Aypex
 
     # converts line breaks in product description into <p> tags (for html display purposes)
     def product_description(product)
-      description = if Aypex::Storefront::Config[:show_raw_product_description] || product_wysiwyg_editor_enabled?
-                      product.description
-                    else
-                      product.description.to_s.gsub(/(.*?)\r?\n\r?\n/m, '<p>\1</p>')
-                    end
+      description = if Aypex::Storefront::Config.show_raw_product_description || product_wysiwyg_editor_enabled?
+        product.description
+      else
+        product.description.to_s.gsub(/(.*?)\r?\n\r?\n/m, '<p>\1</p>')
+      end
       description.blank? ? Aypex.t(:product_has_no_description) : description
     end
 
@@ -422,19 +422,19 @@ module Aypex
       available_icons = %w[visa american_express diners_club discover jcb maestro master]
 
       if available_icons.include?(type)
-        image_tag "credit_cards/icons/#{type}.svg", class: 'payment-sources-list-item-image'
+        image_tag "credit_cards/icons/#{type}.svg", class: "payment-sources-list-item-image"
       else
-        image_tag 'credit_cards/icons/generic.svg', class: 'payment-sources-list-item-image'
+        image_tag "credit_cards/icons/generic.svg", class: "payment-sources-list-item-image"
       end
     end
 
-    def checkout_edit_link(step = 'address', order = @order)
+    def checkout_edit_link(step = "address", order = @order)
       return if order.uneditable?
 
-      classes = 'align-text-bottom checkout-confirm-delivery-informations-link'
+      classes = "align-text-bottom checkout-confirm-delivery-informations-link"
 
       link_to aypex.checkout_state_path(step), class: classes, method: :get do
-        inline_svg_tag 'aypex/storefront/edit.svg'
+        inline_svg_tag "aypex/storefront/edit.svg"
       end
     end
 

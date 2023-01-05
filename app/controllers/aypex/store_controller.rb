@@ -13,9 +13,14 @@ module Aypex
 
     layout :get_layout
 
-    helper 'aypex/base'
-    helper 'aypex/locale'
-    helper 'aypex/currency'
+    # Aypex::Core
+    helper "aypex/base"
+    helper "aypex/locale"
+    helper "aypex/currency"
+
+    # Aypex::Storefront
+    helper "aypex/storefront"
+    helper "aypex/navigation"
 
     helper_method :title
     helper_method :title=
@@ -26,12 +31,12 @@ module Aypex
     before_action :redirect_to_default_locale
 
     def account_link
-      render partial: 'aypex/shared/link_to_account'
+      render partial: "aypex/shared/link_to_account"
       fresh_when(etag: [try_aypex_current_user, I18n.locale])
     end
 
     def cart_link
-      render partial: 'aypex/shared/link_to_cart'
+      render partial: "aypex/shared/link_to_cart"
       fresh_when(etag: [simple_current_order, I18n.locale])
     end
 
@@ -55,8 +60,8 @@ module Aypex
     def title
       title_string = @title.present? ? @title : accurate_title
       if title_string.present?
-        if Aypex::Storefront::Config[:always_put_site_name_in_title] && !title_string.include?(default_title)
-          [title_string, default_title].join(" #{Aypex::Storefront::Config[:title_site_name_separator]} ")
+        if Aypex::Storefront::Config.always_put_site_name_in_title && !title_string.include?(default_title)
+          [title_string, default_title].join(" #{Aypex::Storefront::Config.title_site_name_separator} ")
         else
           title_string
         end
@@ -69,13 +74,13 @@ module Aypex
       current_store.name
     end
 
-    # this is a hook for subclasses to provide title
+    # this is a hook for sub-classes to provide title
     def accurate_title
       current_store.seo_title
     end
 
     def config_locale
-      Aypex::Storefront::Config[:locale]
+      Aypex::Storefront::Config.locale
     end
 
     # Returns which layout to render.
@@ -85,7 +90,7 @@ module Aypex
     # Default layout is: +app/views/aypex/layouts/aypex_application+
     #
     def get_layout
-      layout ||= Aypex::Storefront::Config[:layout]
+      Aypex::Storefront::Config.layout
     end
 
     def store_etag
@@ -94,7 +99,7 @@ module Aypex
         current_currency,
         I18n.locale,
         try_aypex_current_user.present?,
-        try_aypex_current_user.try(:has_aypex_role?, 'admin')
+        try_aypex_current_user.try(:has_aypex_role?, "admin")
       ].compact
     end
 

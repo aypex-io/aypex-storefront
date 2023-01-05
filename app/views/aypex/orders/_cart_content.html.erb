@@ -26,7 +26,7 @@
   <div class="col-12 col-lg-4">
     <h3 class="text-uppercase mb-4"><%= Aypex.t('summary') %></h3>
 
-    <% if Aypex::Storefront::Config[:coupon_codes_enabled] %>
+    <% if Aypex::Storefront::Config.coupon_codes_enabled %>
       <a href="#promoCodeContainer" class="pb-4" data-bs-toggle="collapse" data-bs-target="#promoCodeContainer" aria-expanded="false" aria-controls="promoCodeContainer">
         <%= I18n.t('aypex.storefront.cart.do_you_have_a_promo_code') %> <%= aypex_storefront_svg_tag('arrow-down.svg', width: 16, height: 16) %>
       </a>

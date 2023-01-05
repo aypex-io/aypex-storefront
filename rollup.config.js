@@ -46,7 +46,7 @@ export default [
   {
     input: pkg.module,
     output: {
-      file: 'app/assets/javascripts/aypex_froentend.min.js',
+      file: 'app/assets/javascripts/aypex_storefront.min.js',
       format: 'esm',
       inlineDynamicImports: true,
       sourcemap: true

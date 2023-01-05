@@ -4,7 +4,7 @@
                   true
                 end %>
 
-<% if Aypex::Storefront::Config[:show_quantity_input_on_product_page] %>
+<% if Aypex::Storefront::Config.show_quantity_input_on_product_page %>
   <div class="mb-5 mt-4 text-center text-md-start">
     <%= render 'aypex/shared/quantity_select', input_name: :quantity %>
   </div>

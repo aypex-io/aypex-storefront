@@ -1,1 +1,1 @@
-require 'aypex/storefront'
+require "aypex/storefront"
