@@ -6,6 +6,10 @@ module Aypex
       isolate_namespace Aypex
       engine_name "aypex_storefront"
 
+      initializer "aypex.storefront.environment", before: :load_config_initializers do |_app|
+        Aypex::Storefront::Config = Aypex::Storefront::Configuration.new
+      end
+
       def self.admin_available?
         @admin_available ||= ::Rails::Engine.subclasses.map(&:instance).map { |e| e.class.to_s }.include?("Aypex::Admin::Engine")
       end
@@ -41,10 +45,6 @@ module Aypex
         app.config.assets.precompile += %w[
           aypex/storefront/all*
         ]
-      end
-
-      initializer "aypex.storefront.environment", before: :load_config_initializers do |_app|
-        Aypex::Storefront::Config = Aypex::Storefront::Configuration.new
       end
     end
   end

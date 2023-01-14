@@ -11,16 +11,14 @@ require "aypex/storefront/middleware/seo_assist"
 
 module Aypex
   module Storefront
-    class << self
-      def configuration
-        @configuration ||= Configuration.new
-      end
-
-      alias_method :config, :configuration
-
-      def configure
-        yield configuration
-      end
+    # Used to configure Aypex Admin.
+    #
+    # Example:
+    #   Aypex::Storefront.configure do |config|
+    #     config.always_put_site_name_in_title = true
+    #   end
+    def self.configure
+      yield(Aypex::Storefront::Config)
     end
   end
 end
