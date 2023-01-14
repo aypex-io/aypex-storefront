@@ -92,9 +92,9 @@ module Aypex
         end
 
         context 'with parameters and port' do
-          let(:url) { 'https://example.com:3000/fr/products/some-product?taxon_id=1&utm_source=google' }
+          let(:url) { 'https://example.com:3000/fr/products/some-product?category_id=1&utm_source=google' }
 
-          it { expect(result).to eq('https://example.com:3000/products/some-product?taxon_id=1&utm_source=google') }
+          it { expect(result).to eq('https://example.com:3000/products/some-product?category_id=1&utm_source=google') }
         end
 
         context 'with long locale symbols' do
@@ -111,9 +111,9 @@ module Aypex
           end
 
           context 'with parameters and port' do
-            let(:url) { 'https://example.com:3000/es-MX/products/some-product?taxon_id=1&utm_source=google' }
+            let(:url) { 'https://example.com:3000/es-MX/products/some-product?category_id=1&utm_source=google' }
 
-            it { expect(result).to eq('https://example.com:3000/products/some-product?taxon_id=1&utm_source=google') }
+            it { expect(result).to eq('https://example.com:3000/products/some-product?category_id=1&utm_source=google') }
           end
         end
       end
@@ -134,9 +134,9 @@ module Aypex
         end
 
         context 'with parameters and port' do
-          let(:url) { 'https://example.com:3000/fr/products/some-product?taxon_id=1&utm_source=google' }
+          let(:url) { 'https://example.com:3000/fr/products/some-product?category_id=1&utm_source=google' }
 
-          it { expect(result).to eq('https://example.com:3000/de/products/some-product?taxon_id=1&utm_source=google') }
+          it { expect(result).to eq('https://example.com:3000/de/products/some-product?category_id=1&utm_source=google') }
         end
 
         context 'with long locale symbols' do
@@ -153,9 +153,9 @@ module Aypex
           end
 
           context 'with parameters and port' do
-            let(:url) { 'https://example.com:3000/es-MX/products/some-product?taxon_id=1&utm_source=google' }
+            let(:url) { 'https://example.com:3000/es-MX/products/some-product?category_id=1&utm_source=google' }
 
-            it { expect(result).to eq('https://example.com:3000/de/products/some-product?taxon_id=1&utm_source=google') }
+            it { expect(result).to eq('https://example.com:3000/de/products/some-product?category_id=1&utm_source=google') }
           end
         end
       end
@@ -176,9 +176,9 @@ module Aypex
         end
 
         context 'with parameters and port' do
-          let(:url) { 'https://example.com:3000/fr/products/some-product?taxon_id=1&utm_source=google' }
+          let(:url) { 'https://example.com:3000/fr/products/some-product?category_id=1&utm_source=google' }
 
-          it { expect(result).to eq('https://example.com:3000/es-MX/products/some-product?taxon_id=1&utm_source=google') }
+          it { expect(result).to eq('https://example.com:3000/es-MX/products/some-product?category_id=1&utm_source=google') }
         end
       end
     end

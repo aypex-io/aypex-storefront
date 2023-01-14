@@ -55,8 +55,8 @@ module Aypex
       end
     end
 
-    def aypex_breadcrumbs(taxon, _separator = "", product = nil)
-      return "" if current_page?("/") || taxon.nil?
+    def aypex_breadcrumbs(category, _separator = "", product = nil)
+      return "" if current_page?("/") || category.nil?
 
       # breadcrumbs for root
       crumbs = [content_tag(:li, content_tag(
@@ -65,10 +65,10 @@ module Aypex
         ) << content_tag(:meta, nil, itemprop: "position", content: "0"), itemprop: "url", href: aypex.root_path
       ) << content_tag(:span, nil, itemprop: "item", itemscope: "itemscope", itemtype: "https://schema.org/Thing", itemid: aypex.root_path), itemscope: "itemscope", itemtype: "https://schema.org/ListItem", itemprop: "itemListElement", class: "breadcrumb-item")]
 
-      if taxon
-        ancestors = taxon.ancestors.where.not(parent_id: nil)
+      if category
+        ancestors = category.ancestors.where.not(parent_id: nil)
 
-        # breadcrumbs for ancestor taxons
+        # breadcrumbs for ancestor categories
         crumbs << ancestors.each_with_index.map do |ancestor, index|
           content_tag(:li, content_tag(
             :a, content_tag(
@@ -77,20 +77,20 @@ module Aypex
           ) << content_tag(:span, nil, itemprop: "item", itemscope: "itemscope", itemtype: "https://schema.org/Thing", itemid: seo_url(ancestor, params: permitted_product_params)), itemscope: "itemscope", itemtype: "https://schema.org/ListItem", itemprop: "itemListElement", class: "breadcrumb-item")
         end
 
-        # breadcrumbs for current taxon
+        # breadcrumbs for current category
         crumbs << content_tag(:li, content_tag(
           :a, content_tag(
-            :span, taxon.name, itemprop: "name"
-          ) << content_tag(:meta, nil, itemprop: "position", content: ancestors.size + 1), itemprop: "url", href: seo_url(taxon, params: permitted_product_params)
-        ) << content_tag(:span, nil, itemprop: "item", itemscope: "itemscope", itemtype: "https://schema.org/Thing", itemid: seo_url(taxon, params: permitted_product_params)), itemscope: "itemscope", itemtype: "https://schema.org/ListItem", itemprop: "itemListElement", class: "breadcrumb-item")
+            :span, category.name, itemprop: "name"
+          ) << content_tag(:meta, nil, itemprop: "position", content: ancestors.size + 1), itemprop: "url", href: seo_url(category, params: permitted_product_params)
+        ) << content_tag(:span, nil, itemprop: "item", itemscope: "itemscope", itemtype: "https://schema.org/Thing", itemid: seo_url(category, params: permitted_product_params)), itemscope: "itemscope", itemtype: "https://schema.org/ListItem", itemprop: "itemListElement", class: "breadcrumb-item")
 
         # breadcrumbs for product
         if product
           crumbs << content_tag(:li, content_tag(
             :span, content_tag(
               :span, product.name, itemprop: "name"
-            ) << content_tag(:meta, nil, itemprop: "position", content: ancestors.size + 2), itemprop: "url", href: aypex.product_path(product, taxon_id: taxon&.id)
-          ) << content_tag(:span, nil, itemprop: "item", itemscope: "itemscope", itemtype: "https://schema.org/Thing", itemid: aypex.product_path(product, taxon_id: taxon&.id)), itemscope: "itemscope", itemtype: "https://schema.org/ListItem", itemprop: "itemListElement", class: "breadcrumb-item")
+            ) << content_tag(:meta, nil, itemprop: "position", content: ancestors.size + 2), itemprop: "url", href: aypex.product_path(product, category_id: category&.id)
+          ) << content_tag(:span, nil, itemprop: "item", itemscope: "itemscope", itemtype: "https://schema.org/Thing", itemid: aypex.product_path(product, category_id: category&.id)), itemscope: "itemscope", itemtype: "https://schema.org/ListItem", itemprop: "itemListElement", class: "breadcrumb-item")
         end
       else
         # breadcrumbs for product on PDP
@@ -241,15 +241,15 @@ module Aypex
       set.join(", ")
     end
 
-    def taxons_tree(root_taxon, current_taxon, max_level = 1)
-      return "" if max_level < 1 || root_taxon.leaf?
+    def categories_tree(root_category, current_category, max_level = 1)
+      return "" if max_level < 1 || root_category.leaf?
 
       content_tag :div, class: "list-group" do
-        taxons = root_taxon.children.map do |taxon|
-          css_class = current_taxon&.self_and_ancestors&.include?(taxon) ? "list-group-item list-group-item-action active" : "list-group-item list-group-item-action"
-          link_to(taxon.name, seo_url(taxon), class: css_class) + taxons_tree(taxon, current_taxon, max_level - 1)
+        categories = root_category.children.map do |category|
+          css_class = current_category&.self_and_ancestors&.include?(category) ? "list-group-item list-group-item-action active" : "list-group-item list-group-item-action"
+          link_to(category.name, seo_url(category), class: css_class) + categories_tree(category, current_category, max_level - 1)
         end
-        safe_join(taxons, "\n")
+        safe_join(categories, "\n")
       end
     end
 
@@ -318,7 +318,7 @@ module Aypex
         available_option_types_cache_key,
         available_properties_cache_key,
         filtering_params_cache_key,
-        @taxon&.id,
+        @category&.id,
         params[:menu_open]
       ].flatten
     end
@@ -398,8 +398,8 @@ module Aypex
       defined?(Aypex::Backend) && Aypex::Backend::Config[:product_wysiwyg_editor_enabled]
     end
 
-    def taxon_wysiwyg_editor_enabled?
-      defined?(Aypex::Backend) && Aypex::Backend::Config[:taxon_wysiwyg_editor_enabled]
+    def category_wysiwyg_editor_enabled?
+      defined?(Aypex::Backend) && Aypex::Backend::Config[:category_wysiwyg_editor_enabled]
     end
 
     # converts line breaks in product description into <p> tags (for html display purposes)
@@ -439,14 +439,14 @@ module Aypex
     end
 
     def products_for_filters
-      @products_for_filters ||= current_store.products.for_filters(current_currency, taxon: @taxon)
+      @products_for_filters ||= current_store.products.for_filters(current_currency, category: @category)
     end
 
     def products_for_filters_cache_key
       @products_for_filters_cache_key ||= [
         products_for_filters.maximum(:updated_at).to_f,
         base_cache_key,
-        @taxon&.permalink
+        @category&.permalink
       ].flatten.compact
     end
   end

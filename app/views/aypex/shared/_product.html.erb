@@ -1,4 +1,4 @@
-<% url = aypex.product_path(product, taxon_id: @taxon&.id) %>
+<% url = aypex.product_path(product, category_id: @category&.id) %>
 <%= link_to url, class: 'h-100 d-flex flex-column justify-content-between' do %>
   <% cache [common_product_cache_keys, product] do %>
     <%= plp_and_carousel_image(product, image_class) %>

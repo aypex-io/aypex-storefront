@@ -662,10 +662,10 @@ describe Aypex::CheckoutController, type: :controller do
       end
     end
 
-    context 'Aypex::Core::GatewayError' do
+    context 'Aypex::GatewayError' do
       before do
         allow(order).to receive_messages user: user
-        allow(order).to receive(:update).and_raise(Aypex::Core::GatewayError.new('Invalid something or other.'))
+        allow(order).to receive(:update).and_raise(Aypex::GatewayError.new('Invalid something or other.'))
         post :update, params: { state: 'address' }
       end
 
@@ -741,7 +741,7 @@ describe Aypex::CheckoutController, type: :controller do
       end
 
       it 'when GatewayError is raised' do
-        allow_any_instance_of(Aypex::Payment).to receive(:process!).and_raise(Aypex::Core::GatewayError.new(Aypex.t(:payment_processing_failed)))
+        allow_any_instance_of(Aypex::Payment).to receive(:process!).and_raise(Aypex::GatewayError.new(Aypex.t(:payment_processing_failed)))
         put :update, params: { state: order.state, order: {} }
         expect(flash[:error]).to eq(Aypex.t(:payment_processing_failed))
       end

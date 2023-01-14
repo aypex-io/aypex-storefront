@@ -15,8 +15,8 @@
           <%= "#{@products.total_count} #{Aypex.t('plp.results_for')} '#{params[:keywords].upcase}'" %>
         </div>
       </div>
-    <% elsif not @taxon %>
-      <div id="no-taxon-banner">
+    <% elsif not @category %>
+      <div id="no-category-banner">
         <div class="container">
           <%#= aypex_storefront_svg_tag('aypex-logo.svg', width: '30px') %>
         </div>

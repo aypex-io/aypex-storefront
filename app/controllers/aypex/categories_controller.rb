@@ -1,10 +1,10 @@
 module Aypex
-  class TaxonsController < Aypex::StoreController
+  class CategoriesController < Aypex::StoreController
     include Aypex::StorefrontHelper
     include Aypex::CacheHelper
     helper 'aypex/products'
 
-    before_action :load_taxon
+    before_action :load_category
 
     def show
       if !http_cache_enabled? || stale?(etag: etag, last_modified: last_modified, public: true)
@@ -16,7 +16,7 @@ module Aypex
       if !http_cache_enabled? || stale?(etag: carousel_etag, last_modified: last_modified, public: true)
         load_products
         if @products.reload.any?
-          render template: 'aypex/taxons/product_carousel', layout: false
+          render template: 'aypex/categories/product_carousel', layout: false
         else
           head :no_content
         end
@@ -26,17 +26,17 @@ module Aypex
     private
 
     def accurate_title
-      @taxon.try(:seo_title) || super
+      @category.try(:seo_title) || super
     end
 
-    def load_taxon
-      @taxon = current_store.taxons.friendly.find(params[:id])
+    def load_category
+      @category = current_store.categories.friendly.find(params[:id])
     end
 
     def load_products
       search_params = params.merge(
         current_store: current_store,
-        taxon: @taxon,
+        category: @category,
         include_images: true
       )
 
@@ -47,7 +47,7 @@ module Aypex
     def etag
       [
         store_etag,
-        @taxon,
+        @category,
         available_option_types_cache_key,
         filtering_params_cache_key
       ]
@@ -56,15 +56,15 @@ module Aypex
     def carousel_etag
       [
         store_etag,
-        @taxon
+        @category
       ]
     end
 
     def last_modified
-      taxon_last_modified = @taxon&.updated_at&.utc
+      category_last_modified = @category&.updated_at&.utc
       current_store_last_modified = current_store.updated_at.utc
 
-      [taxon_last_modified, current_store_last_modified].compact.max
+      [category_last_modified, current_store_last_modified].compact.max
     end
   end
 end

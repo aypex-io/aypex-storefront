@@ -3,12 +3,12 @@
 # describe 'products', type: :feature, caching: true do
 #   let!(:product) { create(:product, stores: Aypex::Store.all) }
 #   let!(:product2) { create(:product, stores: Aypex::Store.all) }
-#   let!(:taxonomy) { create(:taxonomy) }
+#   let!(:categoryomy) { create(:categoryomy) }
 
 #   after { Timecop.return }
 
 #   before do
-#     create(:taxon, taxonomy: taxonomy)
+#     create(:category, categoryomy: categoryomy)
 
 #     Timecop.scale(1000)
 
@@ -17,7 +17,7 @@
 #     visit aypex.root_path
 #     assert_written_to_cache("views/en/USD/aypex/products/all--#{product.updated_at.utc.to_s(:number)}")
 #     assert_written_to_cache("views/en/USD/aypex/products/#{product.id}-#{product.updated_at.utc.to_s(:number)}")
-#     assert_written_to_cache("views/en/aypex/taxonomies/#{taxonomy.id}")
+#     assert_written_to_cache("views/en/aypex/categoryomies/#{categoryomy.id}")
 
 #     clear_cache_events
 #   end

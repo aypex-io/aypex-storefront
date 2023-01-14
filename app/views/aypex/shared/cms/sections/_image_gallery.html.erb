@@ -17,42 +17,42 @@
 <% end %>
 
 <% if section.show_labels? %>
-  <% labels_class = 'homepage-taxon-box-text' %>
+  <% labels_class = 'homepage-category-box-text' %>
 <% else %>
   <% labels_class = 'd-none' %>
 <% end %>
 
-<% if section.link_one.present? && section.link_type_one == 'Aypex::Taxon' %>
-  <% link_one = aypex.nested_taxons_path(section.link_one) %>
-  <% link_one_classes = 'homepage-taxon-box bg-light' %>
+<% if section.link_one.present? && section.link_type_one == 'Aypex::Category' %>
+  <% link_one = aypex.nested_categories_path(section.link_one) %>
+  <% link_one_classes = 'homepage-category-box bg-light' %>
 <% elsif section.link_one.present? && section.link_type_one == 'Aypex::Product' %>
   <% link_one = aypex.product_path(section.link_one) %>
-  <% link_one_classes = 'homepage-taxon-box bg-light' %>
+  <% link_one_classes = 'homepage-category-box bg-light' %>
 <% else %>
   <% link_one = nil %>
-  <% link_one_classes = 'homepage-taxon-box bg-light pointer-events-none cursor-default' %>
+  <% link_one_classes = 'homepage-category-box bg-light pointer-events-none cursor-default' %>
 <% end %>
 
-<% if section.link_two.present? && section.link_type_two == 'Aypex::Taxon' %>
-  <% link_two = aypex.nested_taxons_path(section.link_two) %>
-  <% link_two_classes = 'homepage-taxon-box bg-light' %>
+<% if section.link_two.present? && section.link_type_two == 'Aypex::Category' %>
+  <% link_two = aypex.nested_categories_path(section.link_two) %>
+  <% link_two_classes = 'homepage-category-box bg-light' %>
 <% elsif section.link_two.present? && section.link_type_two == 'Aypex::Product' %>
   <% link_two = aypex.product_path(section.link_two) %>
-  <% link_two_classes = 'homepage-taxon-box bg-light' %>
+  <% link_two_classes = 'homepage-category-box bg-light' %>
 <% else %>
   <% link_two = nil %>
-  <% link_two_classes = 'homepage-taxon-box bg-light pointer-events-none cursor-default' %>
+  <% link_two_classes = 'homepage-category-box bg-light pointer-events-none cursor-default' %>
 <% end %>
 
-<% if section.link_three.present? && section.link_type_three == 'Aypex::Taxon' %>
-  <% link_three = aypex.nested_taxons_path(section.link_three) %>
-  <% link_three_classes = 'homepage-taxon-box bg-light' %>
+<% if section.link_three.present? && section.link_type_three == 'Aypex::Category' %>
+  <% link_three = aypex.nested_categories_path(section.link_three) %>
+  <% link_three_classes = 'homepage-category-box bg-light' %>
 <% elsif section.link_three.present? && section.link_type_three == 'Aypex::Product' %>
   <% link_three = aypex.product_path(section.link_three) %>
-  <% link_three_classes = 'homepage-taxon-box bg-light' %>
+  <% link_three_classes = 'homepage-category-box bg-light' %>
 <% else %>
   <% link_three = nil %>
-  <% link_three_classes = 'homepage-taxon-box bg-light pointer-events-none cursor-default' %>
+  <% link_three_classes = 'homepage-category-box bg-light pointer-events-none cursor-default' %>
 <% end %>
 
 <!-- Left Block -->
@@ -85,7 +85,7 @@
               alt="<%= section&.title_one %>">
         <% else %>
           <%= icon( name: 'card-image',
-                    class: 'homepage-taxon-box text-black-50',
+                    class: 'homepage-category-box text-black-50',
                     width: 26,
                     height: 26) %>
         <% end %>
@@ -123,7 +123,7 @@
               alt="<%= section&.title_three %>">
         <% else %>
           <%= icon( name: 'card-image',
-                    class: 'homepage-taxon-box text-black-50',
+                    class: 'homepage-category-box text-black-50',
                     width: 26,
                     height: 26) %>
         <% end %>
@@ -160,7 +160,7 @@
           alt="<%= section&.title_two %>">
     <% else %>
       <%= icon( name: 'file-image',
-                class: 'homepage-taxon-box text-black-50',
+                class: 'homepage-category-box text-black-50',
                 width: 26,
                 height: 26) %>
     <% end %>

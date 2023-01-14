@@ -5,14 +5,14 @@
         <%= link_to Aypex.t(:home), aypex.root_path %>
       </span>
     </li>
-    <% if @taxon %>
-      <% @taxon.ancestors.where.not(parent_id: nil).each do |ancestor| %>
+    <% if @category %>
+      <% @category.ancestors.where.not(parent_id: nil).each do |ancestor| %>
         <li class="breadcrumb-item">
           <%= ancestor.name %>
         </li>
       <% end %>
       <li class="breadcrumb-item">
-        <%= @taxon.name %>
+        <%= @category.name %>
       </li>
     <% else %>
       <li class="breadcrumb-item">

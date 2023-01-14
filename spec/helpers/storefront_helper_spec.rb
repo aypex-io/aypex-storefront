@@ -30,9 +30,9 @@ module Aypex
     end
 
     # Regression test for #2759
-    it 'nested_taxons_path works with a Taxon object' do
-      taxon = create(:taxon, name: 'iphone')
-      expect(aypex.nested_taxons_path(taxon)).to eq("/t/#{taxon.parent.permalink}/#{taxon.name}")
+    it 'nested_categories_path works with a Category object' do
+      category = create(:category, name: 'iphone')
+      expect(aypex.nested_categories_path(category)).to eq("/t/#{category.parent.permalink}/#{category.name}")
     end
 
     context '#checkout_progress' do

@@ -1,17 +1,17 @@
-require 'spec_helper'
+require "spec_helper"
 
-describe Aypex::TaxonsHelper, type: :helper do
+describe Aypex::CategoriesHelper, type: :helper do
   # Regression test for #4382
-  it '#taxon_preview' do
-    taxon = create(:taxon)
-    child_taxon = create(:taxon, parent: taxon, taxonomy: taxon.taxonomy)
+  it "#category_preview" do
+    category = create(:category)
+    child_category = create(:category, parent: category, categoryomy: category.categoryomy)
     product_1 = create(:product, stores: Aypex::Store.all)
     product_2 = create(:product, stores: Aypex::Store.all)
     product_3 = create(:product, stores: Aypex::Store.all)
-    taxon.products << product_1
-    taxon.products << product_2
-    child_taxon.products << product_3
+    category.products << product_1
+    category.products << product_2
+    child_category.products << product_3
 
-    expect(taxon_preview(taxon.reload)).to eql([product_1, product_2, product_3])
+    expect(category_preview(category.reload)).to eql([product_1, product_2, product_3])
   end
 end

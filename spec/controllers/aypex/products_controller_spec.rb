@@ -3,7 +3,7 @@ require "spec_helper"
 describe Aypex::ProductsController, type: :controller do
   let!(:product) { create(:product, available_on: 1.year.from_now) }
   let(:product_from_other_store) { create(:product, stores: [create(:store)]) }
-  let(:taxon) { create(:taxon) }
+  let(:category) { create(:category) }
 
   # Regression test for #1390
   it "allows admins to view non-active products" do
@@ -63,9 +63,9 @@ describe Aypex::ProductsController, type: :controller do
       product.name = product.name + " Brand New"
       product.slug = nil
       product.save!
-      get :show, params: {id: legacy_params, taxon_id: taxon.id}
+      get :show, params: {id: legacy_params, category_id: category.id}
       expect(response.status).to eq(301)
-      expect(response.header["Location"]).to include("taxon_id=#{taxon.id}")
+      expect(response.header["Location"]).to include("category_id=#{category.id}")
     end
   end
 

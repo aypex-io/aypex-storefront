@@ -1,0 +1,10 @@
+<div class="category">
+  <div class="container">
+    <%= aypex_breadcrumbs(@category) %>
+    <%= render 'header', category: @category %>
+  </div>
+  <%= render 'subcategories', category: @category %>
+  <div data-hook="category_products">
+    <%= render template: 'aypex/products/index', colors: @colors, sizes: @sizes %>
+  </div>
+</div>

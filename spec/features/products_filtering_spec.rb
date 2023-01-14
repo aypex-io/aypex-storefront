@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe 'Products filtering', :js do
   let(:store) { Aypex::Store.default }
-  let!(:taxon) { create :taxon }
+  let!(:category) { create :category }
 
   let!(:size) { create :option_type, name: 'size', presentation: 'Size' }
   let!(:s_size) { create :option_value, option_type: size, name: 's', presentation: 'S' }
@@ -20,14 +20,14 @@ describe 'Products filtering', :js do
 
   let!(:property_3) { create :property, name: 'collection', presentation: 'Collection', filterable: true }
 
-  let!(:product_1) { create :product, name: 'First shirt', option_types: [size, color], product_properties: [zeta_brand], taxons: [taxon], stores: [store] }
+  let!(:product_1) { create :product, name: 'First shirt', option_types: [size, color], product_properties: [zeta_brand], categories: [category], stores: [store] }
   let!(:variant_1_1) { create :variant, product: product_1, option_values: [s_size, green_color] }
 
-  let!(:product_2) { create :product, name: 'Second shirt', option_types: [size], product_properties: [wilson_manufacturer, alpha_brand], taxons: [taxon], stores: [store] }
+  let!(:product_2) { create :product, name: 'Second shirt', option_types: [size], product_properties: [wilson_manufacturer, alpha_brand], categories: [category], stores: [store] }
   let!(:variant_2_1) { create :variant, product: product_2, option_values: [m_size] }
 
-  def visit_taxons_page(taxon)
-    visit aypex.nested_taxons_path(taxon)
+  def visit_categories_page(category)
+    visit aypex.nested_categories_path(category)
   end
 
   def change_currency_to(currency)
@@ -72,7 +72,7 @@ describe 'Products filtering', :js do
   end
 
   it 'correctly filters Products' do
-    visit aypex.nested_taxons_path(taxon)
+    visit aypex.nested_categories_path(category)
 
     expect(page).not_to have_content('CLEAR ALL')
 
@@ -128,17 +128,17 @@ describe 'Products filtering', :js do
     let!(:length) { create :option_type, name: 'length', presentation: 'Length', filterable: true }
     let!(:mini_length) { create :option_value, option_type: length, name: 'mini', presentation: 'MINI' }
 
-    let!(:product_3) { create :product, taxons: [taxon], stores: [create(:store)], option_types: [length] }
+    let!(:product_3) { create :product, categories: [category], stores: [create(:store)], option_types: [length] }
     let!(:variant_3) { create :variant, product: product_3, option_values: [mini_length] }
 
     it 'does not display option types for products assigned to the other store' do
-      visit aypex.nested_taxons_path(taxon)
+      visit aypex.nested_categories_path(category)
 
       expect(filters).not_to have_content('Length')
     end
 
     it 'displays filterable option types' do
-      visit aypex.nested_taxons_path(taxon)
+      visit aypex.nested_categories_path(category)
 
       %w[Size Color].each do |option_type_name|
         expect(filters).to have_content(option_type_name)
@@ -147,7 +147,7 @@ describe 'Products filtering', :js do
 
     it 'does not display unfilterable option types' do
       color.update!(filterable: false)
-      visit aypex.nested_taxons_path(taxon)
+      visit aypex.nested_categories_path(category)
 
       expect(filters).not_to have_content('Color')
     end
@@ -157,16 +157,16 @@ describe 'Products filtering', :js do
     let!(:material) { create :property, :material, filterable: true }
     let!(:cotton_material) { create :product_property, value: 'Cotton', property: material }
 
-    let!(:product_3) { create :product, taxons: [taxon], stores: [create(:store)], product_properties: [cotton_material] }
+    let!(:product_3) { create :product, categories: [category], stores: [create(:store)], product_properties: [cotton_material] }
 
     it 'does not display properties for products assigned to the other store' do
-      visit aypex.nested_taxons_path(taxon)
+      visit aypex.nested_categories_path(category)
 
       expect(filters).not_to have_content('Material')
     end
 
     it 'displays filterable properties' do
-      visit aypex.nested_taxons_path(taxon)
+      visit aypex.nested_categories_path(category)
 
       %w[Manufacturer Brand].each do |property_name|
         expect(filters).to have_content(property_name)
@@ -175,13 +175,13 @@ describe 'Products filtering', :js do
 
     it 'does not display unfilterable properties' do
       brand.update!(filterable: false)
-      visit aypex.nested_taxons_path(taxon)
+      visit aypex.nested_categories_path(category)
 
       expect(filters).not_to have_content('Brand')
     end
 
     it 'does not display properties that do not have values' do
-      visit aypex.nested_taxons_path(taxon)
+      visit aypex.nested_categories_path(category)
 
       expect(filters).not_to have_content('Collection')
     end
@@ -199,14 +199,14 @@ describe 'Products filtering', :js do
   context 'with cached filters' do
     context 'when after visiting products page new filters were added or deleted' do
       let(:jersey_manufacturer) { create(:product_property, value: 'Jerseys', property: manufacturer) }
-      let!(:product_3) { create(:product, name: 'Third shirt', taxons: [taxon], stores: [store]) }
+      let!(:product_3) { create(:product, name: 'Third shirt', categories: [category], stores: [store]) }
       let(:beta_brand) { create(:product_property, value: 'Beta', property: brand) }
 
       let(:xl_size) { create(:option_value, option_type: size, name: 'xl', presentation: 'XL') }
       let!(:variant_1_2) { create(:variant, product: product_1, option_values: [green_color]) }
 
       it 'correctly displays filterable properties' do
-        visit_taxons_page(taxon)
+        visit_categories_page(category)
 
         click_on 'Manufacturer'
         expect(page).to have_filter_with(value: 'Wilson')
@@ -218,7 +218,7 @@ describe 'Products filtering', :js do
         product_1.product_properties << jersey_manufacturer
         product_3.product_properties << beta_brand
 
-        visit_taxons_page(taxon)
+        visit_categories_page(category)
 
         click_on 'Manufacturer'
         expect(page).to have_filter_with(value: 'Wilson')
@@ -231,7 +231,7 @@ describe 'Products filtering', :js do
       end
 
       it 'correctly displays filterable options' do
-        visit_taxons_page(taxon)
+        visit_categories_page(category)
 
         click_on 'Size'
         expect(page).to have_filter_with(value: 'S')
@@ -240,7 +240,7 @@ describe 'Products filtering', :js do
 
         variant_1_2.update(option_values: [green_color, xl_size])
 
-        visit_taxons_page(taxon)
+        visit_categories_page(category)
 
         click_on 'Size'
         expect(page).to have_filter_with(value: 'S')
@@ -249,7 +249,7 @@ describe 'Products filtering', :js do
 
         variant_1_2.update(option_values: [green_color])
 
-        visit_taxons_page(taxon)
+        visit_categories_page(category)
 
         click_on 'Size'
         expect(page).to have_filter_with(value: 'S')
@@ -264,11 +264,11 @@ describe 'Products filtering', :js do
       let!(:gamma_brand) { create(:product_property, value: 'Gamma', property: brand) }
       let!(:xl_size) { create(:option_value, option_type: size, name: 'xl', presentation: 'XL') }
 
-      let!(:product_3) { create(:product, name: '3rd shirt', product_properties: [gamma_brand], taxons: [taxon], stores: [store], currency: eur) }
+      let!(:product_3) { create(:product, name: '3rd shirt', product_properties: [gamma_brand], categories: [category], stores: [store], currency: eur) }
       let!(:variant_3) { create(:variant, product: product_3, currency: eur, option_values: [xl_size]) }
 
       it 'correctly displays filterable properties' do
-        visit_taxons_page(taxon)
+        visit_categories_page(category)
 
         click_on 'Manufacturer'
         expect(page).to have_filter_with(value: 'Wilson')
@@ -288,7 +288,7 @@ describe 'Products filtering', :js do
       end
 
       it 'correctly displays filterable options' do
-        visit_taxons_page(taxon)
+        visit_categories_page(category)
 
         expect(page).to have_content('Color')
 
@@ -307,20 +307,20 @@ describe 'Products filtering', :js do
       end
     end
 
-    context 'when switching between taxons' do
-      let!(:other_taxon) { create(:taxon) }
+    context 'when switching between categories' do
+      let!(:other_category) { create(:category) }
 
       let!(:xl_size) { create(:option_value, option_type: size, name: 'xl', presentation: 'XL') }
       let!(:gamma_brand) { create(:product_property, value: 'Gamma', property: brand) }
 
-      let!(:product_3) { create(:product, name: '3rd shirt', product_properties: [gamma_brand], taxons: [other_taxon]) }
+      let!(:product_3) { create(:product, name: '3rd shirt', product_properties: [gamma_brand], categories: [other_category]) }
       let!(:variant_3) { create(:variant, product: product_3, option_values: [xl_size]) }
 
       let!(:wannabe_manufacturer) { create(:product_property, value: 'Wannabe', property: manufacturer) }
-      let!(:product_4) { create(:product, name: '4th shirt', product_properties: [wannabe_manufacturer], taxons: [other_taxon]) }
+      let!(:product_4) { create(:product, name: '4th shirt', product_properties: [wannabe_manufacturer], categories: [other_category]) }
 
       it 'correctly displays filterable properties' do
-        visit_taxons_page(taxon)
+        visit_categories_page(category)
 
         click_on 'Manufacturer'
         expect(page).to have_filter_with(value: 'Wilson')
@@ -329,7 +329,7 @@ describe 'Products filtering', :js do
         expect(page).to have_filter_with(value: 'Zeta')
         expect(page).to have_filter_with(value: 'Alpha')
 
-        visit_taxons_page(other_taxon)
+        visit_categories_page(other_category)
 
         click_on 'Manufacturer'
         expect(page).to have_filter_with(value: 'Wannabe')
@@ -342,7 +342,7 @@ describe 'Products filtering', :js do
       end
 
       it 'correctly displays filterable options' do
-        visit_taxons_page(taxon)
+        visit_categories_page(category)
 
         expect(page).to have_content('Color')
 
@@ -350,7 +350,7 @@ describe 'Products filtering', :js do
         expect(page).to have_filter_with(value: 'S')
         expect(page).to have_filter_with(value: 'M')
 
-        visit_taxons_page(other_taxon)
+        visit_categories_page(other_category)
 
         expect(page).not_to have_content('Color')
 
@@ -361,14 +361,14 @@ describe 'Products filtering', :js do
       end
     end
 
-    context 'when after visiting products page new products were added to the same taxon' do
+    context 'when after visiting products page new products were added to the same category' do
       let!(:material) { create(:property, :material, filterable: true) }
       let!(:cotton_material) { create(:product_property, value: 'Cotton', property: material) }
 
       let!(:xl_size) { create(:option_value, option_type: size, name: 'xl', presentation: 'XL') }
 
       it 'correctly displays filterable properties' do
-        visit_taxons_page(taxon)
+        visit_categories_page(category)
 
         click_on 'Manufacturer'
         expect(page).to have_filter_with(value: 'Wilson')
@@ -377,16 +377,16 @@ describe 'Products filtering', :js do
         expect(page).to have_filter_with(value: 'Zeta')
         expect(page).to have_filter_with(value: 'Alpha')
 
-        create(:product, name: '3rd shirt', product_properties: [cotton_material], taxons: [taxon], stores: [store])
+        create(:product, name: '3rd shirt', product_properties: [cotton_material], categories: [category], stores: [store])
 
-        visit_taxons_page(taxon)
+        visit_categories_page(category)
 
         click_on 'Material'
         expect(page).to have_filter_with(value: 'Cotton')
       end
 
       it 'correctly displays filterable options' do
-        visit_taxons_page(taxon)
+        visit_categories_page(category)
 
         expect(page).to have_content('Color')
 
@@ -394,10 +394,10 @@ describe 'Products filtering', :js do
         expect(page).to have_filter_with(value: 'S')
         expect(page).to have_filter_with(value: 'M')
 
-        product = create(:product, name: '3rd shirt', taxons: [taxon], stores: [store])
+        product = create(:product, name: '3rd shirt', categories: [category], stores: [store])
         create(:variant, product: product, option_values: [xl_size])
 
-        visit_taxons_page(taxon)
+        visit_categories_page(category)
 
         click_on 'Size'
         expect(page).to have_filter_with(value: 'XL')

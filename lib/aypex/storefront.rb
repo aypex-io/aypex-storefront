@@ -1,5 +1,6 @@
-require "aypex_core"
-require "aypex_api"
+require "aypex"
+require "aypex/api"
+require "aypex/storefront/engine"
 
 require "inline_svg"
 require "canonical-rails"
@@ -23,5 +24,3 @@ module Aypex
     end
   end
 end
-
-require "aypex/storefront/engine"

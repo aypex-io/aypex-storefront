@@ -5,7 +5,7 @@ module Aypex
     include Aypex::CacheHelper
 
     before_action :load_product, only: [:show, :related]
-    before_action :load_taxon, only: :index
+    before_action :load_category, only: :index
     before_action :can_show_product?, only: :show
 
     def index
@@ -18,8 +18,8 @@ module Aypex
     end
 
     def show
-      @taxon = params[:taxon_id].present? ? taxons_scope.find_by(id: params[:taxon_id]) : nil
-      @taxon = @product.taxons.first unless @taxon.present?
+      @category = params[:category_id].present? ? categories_scope.find_by(id: params[:category_id]) : nil
+      @category = @product.categories.first unless @category.present?
 
       if !http_cache_enabled? || stale?(etag: etag_show, last_modified: last_modified_show, public: true)
         @product_summary = Aypex::ProductSummaryPresenter.new(@product).call
@@ -58,8 +58,8 @@ module Aypex
       @product = current_store.products.for_user(try_aypex_current_user).friendly.find(params[:id])
     end
 
-    def load_taxon
-      @taxon = taxons_scope.find(params[:taxon]) if params[:taxon].present?
+    def load_category
+      @category = categories_scope.find(params[:category]) if params[:category].present?
     end
 
     def can_show_product?
@@ -117,7 +117,7 @@ module Aypex
       [
         store_etag,
         @product,
-        @taxon,
+        @category,
         @product.possible_promotion_ids,
         @product.possible_promotions.maximum(:updated_at),
       ]
@@ -139,8 +139,8 @@ module Aypex
       [product_last_modified, current_store_last_modified].compact.max
     end
 
-    def taxons_scope
-      current_store.taxons
+    def categories_scope
+      current_store.categories
     end
   end
 end

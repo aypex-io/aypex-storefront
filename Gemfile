@@ -57,8 +57,7 @@ group :development do
   gem "erb_lint"
 end
 
-aypex_opts = { path: '../aypex' }
-gem 'aypex_core', aypex_opts
-gem 'aypex_api', aypex_opts
+gem 'aypex', github: "aypex-io/aypex"
+gem 'aypex-api', github: "aypex-io/aypex-api"
 
 gemspec

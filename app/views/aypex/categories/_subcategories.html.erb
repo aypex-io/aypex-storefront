@@ -1,0 +1,29 @@
+<% cache([base_cache_key, category, 'subcategories', permitted_product_params]) do %>
+  <% subcategories = [category] %>
+  <% unless category.children.any? %>
+    <% subcategories.unshift(category.parent) %>
+  <% end %>
+  <% subcategories.compact.each do |current_category| %>
+    <% child_categories = [current_category, *current_category.children.where(hide_from_nav: false)] %>
+    <% if current_category.level > 0 && child_categories.size > 1 %>
+      <div class="d-flex justify-content-center position-sticky sticky-top-90px category-subcategories-wrapper">
+        <div class="py-1 text-uppercase d-none d-xl-flex overflow-x category-subcategories">
+          <% child_categories.each_with_index.map do |subcategory, index| %>
+            <%=
+              link_to_unless subcategory == category,
+                            index.zero? ? Aypex.t(:all) : subcategory.name,
+                            aypex.nested_categories_path(subcategory, params: permitted_product_params),
+                            class: "pt-4 pb-2 mb-2 #{index.zero? ? '' : 'ps-4 pt-4 pb-2'}" do
+            %>
+              <div class="pt-4 mb-2 <%= index.zero? ? '' : 'ps-4' %>">
+                <span class="pb-2 category-subcategories-selected">
+                  <%= index.zero? ? Aypex.t(:all) : subcategory.name %>
+                </span>
+              </div>
+            <% end %>
+          <% end %>
+        </div>
+      </div>
+    <% end %>
+  <% end %>
+<% end %>

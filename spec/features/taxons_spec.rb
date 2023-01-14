@@ -2,9 +2,9 @@ require 'spec_helper'
 
 describe 'viewing products', type: :feature, inaccessible: true do
   let(:store) { Aypex::Store.default }
-  let!(:taxonomy) { create(:taxonomy, name: 'Category', store: store) }
-  let!(:super_clothing) { taxonomy.root.children.create(name: 'Super Clothing', taxonomy_id: taxonomy.id) }
-  let!(:t_shirts) { super_clothing.children.create(name: 'T-Shirts', taxonomy_id: taxonomy.id, description: '<h1>Super T-shirts</h1><table style="border-collapse: collapse; width: 100%;" border="1"><tbody><tr><td style="width: 98.66353978300181%;">I can display html tables.</td></tr></tbody></table>') }
+  let!(:categoryomy) { create(:categoryomy, name: 'Category', store: store) }
+  let!(:super_clothing) { categoryomy.root.children.create(name: 'Super Clothing', categoryomy_id: categoryomy.id) }
+  let!(:t_shirts) { super_clothing.children.create(name: 'T-Shirts', categoryomy_id: categoryomy.id, description: '<h1>Super T-shirts</h1><table style="border-collapse: collapse; width: 100%;" border="1"><tbody><tr><td style="width: 98.66353978300181%;">I can display html tables.</td></tr></tbody></table>') }
   let(:metas) { { meta_description: 'Brand new Ruby on Rails TShirts', meta_title: 'Ruby On Rails TShirt', meta_keywords: 'ror, tshirt, ruby' } }
   let(:store_name) { store.name.to_s }
 
@@ -12,26 +12,26 @@ describe 'viewing products', type: :feature, inaccessible: true do
     t_shirts.children.create(name: 'XXL') # xxl
 
     product = create(:product, name: 'Superman T-Shirt')
-    product.taxons << t_shirts
+    product.categories << t_shirts
     allow_any_instance_of(Aypex::StoreController).to receive(:current_store).and_return(store)
   end
 
   # Regression test for #1796
-  it "can see a taxon's products, even if that taxon has child taxons" do
+  it "can see a category's products, even if that category has child categories" do
     visit '/t/category/super-clothing/t-shirts'
     expect(page).to have_content('Superman T-Shirt')
   end
 
-  it 'can visit root taxon' do
+  it 'can visit root category' do
     visit '/t/category'
     expect(page).to have_content('Category')
   end
 
-  it 'does not show nested taxons with a search' do
+  it 'does not show nested categories with a search' do
     visit '/products?keywords=shirt'
 
     expect(page).to have_content('Superman T-Shirt')
-    expect(page).not_to have_selector("div[data-hook='taxon_children']")
+    expect(page).not_to have_selector("div[data-hook='category_children']")
   end
 
   describe 'breadcrumbs' do
@@ -58,7 +58,7 @@ describe 'viewing products', type: :feature, inaccessible: true do
       expect(page).to have_title('Ruby On Rails TShirt')
     end
 
-    it 'displays title from taxon root and taxon name' do
+    it 'displays title from category root and category name' do
       visit '/t/category/super-clothing/t-shirts'
       expect(page).to have_title('T-Shirts - ' + store_name)
     end
@@ -68,19 +68,19 @@ describe 'viewing products', type: :feature, inaccessible: true do
       t_shirts.update metas
       visit '/t/category/super-clothing/t-shirts'
 
-      within('.taxon-title') do
+      within('.category-title') do
         expect(page).to have_content(t_shirts.name)
       end
     end
 
-    it 'uses taxon name in title when meta_title set to empty string' do
+    it 'uses category name in title when meta_title set to empty string' do
       t_shirts.update meta_title: ''
       visit '/t/category/super-clothing/t-shirts'
       expect(page).to have_title('T-Shirts - ' + store_name)
     end
   end
 
-  context 'taxon pages' do
+  context 'category pages' do
     include_context 'custom products'
 
     it 'is able to visit brand Ruby on Rails' do

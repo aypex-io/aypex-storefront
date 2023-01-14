@@ -38,7 +38,7 @@ module Aypex
         "/#{I18n.locale}"
       end
 
-      if ["Aypex::Product", "Aypex::Taxon", "Aypex::CmsPage"].include?(item.linked_resource_type)
+      if ["Aypex::Product", "Aypex::Category", "Aypex::CmsPage"].include?(item.linked_resource_type)
         output_locale.to_s + item.link
       elsif item.linked_resource_type == "Home Page"
         "/#{locale_param}"

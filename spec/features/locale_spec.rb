@@ -9,24 +9,24 @@ describe 'setting locale', type: :feature, js: true do
 
   let!(:en_menu_item_url) { create(:menu_item, name: 'URL in English', menu_id: en_main_menu.id, destination: 'https://aypex.com') }
   let!(:en_menu_item_home) { create(:menu_item, name: 'Home in English', menu_id: en_main_menu.id, linked_resource_type: 'Aypex::Linkable::Homepage') }
-  let!(:en_menu_item_taxon) { create(:menu_item, name: 'Taxon in English', menu_id: en_main_menu.id, linked_resource_type: 'Aypex::Taxon') }
+  let!(:en_menu_item_category) { create(:menu_item, name: 'Category in English', menu_id: en_main_menu.id, linked_resource_type: 'Aypex::Category') }
   let!(:en_menu_item_product) { create(:menu_item, name: 'Product in English', menu_id: en_main_menu.id, linked_resource_type: 'Aypex::Product') }
 
   let!(:fr_menu_item_url) { create(:menu_item, name: 'URL in French', menu_id: fr_main_menu.id, destination: 'https://aypex.com') }
   let!(:fr_menu_item_home) { create(:menu_item, name: 'Home in French', menu_id: fr_main_menu.id, linked_resource_type: 'Aypex::Linkable::Homepage') }
-  let!(:fr_menu_item_taxon) { create(:menu_item, name: 'Taxon in French', menu_id: fr_main_menu.id, linked_resource_type: 'Aypex::Taxon') }
+  let!(:fr_menu_item_category) { create(:menu_item, name: 'Category in French', menu_id: fr_main_menu.id, linked_resource_type: 'Aypex::Category') }
   let!(:fr_menu_item_product) { create(:menu_item, name: 'Product in French', menu_id: fr_main_menu.id, linked_resource_type: 'Aypex::Product') }
 
-  let!(:taxon_x) { create(:taxon) }
-  let!(:prod_x) { create(:product_in_stock, taxons: [taxon_x], stores: [store]) }
+  let!(:category_x) { create(:category) }
+  let!(:prod_x) { create(:product_in_stock, categories: [category_x], stores: [store]) }
 
   before do
     store.update(default_locale: 'en', supported_locales: 'en,fr')
     add_french_locales
-    en_menu_item_taxon.update(linked_resource_id: taxon_x.id)
+    en_menu_item_category.update(linked_resource_id: category_x.id)
     en_menu_item_product.update(linked_resource_id: prod_x.id)
 
-    fr_menu_item_taxon.update(linked_resource_id: taxon_x.id)
+    fr_menu_item_category.update(linked_resource_id: category_x.id)
     fr_menu_item_product.update(linked_resource_id: prod_x.id)
   end
 
@@ -68,7 +68,7 @@ describe 'setting locale', type: :feature, js: true do
   shared_examples 'generates proper URLs' do
     it 'has localized links', retry: 3 do
       expect(page).to have_link(store.name, href: '/fr')
-      expect(page).to have_link(fr_menu_item_taxon.name, href: aypex.nested_taxons_path(fr_menu_item_taxon.linked_resource, locale: 'fr'))
+      expect(page).to have_link(fr_menu_item_category.name, href: aypex.nested_categories_path(fr_menu_item_category.linked_resource, locale: 'fr'))
       expect(page).to have_link(fr_menu_item_product.name, href: aypex.product_path(fr_menu_item_product.linked_resource, locale: 'fr'))
     end
   end
@@ -130,8 +130,8 @@ describe 'setting locale', type: :feature, js: true do
   end
 
   context 'via URL' do
-    let!(:taxon) { create(:taxon) }
-    let!(:product) { create(:product_in_stock, taxons: [taxon], stores: [store]) }
+    let!(:category) { create(:category) }
+    let!(:product) { create(:product_in_stock, categories: [category], stores: [store]) }
 
     context 'cart page' do
       before do
@@ -158,17 +158,17 @@ describe 'setting locale', type: :feature, js: true do
       it { expect(page).to have_link(product.name, href: aypex.product_path(product, locale: 'fr')) }
     end
 
-    context 'taxon page' do
+    context 'category page' do
       before do
-        visit aypex.nested_taxons_path(taxon, locale: 'fr')
+        visit aypex.nested_categories_path(category, locale: 'fr')
       end
 
-      it { expect(page).to have_current_path("/fr/t/#{taxon.permalink}") }
+      it { expect(page).to have_current_path("/fr/t/#{category.permalink}") }
 
       it_behaves_like 'translates UI'
       it_behaves_like 'generates proper URLs'
 
-      it { expect(page).to have_link(product.name, href: aypex.product_path(product, locale: 'fr', taxon_id: taxon.id)) }
+      it { expect(page).to have_link(product.name, href: aypex.product_path(product, locale: 'fr', category_id: category.id)) }
     end
 
     context 'product page' do
@@ -181,7 +181,7 @@ describe 'setting locale', type: :feature, js: true do
       it_behaves_like 'translates UI'
       it_behaves_like 'generates proper URLs'
 
-      it { expect(page).to have_link(taxon.name, href: aypex.nested_taxons_path(taxon, locale: 'fr')) }
+      it { expect(page).to have_link(category.name, href: aypex.nested_categories_path(category, locale: 'fr')) }
     end
 
     context 'home page' do

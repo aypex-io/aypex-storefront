@@ -25,7 +25,7 @@ module Aypex
 
     helper 'aypex/orders'
 
-    rescue_from Aypex::Core::GatewayError, with: :rescue_from_aypex_gateway_error
+    rescue_from Aypex::GatewayError, with: :rescue_from_aypex_gateway_error
 
     layout 'aypex/layouts/checkout'
 

@@ -1,4 +1,4 @@
-Aypex::Core::Engine.add_routes do
+Aypex::Engine.add_routes do
   scope '(:locale)', locale: /#{Aypex.available_locales.join('|')}/, defaults: { locale: nil } do
     root to: 'home#index'
 
@@ -23,8 +23,8 @@ Aypex::Core::Engine.add_routes do
     get   '/locale/set',                      to: 'locale#set',               as: :set_locale
     get   '/pages/:slug',                     to: 'cms_pages#show',           as: :page
     get   '/products/:id/related',            to: 'products#related',         as: :related_products
-    get   '/product_carousel/:id',            to: 'taxons#product_carousel',  as: :product_carousel
-    get   '/category/*id',                    to: 'taxons#show',              as: :nested_taxons
+    get   '/product_carousel/:id',            to: 'categories#product_carousel',  as: :product_carousel
+    get   '/category/*id',                    to: 'categories#show',              as: :nested_categories
     get   '/unauthorized',                    to: 'errors#unauthorized',      as: :unauthorized
   end
 end

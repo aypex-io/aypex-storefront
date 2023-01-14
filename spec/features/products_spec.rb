@@ -226,27 +226,27 @@ describe 'Visiting Products', type: :feature, inaccessible: true do
     end
   end
 
-  context 'product with taxons' do
+  context 'product with categories' do
     let(:product) { Aypex::Product.find_by(name: 'Ruby on Rails Tote') }
-    let(:taxon) { product.taxons.first }
+    let(:category) { product.categories.first }
 
-    it 'displays breadcrumbs for the default taxon when none selected' do
+    it 'displays breadcrumbs for the default category when none selected' do
       click_link product.name
       expect(page).to have_current_path(aypex.product_path(product))
       within('#breadcrumbs') do
-        expect(page).to have_content taxon.name
+        expect(page).to have_content category.name
       end
     end
 
-    it 'displays selected taxon in breadcrumbs' do
-      taxon = Aypex::Taxon.last
-      product.taxons << taxon
+    it 'displays selected category in breadcrumbs' do
+      category = Aypex::Category.last
+      product.categories << category
       product.save!
-      visit '/t/' + taxon.to_param
+      visit '/t/' + category.to_param
       click_link product.name
-      expect(page).to have_current_path(aypex.product_path(product, taxon_id: taxon.id))
+      expect(page).to have_current_path(aypex.product_path(product, category_id: category.id))
       within('#breadcrumbs') do
-        expect(page).to have_content taxon.name
+        expect(page).to have_content category.name
       end
     end
   end

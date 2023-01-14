@@ -60,11 +60,11 @@ describe 'JSON-LD hashes', type: :feature, inaccessible: true do
                     Aypex::Product.where(name: 'Ruby on Rails Baseball Jersey')
   end
 
-  context 'taxon page' do
+  context 'category page' do
     before do
-      taxon = Aypex::Taxon.find_by(name: 'Bags')
+      category = Aypex::Category.find_by(name: 'Bags')
 
-      visit aypex.nested_taxons_path(taxon)
+      visit aypex.nested_categories_path(category)
     end
 
     it_behaves_like 'it contains products in JSON-LD hash',

@@ -15,16 +15,16 @@
   <% end %>
 <% end %>
 
-<% if section.link_one.present? && section.link_type_one == 'Aypex::Taxon' %>
-  <% link_one = aypex.nested_taxons_path(section.link_one) %>
+<% if section.link_one.present? && section.link_type_one == 'Aypex::Category' %>
+  <% link_one = aypex.nested_categories_path(section.link_one) %>
 <% elsif section.link_one.present? && section.link_type_one == 'Aypex::Product' %>
   <% link_one = aypex.product_path(section.link_one) %>
 <% else %>
   <% link_one = nil %>
 <% end %>
 
-<% if section.link_two.present? && section.link_type_two == 'Aypex::Taxon' %>
-  <% link_two = aypex.nested_taxons_path(section.link_two) %>
+<% if section.link_two.present? && section.link_type_two == 'Aypex::Category' %>
+  <% link_two = aypex.nested_categories_path(section.link_two) %>
 <% elsif section.link_two.present? && section.link_type_two == 'Aypex::Product' %>
   <% link_two = aypex.product_path(section.link_two) %>
 <% else %>
