@@ -2,10 +2,17 @@
   <h3 class="aypex-mb-large aypex-mt-large aypex-header"><%= Aypex.t(:editing_user) %></h3>
   <%= render partial: 'aypex/shared/error_messages', locals: { target: @user } %>
 
-  <%= form_for Aypex.user_class.new, as: @user, url: aypex.user_path(@user), method: :put do |f| %>
-    <%= render partial: 'aypex/shared/user_form', locals: { f: f, remember_me_field: false } %>
-    <div>
-      <%= f.submit Aypex.t(:update), class: 'btn btn-lg btn-block btn-primary text-uppercase font-weight-bold' %>
+  <%= form_with model: @user, scope: :aypex_user, url: aypex.aypex_user_password_path, method: :put do |f| %>
+    <div class="form-group">
+      <%= f.label :password, Aypex.t(:password), class: "spree-flat-label" %>
+      <%= f.password_field :password, class: "spree-flat-input" %>
     </div>
+    <div class="form-group">
+      <%= f.label :password_confirmation, Aypex.t(:confirm_password), class: 'spree-flat-label' %>
+      <%= f.password_field :password_confirmation, class: "spree-flat-input" %>
+    </div>
+
+    <%= f.hidden_field :reset_password_token %>
+    <%= f.submit Aypex.t(:update), class: 'btn btn-primary btn-block spree-btn mt-2' %>
   <% end %>
 </div>

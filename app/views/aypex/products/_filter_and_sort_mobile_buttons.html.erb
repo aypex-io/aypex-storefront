@@ -3,13 +3,13 @@
     <div id="filter-by-overlay-show-button" class="col-6 plp-filter-and-sort-vertical-border">
       <div class="plp-filter-and-sort-buttons">
         <%= Aypex.t('plp.filter_by') %>
-        <%= inline_svg_tag 'arrow-right.svg', class: "plp-icon" %>
+        <%= aypex_storefront_svg_tag 'arrow-right.svg', class: "plp-icon" %>
       </div>
     </div>
     <div id="sort-by-overlay-show-button" class="col-6">
       <div class="plp-filter-and-sort-buttons">
         <%= Aypex.t("plp.#{ params[:sort_by].blank? ? 'sort_by': params[:sort_by].gsub('-', '_') }") %>
-        <%= inline_svg_tag 'arrow-right.svg', class: "plp-icon" %>
+        <%= aypex_storefront_svg_tag 'arrow-right.svg', class: "plp-icon" %>
       </div>
     </div>
   </div>

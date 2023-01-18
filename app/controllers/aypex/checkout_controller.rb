@@ -157,7 +157,7 @@ module Aypex
         packages = @order.shipments.map(&:to_package)
         @differentiator = Aypex::Stock::Differentiator.new(@order, packages)
         @differentiator.missing.each do |variant, quantity|
-          Aypex::Dependencies.cart_remove_item_service.constantize.call(order: @order, variant: variant, quantity: quantity)
+          Aypex::Dependency.cart_remove_item_service.constantize.call(order: @order, variant: variant, quantity: quantity)
         end
       end
 
@@ -202,11 +202,11 @@ module Aypex
     end
 
     def add_store_credit_service
-      Aypex::Dependencies.checkout_add_store_credit_service.constantize
+      Aypex::Dependency.checkout_add_store_credit_service.constantize
     end
 
     def remove_store_credit_service
-      Aypex::Dependencies.checkout_remove_store_credit_service.constantize
+      Aypex::Dependency.checkout_remove_store_credit_service.constantize
     end
   end
 end

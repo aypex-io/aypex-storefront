@@ -1,5 +1,5 @@
 module Aypex
-  module ProductsFiltersHelper
+  module ProductFilterHelper
     PRICE_FILTER_NAME = 'price'.freeze
 
     FILTER_LINK_CSS_CLASSES = 'd-inline-block text-uppercase py-1 px-2 m-1 plp-overlay-card-item'.freeze

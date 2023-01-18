@@ -4,13 +4,13 @@ module Aypex
     before_action :set_current_order
     before_action :check_authorization
 
-    helper 'aypex/products', 'aypex/orders'
+    helper "aypex/products", "aypex/orders", "aypex/product"
 
     before_action :assign_order_with_lock, only: :update
 
     def show
       @order = current_store.orders.includes(line_items: [variant: [:option_values, :images, :product]], bill_address: :state,
-                                             ship_address: :state).find_by!(number: params[:id])
+        ship_address: :state).find_by!(number: params[:id])
     end
 
     def add_to_cart
@@ -58,9 +58,9 @@ module Aypex
 
     # Shows the current incomplete order from the session
     def edit
-      @order = current_order || current_store.orders.incomplete.
-               includes(line_items: [variant: [:images, :product, { option_values: :option_type }]]).
-               find_or_initialize_by(token: cookies.signed[:token])
+      @order = current_order || current_store.orders.incomplete
+        .includes(line_items: [variant: [:images, :product, {option_values: :option_type}]])
+        .find_or_initialize_by(token: cookies.signed[:token])
 
       associate_user
     end
@@ -133,23 +133,23 @@ module Aypex
 
     # Service Calls
     def create_order_service
-      Aypex::Dependencies.cart_create_service.constantize
+      Aypex::Dependency.cart_create_service.constantize
     end
 
     def cart_add_item_service
-      Aypex::Dependencies.cart_add_item_service.constantize
+      Aypex::Dependency.cart_add_item_service.constantize
     end
 
     def cart_remove_line_item_service
-      Aypex::Dependencies.cart_remove_line_item_service.constantize
+      Aypex::Dependency.cart_remove_line_item_service.constantize
     end
 
     def cart_empty_service
-      Aypex::Dependencies.cart_empty_service.constantize
+      Aypex::Dependency.cart_empty_service.constantize
     end
 
     def cart_set_item_quantity_service
-      Aypex::Dependencies.cart_set_item_quantity_service.constantize
+      Aypex::Dependency.cart_set_item_quantity_service.constantize
     end
 
     def coupon_handler

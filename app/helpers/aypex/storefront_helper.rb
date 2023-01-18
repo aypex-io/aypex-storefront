@@ -16,7 +16,7 @@ module Aypex
         img = if image_path.present?
           create_product_image_tag image_path, product, options, style
         else
-          inline_svg_tag "aypex/storefront/aypex-logo.svg", class: "noimage", size: "60px"
+          aypex_storefront_svg_tag "aypex-logo.svg", class: "noimage", size: "60px"
         end
 
         content_tag(:div, img, class: "product-image-container #{style}-img")
@@ -434,7 +434,7 @@ module Aypex
       classes = "align-text-bottom checkout-confirm-delivery-informations-link"
 
       link_to aypex.checkout_state_path(step), class: classes, method: :get do
-        inline_svg_tag "aypex/storefront/edit.svg"
+        aypex_storefront_svg_tag "edit.svg"
       end
     end
 

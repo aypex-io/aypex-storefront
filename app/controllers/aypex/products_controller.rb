@@ -4,6 +4,9 @@ module Aypex
     include Aypex::StorefrontHelper
     include Aypex::CacheHelper
 
+    helper "aypex/product_filter"
+    helper "aypex/structured_data"
+
     before_action :load_product, only: [:show, :related]
     before_action :load_category, only: :index
     before_action :can_show_product?, only: :show

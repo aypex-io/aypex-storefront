@@ -19,9 +19,9 @@ module Aypex
       product_amount = variant.product.amount_in(current_currency)
       return if variant_amount == product_amount || product_amount.nil?
 
-      diff   = variant.amount_in(current_currency) - product_amount
+      diff = variant.amount_in(current_currency) - product_amount
       amount = Aypex::Money.new(diff.abs, currency: current_currency).to_html
-      label  = diff > 0 ? :add : :subtract
+      label = (diff > 0) ? :add : :subtract
       "(#{Aypex.t(label)}: #{amount})".html_safe
     end
 
@@ -44,14 +44,14 @@ module Aypex
       option_values = variant.option_values
 
       img = if imgs.empty?
-              inline_svg_tag 'aypex/logo.svg', class: 'no-image', size: '60px'
-            elsif variant.is_master?
-              imgs.first
-            else
-              active_image_filter = option_values.joins(:option_type).where(option_type: { image_filter: true }).first
-              option_value_id = active_image_filter.id.to_s
-              imgs.where(private_metadata: { option_value_ids: [option_value_id] }).first
-            end
+        aypex_storefront_svg_tag "logo.svg", class: "no-image", size: "60px"
+      elsif variant.is_master?
+        imgs.first
+      else
+        active_image_filter = option_values.joins(:option_type).where(option_type: {image_filter: true}).first
+        option_value_id = active_image_filter.id.to_s
+        imgs.where(private_metadata: {option_value_ids: [option_value_id]}).first
+      end
 
       if img.instance_of? Aypex::Image
         if size.nil?
@@ -79,7 +79,7 @@ module Aypex
 
     def line_item_description_text(description_text)
       if description_text.present?
-        truncate(strip_tags(description_text.gsub('&nbsp;', ' ').squish), length: 100)
+        truncate(strip_tags(description_text.gsub("&nbsp;", " ").squish), length: 100)
       else
         Aypex.t(:product_has_no_description)
       end
@@ -87,8 +87,8 @@ module Aypex
 
     def cache_key_for_products(products = @products, additional_cache_key = nil)
       max_updated_at = (products.except(:group, :order).maximum(:updated_at) || Date.today).to_s(:number)
-      products_cache_keys = "aypex/products/#{products.map(&:id).join('-')}-#{params[:page]}-#{params[:sort_by]}-#{max_updated_at}-#{@category&.id}"
-      (common_product_cache_keys + [products_cache_keys] + [additional_cache_key]).compact.join('/')
+      products_cache_keys = "aypex/products/#{products.map(&:id).join("-")}-#{params[:page]}-#{params[:sort_by]}-#{max_updated_at}-#{@category&.id}"
+      (common_product_cache_keys + [products_cache_keys] + [additional_cache_key]).compact.join("/")
     end
 
     def cache_key_for_product(product = @product)
@@ -98,7 +98,7 @@ module Aypex
         product.possible_promotions.map(&:cache_key)
       ]
 
-      cache_key_elements.compact.join('/')
+      cache_key_elements.compact.join("/")
     end
 
     def available_status(product)
@@ -127,7 +127,7 @@ module Aypex
     end
 
     def option_value_default_image(product, option_value_id)
-      product.master_images.where(private_metadata: { option_value_ids: [option_value_id.to_s] }).first
+      product.master_images.where(private_metadata: {option_value_ids: [option_value_id.to_s]}).first
     end
 
     def product_relation_types
@@ -141,23 +141,23 @@ module Aypex
 
       return [] if product_ids.empty?
 
-      current_store.products.
-        available.not_discontinued.distinct.
-        where(id: product_ids).
-        includes(
+      current_store.products
+        .available.not_discontinued.distinct
+        .where(id: product_ids)
+        .includes(
           :tax_category,
           master: [
             :prices,
-            { images: { attachment_attachment: :blob } },
+            {images: {attachment_attachment: :blob}}
           ]
-        ).
-        limit(Aypex::Config[:products_per_page])
+        )
+        .limit(Aypex::Config[:products_per_page])
     end
 
     def related_products
       return [] unless @product.respond_to?(:has_related_products?)
 
-      @related_products ||= relations_by_type('related_products')
+      @related_products ||= relations_by_type("related_products")
     end
 
     def product_available_in_currency?

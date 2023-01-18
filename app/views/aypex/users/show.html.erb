@@ -6,7 +6,7 @@
       <dt class="text-uppercase account-page-user-info-item-title">
         <%= Aypex.t(:account_info) %>
           <%= link_to aypex.edit_user_path(@user), class: "account-page-user-info-item-title-edit" do %>
-          <%= inline_svg_tag('edit.svg', width: 27.6, height: 24) %>
+          <%= aypex_storefront_svg_tag('edit.svg', width: 27.6, height: 24) %>
         <% end %>
       </dt>
       <dd class="account-page-user-info-item-definition"><%= @user.email %></dd>
