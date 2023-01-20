@@ -1,20 +1,20 @@
 <div class='checkout-confirm-order-details w-100 d-flex flex-wrap' data-hook>
   <div class="checkout-confirm-delivery-informations text-start mt-3">
     <div class="d-lg-none checkout-confirm-delivery-informations-header">
-      <%= Aypex.t(:delivery_information) %>
+      <%= I18n.t('aypex.storefront.delivery_information') %>
     </div>
     <dl>
       <% if order.has_step?("address") %>
         <div data-hook="order-ship-address">
           <dt class="text-uppercase">
-            <%= Aypex.t(:shipping_address) %>
+            <%= I18n.t('aypex.storefront.shipping_address') %>
             <%= checkout_edit_link %>
           </dt>
           <%= render 'aypex/shared/address', address: order.ship_address %>
         </div>
         <div data-hook="order-bill-address">
           <dt class="text-uppercase">
-            <%= Aypex.t(:billing_address) %>
+            <%= I18n.t('aypex.storefront.billing_address') %>
             <%= checkout_edit_link %>
           </dt>
           <%= render 'aypex/shared/address', address: order.bill_address %>
@@ -23,7 +23,7 @@
       <% if order.has_step?("delivery") %>
         <div data-hook="order-shipment">
           <dt class="text-uppercase">
-            <%= Aypex.t(:shipping) %>
+            <%= I18n.t('aypex.storefront.shipping') %>
             <%= checkout_edit_link('delivery') %>
           </dt>
           <% @order.shipments.valid.each do |shipment| %>
@@ -35,7 +35,7 @@
       <% if order.has_step?("payment") %>
         <div data-hook="order-payment">
           <dt class="text-uppercase">
-            <%= Aypex.t(:payment) %>
+            <%= I18n.t('aypex.storefront.payment') %>
             <%= checkout_edit_link('payment') %>
           </dt>
           <dd>
@@ -43,7 +43,7 @@
           </dd>
           <dd>
             <% if !@order.complete? && @order.using_store_credit? %>
-              <%= button_tag Aypex.t('store_credit.remove'), name: 'remove_store_credit', class: 'continue btn' %>
+              <%= button_tag I18n.t('aypex.storefront.store_credit.remove'), name: 'remove_store_credit', class: 'continue btn' %>
             <% end %>
           </dd>
         </div>
@@ -53,21 +53,21 @@
 
   <div class="checkout-confirm-order-details-line-items d-flex flex-column mt-5 mr-md-4">
     <div class="checkout-confirm-order-details-line-items-header d-none d-sm-block d-lg-none align-self-start mb-3">
-      <%= Aypex.t(:products) %>
+      <%= I18n.t('aypex.storefront.products') %>
     </div>
     <div class="d-table" data-hook="order_details">
       <div class="d-none d-lg-table-row text-secondary text-uppercase" data-hook="order_details_line_items_headers">
         <p class="d-table-cell pb-1">
-          <%= Aypex.t(:product) %>
+          <%= I18n.t('aypex.storefront.product') %>
         </p>
         <p class="d-table-cell pb-1">
-          <%= Aypex.t(:price) %>
+          <%= I18n.t('aypex.storefront.price') %>
         </p>
         <p class="d-table-cell pb-1">
-          <%= Aypex.t(:quantity) %>
+          <%= I18n.t('aypex.storefront.quantity') %>
         </p>
         <p class="d-table-cell pb-1">
-          <%= Aypex.t(:total) %>
+          <%= I18n.t('aypex.storefront.total') %>
         </p>
       </div>
       <% @order.line_items.each do |item| %>
@@ -95,7 +95,7 @@
                   <div class="font-weight-bold"><%= item.single_money.to_html %></div>
                 </div>
                 <div class="d-lg-none" data-hook="order_item_qty">
-                  <span><%= Aypex.t(:quantity) %>:</span>
+                  <span><%= I18n.t('aypex.storefront.quantity') %>:</span>
                   <span class="font-weight-bold"><%= item.quantity %></span>
                 </div>
               </div>
@@ -120,7 +120,7 @@
     <% unless @order.uneditable? %>
       <div data-hook="buttons">
         <% submit_label_key = @order.confirm? ? :place_order : :save_and_continue %>
-        <%= submit_tag Aypex.t(submit_label_key), class: 'btn btn-primary text-uppercase font-weight-bold w-100 checkout-content-save-continue-button' %>
+        <%= submit_tag I18n.t("aypex.storefront.#{submit_label_key}"), class: 'btn btn-primary text-uppercase font-weight-bold w-100 checkout-content-save-continue-button' %>
       </div>
     <% end %>
   </div>

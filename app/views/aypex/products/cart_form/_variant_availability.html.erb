@@ -1,4 +1,4 @@
-<%= Aypex.t(:availability) %>:
+<%= I18n.t('aypex.storefront.availability') %>:
 <% if !product_available_in_currency? %>
   <%= render 'cart_form_availability_templates', type: 'not-available-in-currency' %>
 <% elsif @variant.in_stock? %>

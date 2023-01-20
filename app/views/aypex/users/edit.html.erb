@@ -1,18 +1,18 @@
 <div class="col-lg-6 offset-lg-3 mb-5">
-  <h3 class="aypex-mb-large aypex-mt-large aypex-header"><%= Aypex.t(:editing_user) %></h3>
+  <h3 class="aypex-mb-large aypex-mt-large aypex-header"><%= I18n.t('aypex.storefront.editing_user') %></h3>
   <%= render partial: 'aypex/shared/error_messages', locals: { target: @user } %>
 
   <%= form_with model: @user, scope: :aypex_user, url: aypex.aypex_user_password_path, method: :put do |f| %>
     <div class="form-group">
-      <%= f.label :password, Aypex.t(:password), class: "spree-flat-label" %>
+      <%= f.label :password, I18n.t('aypex.storefront.password'), class: "spree-flat-label" %>
       <%= f.password_field :password, class: "spree-flat-input" %>
     </div>
     <div class="form-group">
-      <%= f.label :password_confirmation, Aypex.t(:confirm_password), class: 'spree-flat-label' %>
+      <%= f.label :password_confirmation, I18n.t('aypex.storefront.confirm_password'), class: 'spree-flat-label' %>
       <%= f.password_field :password_confirmation, class: "spree-flat-input" %>
     </div>
 
     <%= f.hidden_field :reset_password_token %>
-    <%= f.submit Aypex.t(:update), class: 'btn btn-primary btn-block spree-btn mt-2' %>
+    <%= f.submit I18n.t('aypex.storefront.update'), class: 'btn btn-primary btn-block spree-btn mt-2' %>
   <% end %>
 </div>

@@ -1,8 +1,7 @@
 module Aypex
   class CategoriesController < Aypex::StoreController
-    include Aypex::StorefrontHelper
-    include Aypex::CacheHelper
-    helper 'aypex/products'
+    include Aypex::Storefront::StorefrontHelper
+    include Aypex::Storefront::CacheHelper
 
     before_action :load_category
 

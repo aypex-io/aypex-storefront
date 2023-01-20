@@ -2,8 +2,8 @@ module Aypex
   class CmsPagesController < Aypex::StoreController
     before_action :load_cms_page, only: [:show]
 
-    include Aypex::StorefrontHelper
-    include Aypex::CacheHelper
+    include Aypex::Storefront::StorefrontHelper
+    include Aypex::Storefront::CacheHelper
 
     def show
       if @page&.visible?

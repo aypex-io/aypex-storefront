@@ -1,6 +1,6 @@
 <!-- FIXME: Should be removed if not used? -->
 <% if @product.categories.present? %>
-  <h3 class="product-section-title"><%= Aypex.t(:look_for_similar_items) %></h3>
+  <h3 class="product-section-title"><%= I18n.t('aypex.storefront.look_for_similar_items') %></h3>
   <ul class="list-group" id="similar_items_by_category" data-hook>
     <% @product.categories.each do |category| %>
       <li class="list-group-item"><%= link_to category.name, seo_url(category) %></li>

@@ -14,13 +14,12 @@ module Aypex
     layout :get_layout
 
     # Aypex
-    helper "aypex/base"
-    helper "aypex/locale"
-    helper "aypex/currency"
+    helper "aypex/base", "aypex/currency", "aypex/locale", "aypex/products"
 
-    # Aypex::Storefront
-    helper "aypex/storefront"
-    helper "aypex/navigation"
+    # Imported from Aypex::Storefront
+    helper "aypex/storefront/address", "aypex/storefront/cache", "aypex/storefront/cart", "aypex/storefront/category",
+      "aypex/storefront/cms", "aypex/storefront/navigation", "aypex/storefront/order", "aypex/storefront/product_filter",
+      "aypex/storefront/product", "aypex/storefront/store", "aypex/storefront/storefront", "aypex/storefront/structured_data"
 
     helper_method :title
     helper_method :title=
@@ -109,7 +108,7 @@ module Aypex
 
     def redirect_unauthorized_access
       if try_aypex_current_user
-        flash[:error] = Aypex.t(:authorization_failure)
+        flash[:error] = I18n.t("aypex.storefront.authorization_failure")
         redirect_to aypex.forbidden_path
       else
         store_location

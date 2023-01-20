@@ -14,7 +14,7 @@
     <div class="d-none d-md-block pt-4 category-icon">
       <%= lazy_image(
         src: main_app.cdn_image_url(@category.icon.attachment),
-        alt: @category.description || Aypex.t('category_missing_alt'),
+        alt: @category.description || I18n.t('aypex.storefront.category_missing_alt'),
         width: 1110,
         height: 300,
         class: 'w-100'

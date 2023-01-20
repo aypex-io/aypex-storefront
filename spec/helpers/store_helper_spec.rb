@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 module Aypex
-  describe StoreHelper, type: :helper do
+  describe Aypex::Storefront::StoreHelper, type: :helper do
     let(:germany) { build(:country, name: 'Germany', iso: 'GR') }
     let(:eu_store) { build(:store, url: 'eu.aypexcommerce.org', default_currency: 'EUR', default_locale: 'de', default_country: germany) }
 

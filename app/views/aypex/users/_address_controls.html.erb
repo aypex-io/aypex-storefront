@@ -2,7 +2,7 @@
   <%= aypex_storefront_svg_tag('edit.svg', width: 24, height: 24) %>
 <% end %>
 
-<%= link_to '#', class: 'js-delete-address-link ml-3', data: { turbo: false, hook: 'remove_address', address: aypex.address_path(address) }, aria: { label: Aypex.t('address_book.remove_address') } do %>
+<%= link_to '#', class: 'js-delete-address-link ml-3', data: { turbo: false, hook: 'remove_address', address: aypex.address_path(address) }, aria: { label: I18n.t('aypex.storefront.address_book.remove_address') } do %>
     <%= aypex_storefront_svg_tag('garbage_2.svg',
              class: '',
              width: 24,

@@ -1,13 +1,14 @@
 <%= render 'aypex/products/filter_and_sort_mobile_buttons' %>
 <%= render 'aypex/products/sort_desktop', permitted_params: permitted_params %>
+
 <div class="container d-md-flex">
   <%= render 'aypex/products/filters_desktop', permitted_params: permitted_params %>
   <div class="text-lg-center col-md-12 col-lg-9">
-    <h6 class="plp-not-found-header pt-md-3 mb-3"><%= Aypex.t('plp.no_results') %></h6>
+    <h6 class="plp-not-found-header pt-md-3 mb-3"><%= I18n.t('aypex.storefront.plp.no_results') %></h6>
     <p class="plp-not-found-text pt-md-4">
-      <%= Aypex.t('plp.not_found_filters1') %>
+      <%= I18n.t('aypex.storefront.plp.not_found_filters1') %>
       <br class="d-inline d-md-none d-lg-inline">
-      <%= Aypex.t('plp.not_found_filters2') %>
+      <%= I18n.t('aypex.storefront.plp.not_found_filters2') %>
     </p>
   </div>
 </div>

@@ -5,30 +5,30 @@
     <div class="form-group checkout-content-inner-field" id="<%= "#{address_id}country" %>">
       <div id="<%= "#{address_id}country-selection" %>" class="d-block position-relative has-float-label">
         <%= address_form.collection_select :country_id, available_countries, :id, :name,
-                                           { prompt: Aypex.t(:country).upcase },
+                                           { prompt: I18n.t('aypex.storefront.country').upcase },
                                            { class: 'form-control aypex-flat-select',
-                                             aria: { label: Aypex.t(:country) } } %>
+                                             aria: { label: I18n.t('aypex.storefront.country') } } %>
 
         <%= aypex_storefront_svg_tag 'arrow.svg',  class: 'position-absolute aypex-flat-select-arrow' %>
 
-        <%= address_form.label(Aypex.t(:country), Aypex.t(:country).upcase, class:'text-uppercase') %>
+        <%= address_form.label(I18n.t('aypex.storefront.country'), I18n.t('aypex.storefront.country').upcase, class:'text-uppercase') %>
       </div>
     </div>
   <% elsif field == "state" %>
     <div class="form-group mb-4">
-      <%= address_field(address_form, :state, address_id) { address_state(address_form, address.country, address_id) } if Aypex::Config[:address_requires_state] %>
+      <%#= address_field(address_form, :state, address_id) { address_state(address_form, address.country, address_id) } if Aypex::Config[:address_requires_state] %>
     </div>
   <% elsif field == "zipcode" %>
     <div class="form-group mb-4">
       <%= address_field(address_form, :zipcode, address_id) { address_zipcode(address_form, address.country, address_id) } %>
     </div>
   <% else %>
-    <% next if field == "company" && !Aypex::Config[:company] %>
-    <% next if field == "alternative_#{address_id}_phone" && !Aypex::Config["alternative_#{address_id}_phone"] %>
+    <% next if field == "company" && !current_store.address_show_company_address_field %>
+    <% next if field == "alternative_#{address_id}_phone" && !current_store.address_require_alt_phone_number %>
     <div class="form-group mb-4">
       <%= address_field(address_form, field.to_sym, address_id) %>
     </div>
   <% end %>
 <% end %>
 
-<p class="text-end text-uppercase mb-5 checkout-content-inner-field"><span id="required_marker"><%= Aypex.t(:required) %></span> <%= Aypex.t(:required_fields) %></p>
+<p class="text-end text-uppercase mb-5 checkout-content-inner-field"><span id="required_marker"><%= I18n.t('aypex.storefront.required') %></span> <%= I18n.t('aypex.storefront.required_fields') %></p>

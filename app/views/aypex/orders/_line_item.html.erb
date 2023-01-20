@@ -20,7 +20,7 @@
 
       <% if line_item.insufficient_stock? %>
         <span class="out-of-stock text-secondary">
-          <%= Aypex.t(:out_of_stock) %>
+          <%= I18n.t('aypex.storefront.out_of_stock') %>
         </span>
       <% end %>
 

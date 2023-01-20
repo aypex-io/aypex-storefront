@@ -11,13 +11,13 @@
           <% child_categories.each_with_index.map do |subcategory, index| %>
             <%=
               link_to_unless subcategory == category,
-                            index.zero? ? Aypex.t(:all) : subcategory.name,
+                            index.zero? ? I18n.t('aypex.storefront.all') : subcategory.name,
                             aypex.nested_categories_path(subcategory, params: permitted_product_params),
                             class: "pt-4 pb-2 mb-2 #{index.zero? ? '' : 'ps-4 pt-4 pb-2'}" do
             %>
               <div class="pt-4 mb-2 <%= index.zero? ? '' : 'ps-4' %>">
                 <span class="pb-2 category-subcategories-selected">
-                  <%= index.zero? ? Aypex.t(:all) : subcategory.name %>
+                  <%= index.zero? ? I18n.t('aypex.storefront.all') : subcategory.name %>
                 </span>
               </div>
             <% end %>

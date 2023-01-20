@@ -3,7 +3,7 @@
 <% if source.is_a?(Aypex::CreditCard) %>
   <span class="cc-type">
     <% if source.last_digits %>
-      <%= Aypex.t(:ending_in) %> <%= source.last_digits %>
+      <%= I18n.t('aypex.storefront.ending_in') %> <%= source.last_digits %>
     <% end %>
   </span>
   <br>

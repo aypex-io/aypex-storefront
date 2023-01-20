@@ -1,22 +1,22 @@
 <thead>
   <tr data-hook="cart_adjustments_headers">
-    <th class="cart-adjustment-header" colspan="6"><%= Aypex.t(:order_adjustments) %></th>
+    <th class="cart-adjustment-header" colspan="6"><%= I18n.t('aypex.storefront.order_adjustments') %></th>
   </tr>
 </thead>
 <tbody id="cart_adjustments" data-hook>
   <% if @order.line_item_adjustments.exists? %>
     <% @order.line_item_adjustments.promotion.eligible.group_by(&:label).each do |label, adjustments| %>
-      <%= render "aypex/orders/adjustment_row", label: label, adjustments: adjustments, type: Aypex.t(:promotion) %>
+      <%= render "aypex/orders/adjustment_row", label: label, adjustments: adjustments, type: I18n.t('aypex.storefront.promotion') %>
     <% end %>
   <% end %>
 
   <% @order.all_adjustments.tax.eligible.group_by(&:label).each do |label, adjustments| %>
-    <%= render "aypex/orders/adjustment_row", label: label, adjustments: adjustments, type: Aypex.t(:tax) %>
+    <%= render "aypex/orders/adjustment_row", label: label, adjustments: adjustments, type: I18n.t('aypex.storefront.tax') %>
   <% end %>
 
   <% @order.shipments.each do |shipment| %>
     <tr>
-      <td colspan="4" align='right'><h5><%= Aypex.t(:shipping) %>: <%= shipment.shipping_method.name %></h5></td>
+      <td colspan="4" align='right'><h5><%= I18n.t('aypex.storefront.shipping') %>: <%= shipment.shipping_method.name %></h5></td>
       <td colspan='2'>
         <h5><%= shipment.display_discounted_cost %></h5>
       </td>
@@ -24,6 +24,6 @@
   <% end %>
 
   <% @order.adjustments.eligible.group_by(&:label).each do |label, adjustments| %>
-    <%= render "aypex/orders/adjustment_row", label: label, adjustments: adjustments, type: Aypex.t(:adjustment) %>
+    <%= render "aypex/orders/adjustment_row", label: label, adjustments: adjustments, type: I18n.t('aypex.storefront.adjustment') %>
   <% end %>
 </tbody>

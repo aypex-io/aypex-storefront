@@ -1,7 +1,7 @@
 <div class="container">
   <div class="not-found-page text-center pt-5">
     <h1 class="display-1 text-primary">404</h1>
-    <p><strong><%= Aypex.t(:page_not_found) %></strong></p>
-    <p><%= Aypex.t(:get_back_to_the) %> <%= link_to Aypex.t(:home_page), aypex.root_url %></p>
+    <p><strong><%= I18n.t('aypex.storefront.page_not_found') %></strong></p>
+    <p><%= I18n.t('aypex.storefront.get_back_to_the') %> <%= link_to I18n.t('aypex.storefront.home_page'), aypex.root_url %></p>
   </div>
 </div>

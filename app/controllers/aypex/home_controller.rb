@@ -1,6 +1,6 @@
 module Aypex
   class HomeController < Aypex::StoreController
-    include Aypex::CacheHelper
+    include Aypex::Storefront::CacheHelper
 
     before_action :load_homepage, only: [:index]
 

@@ -2,7 +2,7 @@
 
 <% if promotions.any? %>
   <div id="promotions">
-    <h3 class="pt-4 font-weight-bold text-uppercase product-details-subtitle"><%= Aypex.t(:promotions) %></h3>
+    <h3 class="pt-4 font-weight-bold text-uppercase product-details-subtitle"><%= I18n.t('aypex.storefront.promotions') %></h3>
     <% promotions.each do |promotion| %>
       <div class="row">
         <div class="col-12 col-md-7 col-lg-6 mb-3">
@@ -11,7 +11,7 @@
               <h4><%= promotion.name %></h4>
               <p><%= promotion.description %></p>
               <% if promotion.products.any? %>
-                <span><%= Aypex.t('pdp.products_included_in_promotion') %>:</span>
+                <span><%= I18n.t('aypex.storefront.pdp.products_included_in_promotion') %>:</span>
               <% end %>
             </div>
             <% if promotion.products.any? %>

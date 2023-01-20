@@ -1,77 +1,77 @@
-require 'spec_helper'
+require "spec_helper"
 
-describe Aypex::AddressesHelper, type: :helper do
+describe Aypex::Storefront::AddressesHelper, type: :helper do
   class SampleClass
-    include Aypex::AddressesHelper
+    include Aypex::Storefront::AddressesHelper
   end
 
-  describe '#user_available_addresses' do
-    subject        { SampleClass.new.user_available_addresses }
+  describe "#user_available_addresses" do
+    subject { SampleClass.new.user_available_addresses }
 
-    let!(:user)    { create(:user) }
-    let!(:store)   { create(:store) }
+    let!(:user) { create(:user) }
+    let!(:store) { create(:store) }
 
-    let(:new_york) { create(:state, name: 'New York') }
+    let(:new_york) { create(:state, name: "New York") }
 
     # countries
     let!(:united_states) do
-      create(:country, name: 'United States').tap do |usa|
+      create(:country, name: "United States").tap do |usa|
         usa.states << new_york
       end
     end
-    let!(:china)   { create(:country, name: 'China') }
-    let!(:ukraine) { create(:country, name: 'Ukraine') }
+    let!(:china) { create(:country, name: "China") }
+    let!(:ukraine) { create(:country, name: "Ukraine") }
 
     # addresses
     let!(:usa_address) do
       create(:address,
-             country_id: united_states.id,
-             state_id: new_york.id,
-             user: user)
+        country_id: united_states.id,
+        state_id: new_york.id,
+        user: user)
     end
     let!(:china_address) do
       create(:address,
-             country_id: china.id,
-             user: user)
+        country_id: china.id,
+        user: user)
     end
     let!(:ukraine_address) do
       create(:address,
-             country_id: ukraine.id,
-             user: user)
+        country_id: ukraine.id,
+        user: user)
     end
 
     before do
-      allow_any_instance_of(described_class).to receive(:current_store)          { store }
+      allow_any_instance_of(described_class).to receive(:current_store) { store }
       allow_any_instance_of(described_class).to receive(:try_aypex_current_user) { current_store }
     end
 
-    context 'when user is not present' do
+    context "when user is not present" do
       let(:current_store) { nil }
 
-      it 'returns an empty array' do
+      it "returns an empty array" do
         expect(subject).to match_array []
       end
     end
 
-    context 'when user is present' do
+    context "when user is present" do
       let(:current_store) { user }
 
       before do
         store.update(checkout_zone: checkout_zone)
       end
 
-      context 'when checkout zone does not include user addresses states' do
+      context "when checkout zone does not include user addresses states" do
         let(:checkout_zone) { create(:zone, kind: :country) } # zone with no attached zoneable
 
-        it 'returns an empty array' do
+        it "returns an empty array" do
           expect(subject).to match_array []
         end
       end
 
-      context 'when checkout zone includes user addresses states' do # Global Zone including all countries
+      context "when checkout zone includes user addresses states" do # Global Zone including all countries
         let(:checkout_zone) { create(:global_zone) }
 
-        it 'returns that addresses' do
+        it "returns that addresses" do
           expect(subject).to contain_exactly(usa_address)
         end
       end

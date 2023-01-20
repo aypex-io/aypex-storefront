@@ -1,11 +1,11 @@
 <%= form_tag aypex.products_path, method: :get, class: "d-flex align-items-center" do %>
   <%= search_field_tag :keywords,
                        params[:keywords],
-                       placeholder: Aypex.t(:search),
-                       title: Aypex.t(:search),
+                       placeholder: I18n.t('aypex.storefront.search'),
+                       title: I18n.t('aypex.storefront.search'),
                        autofocus: true,
                        autocomplete: false,
-                       'aria-label': Aypex.t(:search),
+                       'aria-label': I18n.t('aypex.storefront.search'),
                        class: " border-0 p-3" %>
 
   <button type="submit" class="btn border-0 p-0" aria-label="Submit">

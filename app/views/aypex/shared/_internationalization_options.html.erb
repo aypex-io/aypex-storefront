@@ -1,7 +1,7 @@
 <% if (defined?(should_render_store_chooser?) && should_render_store_chooser?) || (defined?(should_render_internationalization_dropdown?) && should_render_internationalization_dropdown?) %>
   <li class="d-none d-xl-block internationalization-options">
     <div class="dropdown navbar-right-dropdown">
-      <button id="internationalization-button-desktop" type="button" data-toggle="dropdown" class="navbar-right-dropdown-toggle" aria-label="<%= Aypex.t(:internationalization) %>">
+      <button id="internationalization-button-desktop" type="button" data-toggle="dropdown" class="navbar-right-dropdown-toggle" aria-label="<%= I18n.t('aypex.storefront.internationalization') %>">
         <%= aypex_storefront_svg_tag('global.svg',
                 class: 'd-none d-xl-inline-block',
                 width: 41,

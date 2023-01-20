@@ -1,11 +1,8 @@
 module Aypex
   class ProductsController < Aypex::StoreController
-    include Aypex::ProductHelper
-    include Aypex::StorefrontHelper
-    include Aypex::CacheHelper
-
-    helper "aypex/product_filter"
-    helper "aypex/structured_data"
+    include Aypex::Storefront::ProductHelper
+    include Aypex::Storefront::StorefrontHelper
+    include Aypex::Storefront::CacheHelper
 
     before_action :load_product, only: [:show, :related]
     before_action :load_category, only: :index

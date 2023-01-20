@@ -1,15 +1,15 @@
 <div class="col-lg-11 mx-auto">
-  <h3 class="aypex-mb-large aypex-mt-large aypex-header"><%= Aypex.t(:log_in_to_continue) %></h3>
+  <h3 class="aypex-mb-large aypex-mt-large aypex-header"><%= I18n.t('aypex.storefront.log_in_to_continue') %></h3>
   <%= form_for Aypex::Config.user_class.new, as: :aypex_user, url: aypex_login_path, data: { turbo: false } do |f| %>
     <div id="password-credentials" class="mb-4">
       <div class="form-group mb-4">
         <p class="form-group checkout-content-inner-field">
-          <%= f.email_field :email, class: 'aypex-flat-input', placeholder: Aypex.t(:email), value: params.dig(:aypex_user, :email) %>
+          <%= f.email_field :email, class: 'aypex-flat-input', placeholder: I18n.t('aypex.storefront.email'), value: params.dig(:aypex_user, :email) %>
         </p>
       </div>
       <div class="form-group mb-4">
         <p class="form-group checkout-content-inner-field">
-          <%= f.password_field :password, class: 'aypex-flat-input', placeholder: Aypex.t(:password) %>
+          <%= f.password_field :password, class: 'aypex-flat-input', placeholder: I18n.t('aypex.storefront.password') %>
         </p>
       </div>
     </div>
@@ -21,16 +21,16 @@
           <%= f.label :remember_me, '' %>
         </div>
 
-        <%= f.label :remember_me, Aypex.t(:remember_me), class: 'aypex-checkbox-label' %>
+        <%= f.label :remember_me, I18n.t('aypex.storefront.remember_me'), class: 'aypex-checkbox-label' %>
       </div>
     <% end %>
 
-    <%= f.submit Aypex.t(:login), class: 'btn btn-primary btn-block aypex-btn mt-2' %>
+    <%= f.submit I18n.t('aypex.storefront.login'), class: 'btn btn-primary btn-block aypex-btn mt-2' %>
   <% end %>
 
   <% if aypex.respond_to?(:recover_password_path) %>
     <div class="text-center forgot-password mb-4">
-      <%= link_to Aypex.t(:forgot_password), aypex.recover_password_path %>
+      <%= link_to I18n.t('aypex.storefront.forgot_password'), aypex.recover_password_path %>
     </div>
   <% end %>
 </div>

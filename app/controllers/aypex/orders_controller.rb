@@ -4,8 +4,6 @@ module Aypex
     before_action :set_current_order
     before_action :check_authorization
 
-    helper "aypex/products", "aypex/orders", "aypex/product"
-
     before_action :assign_order_with_lock, only: :update
 
     def show
@@ -96,9 +94,9 @@ module Aypex
 
     def accurate_title
       if @order&.completed?
-        Aypex.t(:order_number, number: @order.number)
+        I18n.t("aypex.storefront.order_number", number: @order.number)
       else
-        Aypex.t(:shopping_cart)
+        I18n.t("aypex.storefront.shopping_cart")
       end
     end
 
@@ -126,7 +124,7 @@ module Aypex
     def assign_order_with_lock
       @order = current_order(lock: true)
       unless @order
-        flash[:error] = Aypex.t(:order_not_found)
+        flash[:error] = I18n.t("aypex.storefront.order_not_found")
         redirect_to root_path and return
       end
     end

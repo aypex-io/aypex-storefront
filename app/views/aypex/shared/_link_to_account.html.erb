@@ -1,10 +1,10 @@
 <% if try_aypex_current_user %>
-  <%= link_to Aypex.t(:my_account).upcase, aypex.account_path, class: 'dropdown-item' if aypex.respond_to?(:account_path) %>
+  <%= link_to I18n.t('aypex.storefront.my_account').upcase, aypex.account_path, class: 'dropdown-item' if aypex.respond_to?(:account_path) %>
   <% if aypex.respond_to?(:admin_orders_path) %>
-    <%= link_to Aypex.t('nav_bar.admin_panel'), aypex.admin_orders_path(locale: nil), class: 'dropdown-item text-uppercase' if try_aypex_current_user.has_aypex_role?(:admin) %>
+    <%= link_to I18n.t('aypex.storefront.nav_bar.admin_panel'), aypex.admin_orders_path(locale: nil), class: 'dropdown-item text-uppercase' if try_aypex_current_user.has_aypex_role?(:admin) %>
   <% end %>
-  <%= link_to Aypex.t(:logout).upcase, aypex_logout_path, class: 'dropdown-item', method: :get if defined?(aypex_logout_path) %>
+  <%= link_to I18n.t('aypex.storefront.logout').upcase, aypex_logout_path, class: 'dropdown-item', method: :get if defined?(aypex_logout_path) %>
 <% else %>
-  <%= link_to Aypex.t(:login).upcase, aypex_login_path, class: 'dropdown-item' if defined?(aypex_login_path) %>
-  <%= link_to Aypex.t(:sign_up).upcase, aypex_signup_path, class: 'dropdown-item' if defined?(aypex_signup_path) %>
+  <%= link_to I18n.t('aypex.storefront.login').upcase, aypex_login_path, class: 'dropdown-item' if defined?(aypex_login_path) %>
+  <%= link_to I18n.t('aypex.storefront.sign_up').upcase, aypex_signup_path, class: 'dropdown-item' if defined?(aypex_signup_path) %>
 <% end %>

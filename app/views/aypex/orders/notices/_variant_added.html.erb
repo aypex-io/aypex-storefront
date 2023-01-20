@@ -1,5 +1,5 @@
 <% content_for :modal_header do %>
-  <h5 class="modal-title"><%= Aypex.t(:added_to_cart) %></h5>
+  <h5 class="modal-title"><%= I18n.t('aypex.storefront.added_to_cart') %></h5>
   <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 <% end %>
 
@@ -39,11 +39,11 @@
 <% content_for :modal_footer do %>
   <div class="row">
     <div class="col-6">
-      <%= link_to Aypex.t('pdp.view_cart'), aypex.cart_path, class: 'btn btn-outline-primary w-100 font-weight-bold text-uppercase product-added-modal-button' %>
+      <%= link_to I18n.t('aypex.storefront.pdp.view_cart'), aypex.cart_path, class: 'btn btn-outline-primary w-100 font-weight-bold text-uppercase product-added-modal-button' %>
     </div>
 
     <div class="col-6">
-      <%= link_to Aypex.t(:checkout), aypex.checkout_root_path, class: 'btn btn-primary w-100 font-weight-bold text-uppercase product-added-modal-button' %>
+      <%= link_to I18n.t('aypex.storefront.checkout'), aypex.checkout_root_path, class: 'btn btn-primary w-100 font-weight-bold text-uppercase product-added-modal-button' %>
     </div>
   </div>
 <% end %>

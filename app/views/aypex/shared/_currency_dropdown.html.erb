@@ -2,7 +2,7 @@
   <%= form_tag aypex.set_currency_path, method: :get, class: 'px-4 py-3 w-100 currency-select' do %>
     <div class="form-group">
       <label for="switch_to_currency" class="dropdown-header text-center">
-        <%= Aypex.t(:choose_currency) %>
+        <%= I18n.t('aypex.storefront.choose_currency') %>
       </label>
       <%= select_tag(:switch_to_currency,
         options_for_select(supported_currency_options, current_currency),

@@ -1,6 +1,6 @@
 require "spec_helper"
 
-describe Aypex::CategoriesHelper, type: :helper do
+describe Aypex::Storefront::CategoriesHelper, type: :helper do
   # Regression test for #4382
   it "#category_preview" do
     category = create(:category)

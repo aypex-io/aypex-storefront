@@ -1,4 +1,4 @@
-<%= link_to aypex.cart_path, class: "btn btn-sm", aria_label: Aypex.t(:cart) do %>
+<%= link_to aypex.cart_path, class: "btn btn-sm", aria_label: I18n.t('aypex.storefront.cart') do %>
   <div class="position-relative">
     <%= aypex_storefront_svg_tag('cart.svg', width: size, height: size) %>
     <span id="cartItemCount" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-success" data-turbo-permanent>

@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 module Aypex
-  describe NavigationHelper, type: :helper do
+  describe Aypex::Storefront::NavigationHelper, type: :helper do
     include Aypex::CurrencyHelper
     include Aypex::LocaleHelper
 

@@ -1,10 +1,8 @@
-<% if aypex_menu.present? %>
-  <ul style="z-index: 1050;"
+<ul style="z-index: 1050;"
       id="pointerOnlyNav"
       class="d-none d-lg-flex nav h-100 flex-fill justify-content-center text-decoration-none"
-      role="navigation"
-      aria-label="<%= Aypex.t('nav_bar.desktop') %>">
-
+      role="navigation">
+  <% if aypex_menu.present? %>
     <% aypex_menu.children.each do |parent| %>
       <% has_dropdown = parent.children.present? %>
       <% dropdown_toggle_class = has_dropdown ? "dropdown-toggle" : "" %>
@@ -75,5 +73,5 @@
         <% end %>
       </li>
     <% end %>
-  </ul>
-<% end %>
+  <% end %>
+</ul>

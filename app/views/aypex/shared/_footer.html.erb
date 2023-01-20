@@ -17,7 +17,7 @@
         <div class="d-block flex-nowrap py-2 order-xl-last col-xl-3 offset-xl-1">
           <% unless current_store.facebook.blank? && current_store.twitter.blank? && current_store.instagram.blank? %>
             <div class="d-none d-xl-block pt-4 pb-3 ps-2 footer-aypex-label">
-              <%= Aypex.t(:follow_us) %>
+              <%= I18n.t('aypex.storefront.follow_us') %>
             </div>
           <% end %>
           <div class="d-flex d-xl-block justify-content-center mx-auto">
@@ -30,7 +30,7 @@
         </div>
         <div class="py-xl-2 col-xl-3 offset-xl-1">
           <div class="d-none d-xl-block pt-4 pb-3 footer-aypex-label">
-            <%= Aypex.t(:contact_us) %>
+            <%= I18n.t('aypex.storefront.contact_us') %>
           </div>
           <div class="d-flex flex-column align-items-center align-items-xl-start pb-3 flex-grow-2 footer-aypex-contact-note">
             <div>
@@ -41,10 +41,10 @@
               <% end %>
             </div>
             <% if current_store.contact_phone&.present? %>
-              <div><%= Aypex.t(:call_us_now) %><%= current_store.contact_phone %></div>
+              <div><%= I18n.t('aypex.storefront.call_us_now') %><%= current_store.contact_phone %></div>
             <% end %>
             <% if current_store.customer_support_email&.present? %>
-              <div><%= Aypex.t(:email) %>: <%= current_store.customer_support_email %></div>
+              <div><%= I18n.t('aypex.storefront.email') %>: <%= current_store.customer_support_email %></div>
             <% end %>
           </div>
         </div>
@@ -73,10 +73,10 @@
         <% if aypex.respond_to?(:account_path) %>
           <div class="col-3 mb-5">
             <div class="footer-aypex-label">
-              <%= Aypex.t('nav_bar.my_account') %>
+              <%= I18n.t('aypex.storefront.nav_bar.my_account') %>
             </div>
             <div class="pt-2">
-              <%= link_to Aypex.t(:my_orders).upcase, aypex.account_path(anchor: "account-my-orders") %>
+              <%= link_to I18n.t('aypex.storefront.my_orders').upcase, aypex.account_path(anchor: "account-my-orders") %>
             </div>
           </div>
         <% end %>
