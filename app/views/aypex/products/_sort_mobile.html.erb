@@ -1,7 +1,7 @@
 <div id="sort-by-overlay" class="plp-overlay" style="display: none;">
   <div class="container">
     <div class="plp-overlay-header">
-      <%= I18n.t('aypex.storefront.plp.sort_by') %>
+      <%= I18n.t('aypex.storefront.sort_by') %>
       <%= aypex_storefront_svg_tag 'close.svg', id: 'sort-by-overlay-hide-button' %>
     </div>
   </div>
@@ -12,7 +12,7 @@
         <div class="plp-empty-dot">
           <div class="filled-dot"></div>
         </div>
-        <%= I18n.t('aypex.storefront.plp.default') %>
+        <%= I18n.t('aypex.storefront.default') %>
       </a>
     </li>
     <li class="plp-overlay-ul-li <%= 'plp-overlay-ul-li--active' if params[:sort_by] == 'name-a-z' %>">
@@ -20,7 +20,7 @@
         <div class="plp-empty-dot">
           <div class="filled-dot"></div>
         </div>
-        <%= I18n.t('aypex.storefront.plp.name_a_z') %>
+        <%= I18n.t('aypex.storefront.name_a_z') %>
       </a>
     </li>
     <li class="plp-overlay-ul-li <%= 'plp-overlay-ul-li--active' if params[:sort_by] == 'name-z-a' %>">
@@ -28,7 +28,7 @@
         <div class="plp-empty-dot">
           <div class="filled-dot"></div>
         </div>
-        <%= I18n.t('aypex.storefront.plp.name_z_a') %>
+        <%= I18n.t('aypex.storefront.name_z_a') %>
       </a>
     </li>
     <li class="plp-overlay-ul-li <%= 'plp-overlay-ul-li--active' if params[:sort_by] == 'newest-first' %>">
@@ -36,7 +36,7 @@
         <div class="plp-empty-dot">
           <div class="filled-dot"></div>
         </div>
-        <%= I18n.t('aypex.storefront.plp.newest_first') %>
+        <%= I18n.t('aypex.storefront.newest_first') %>
       </a>
     </li>
     <li class="plp-overlay-ul-li <%= 'plp-overlay-ul-li--active' if params[:sort_by] == 'price-high-to-low' %>">
@@ -44,7 +44,7 @@
         <div class="plp-empty-dot">
           <div class="filled-dot"></div>
         </div>
-        <%= I18n.t('aypex.storefront.plp.price_high_to_low') %>
+        <%= I18n.t('aypex.storefront.price_high_to_low') %>
       </a>
     </li>
     <li class="plp-overlay-ul-li <%= 'plp-overlay-ul-li--active' if params[:sort_by] == 'price-low-to-high' %>">
@@ -52,7 +52,7 @@
         <div class="plp-empty-dot">
           <div class="filled-dot"></div>
         </div>
-        <%= I18n.t('aypex.storefront.plp.price_low_to_high') %>
+        <%= I18n.t('aypex.storefront.price_low_to_high') %>
       </a>
     </li>
   </ul>

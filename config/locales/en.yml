@@ -5,27 +5,16 @@ en:
       account_info: Account info
       active: Active
       add_new_address: Add new address
+      add_promo_code: Add promo code
       add_to_cart: Add to cart
       added_to_cart: Added to cart
-      address_action_popup:
-        delete_button: Delete button
-        delete_text: Delete text
-        delete_title: Delete title
-      address_book:
-        address_name_placeholder: Address name placeholder
-        edit_address: Edit address
-        label: Label
-        new_address: New address
-        remove_address: Remove address
-        save: Save
-        successfully_created: Successfully created
-        successfully_removed: Successfully removed
-        successfully_updated: Successfully updated
-        update: Update
+      address_name_placeholder: Address name placeholder
       adjustment: Adjustment
+      admin_panel: Admin panel
       all: All
       all_rights_reserved: All rights reserved
       alternative_phone: Alternative phone
+      apply: Apply
       archived: Archived
       authorization_failure: Authorization failure
       availability: Availability
@@ -35,46 +24,46 @@ en:
       call_us_now: Call us now
       cancel: Cancel
       cart: Cart
-      cart_page:
-        add_promo_code: Add promo code
-        cart: Cart
-        checkout: Checkout
-        empty_info: Empty info
-        title: Title
       category_missing_alt: Category missing alt
       checkout: Checkout
-      checkout_page:
-        back_to_cart: Back to cart
-        main_navigation: Main navigation
       choose_currency: Choose currency
       city: City
+      clear_all: Clear all
       company: Company
       confirm_password: Confirm password
       contact_us: Contact us
       continue_shopping: Continue shopping
       country: Country
       date: Date
+      default: Default
+      delete_button: Delete button
+      delete_text: Delete text
+      delete_title: Delete title
       deleted: Deleted
       delivery_information: Delivery information
       details: Details
       discounts: Discounts
       do_you_have_a_promo_code: Do you have a Promo Code?
+      done: Done
       dont_have_account: Dont have account
       draft: Draft
       draft_mode: Draft mode
+      edit_address: Edit address
       editing_user: Editing user
       email: Email
+      empty_info: Empty info
       ending_in: Ending in
+      filter_by: Filter by
       first_name: First name
       follow_us: Follow us
       forgot_password: Forgot password
       get_back_to_the: Get back to the
       home: Home
       home_page: Home page
-      i18n:
-        language: Language
       in_stock: In stock
       internationalization: Internationalization
+      label: Label
+      language: Language
       last_name: Last name
       less_than: Less than
       log_in_to_continue: Log in to continue
@@ -85,10 +74,17 @@ en:
       min: Min
       my_account: My account
       my_orders: My orders
-      nav_bar:
-        admin_panel: Admin panel
-        my_account: My account
+      name_a_z: Name a z
+      name_z_a: Name z a
+      new_address: New address
+      newest_first: Newest first
       next: Next
+      no_results: No results
+      no_results_found: No results found
+      not_found_filters1: Not found filters1
+      not_found_filters2: Not found filters2
+      not_found_text1: Not found text1
+      not_found_text2: Not found text2
       order_adjustments: Order adjustments
       order_not_found: Order not found
       order_number: Order number
@@ -99,64 +95,52 @@ en:
       password: Password
       payment: Payment
       payment_state: Payment state
-      pdp:
-        products_included_in_promotion: Products included in promotion
-        quantity: Quantity
-        view_cart: View cart
       pending_sale: Pending sale
       phone: Phone
       please_check_back_soon: Please check back soon
-      plp:
-        clear_all: Clear all
-        default: Default
-        done: Done
-        filter_by: Filter by
-        name_a_z: Name a z
-        name_z_a: Name z a
-        newest_first: Newest first
-        no_results: No results
-        no_results_found: No results found
-        not_found_filters1: Not found filters1
-        not_found_filters2: Not found filters2
-        not_found_text1: Not found text1
-        not_found_text2: Not found text2
-        price: Price
-        price_high_to_low: Price high to low
-        price_low_to_high: Price low to high
-        results_for: Results for
-        sort_by: Sort by
       previous: Previous
       price: Price
+      price_high_to_low: Price high to low
+      price_low_to_high: Price low to high
       product: Product
       product_has_no_description: Product has no description
       product_not_available_in_this_currency: Product not available in this currency
       products: Products
+      products_included_in_promotion: Products included in promotion
       promotion: Promotion
       promotions: Promotions
       quantity: Quantity
       remember_me: Remember me
+      remove: Remove
+      remove_address: Remove address
       remove_item: Remove item
       required: Required
       required_fields: Required fields
+      results_for: Results for
+      save: Save
       search: Search
       shipment_state: Shipment state
       shipping: Shipping
       shipping_address: Shipping address
       shopping_cart: Shopping cart
       sign_up: Sign up
+      sort_by: Sort by
       state: State
       status: Status
-      store_credit:
-        remove: Remove
       store_credit_name: Store credit name
       street_address: Street address
       street_address_2: Street address 2
       subtotal: Subtotal
+      successfully_created: Successfully created
+      successfully_removed: Successfully removed
+      successfully_updated: Successfully updated
       summary: Summary
       tax: Tax
+      title: Title
       total: Total
       tracking: Tracking
       update: Update
+      view_cart: View cart
       we_are_busy_updating: We are busy updating
       we_will_be_back: We will be back
       what_is_a_cvv: What is a cvv

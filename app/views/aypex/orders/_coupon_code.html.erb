@@ -1,8 +1,8 @@
 <%= form_with url: aypex.apply_coupon_path, method: :patch do |order_form| %>
   <div class='shopping-cart-coupon-code' data-hook='coupon_code'>
     <div class="input-group">
-      <%= order_form.text_field :coupon_code, class: 'form-control', placeholder: I18n.t('aypex.storefront.cart_page.add_promo_code'), aria: { label: I18n.t('aypex.storefront.cart_page.add_promo_code') } %>
-      <%= button_tag I18n.t('aypex.storefront.cart.apply'), class: 'btn btn-outline-primary' %>
+      <%= order_form.text_field :coupon_code, class: 'form-control', placeholder: I18n.t('aypex.storefront.add_promo_code'), aria: { label: I18n.t('aypex.storefront.add_promo_code') } %>
+      <%= button_tag I18n.t('aypex.storefront.apply'), class: 'btn btn-outline-primary' %>
     </div>
   </div>
 <% end %>

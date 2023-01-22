@@ -1,17 +1,13 @@
 <%= render 'aypex/shared/error_messages', target: @address %>
-<div class="col-lg-6 offset-lg-3">
-  <h3 class="aypex-header aypex-mb-large aypex-mt-large"><%= I18n.t("aypex.storefront.address_book.new_address") %></h3>
-  <%= form_for @address, html: { id: 'checkout_form_address' } do |f| %>
-  <div class="form-group checkout-content-inner-field mb-5 has-float-label">
-    <%= f.text_field :label, class: 'aypex-flat-input', placeholder: I18n.t("aypex.storefront.address_book.address_name_placeholder") %>
-    <%= f.label :address_name, I18n.t("aypex.storefront.address_book.label") %>
-  </div>
-    <%= render 'aypex/addresses/form',
-      address_name: 'address',
-      address_form: f,
-      address_type: 'shipping',
-      address: @address %>
 
-    <%= f.submit I18n.t("aypex.storefront.address_book.save"), class: 'btn btn-primary btn-block aypex-btn mb-5' %>
+<div class="col-lg-6 offset-lg-3">
+  <h3 class="aypex-header aypex-mb-large aypex-mt-large"><%= I18n.t("aypex.storefront.new_address") %></h3>
+  <%= form_for @address, html: { id: 'checkout_form_address' } do |f| %>
+    <div class="form-group checkout-content-inner-field mb-5 has-float-label">
+      <%= f.text_field :label, class: 'aypex-flat-input', placeholder: I18n.t("aypex.storefront.address_name_placeholder") %>
+      <%= f.label :address_name, I18n.t("aypex.storefront.label") %>
+    </div>
+    <%= render 'aypex/addresses/form', address_name: 'address', address_form: f, address_type: 'shipping', address: @address %>
+    <%= f.submit I18n.t("aypex.storefront.save"), class: 'btn btn-primary btn-block aypex-btn mb-5' %>
   <% end %>
 </div>

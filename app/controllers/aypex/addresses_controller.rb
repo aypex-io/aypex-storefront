@@ -5,7 +5,7 @@ module Aypex
     def create
       @address = try_aypex_current_user.addresses.build(address_params)
       if create_service.call(user: try_aypex_current_user, address_params: @address.attributes).success?
-        flash[:notice] = I18n.t("aypex.storefront.address_book.successfully_created")
+        flash[:notice] = I18n.t("aypex.storefront.successfully_created")
         redirect_to aypex.account_path
       else
         render action: "new", status: :unprocessable_entity
@@ -22,7 +22,7 @@ module Aypex
 
     def update
       if update_service.call(address: @address, address_params: address_params).success?
-        flash[:notice] = I18n.t("aypex.storefront.address_book.successfully_updated")
+        flash[:notice] = I18n.t("aypex.storefront.successfully_updated")
         redirect_back_or_default(addresses_path)
       else
         render :edit, status: :unprocessable_entity
@@ -32,7 +32,7 @@ module Aypex
     def destroy
       @address.destroy
 
-      flash[:notice] = I18n.t("aypex.storefront.address_book.successfully_removed")
+      flash[:notice] = I18n.t("aypex.storefront.successfully_removed")
       redirect_to(request.env["HTTP_REFERER"] || addresses_path) unless request.xhr?
     end
 

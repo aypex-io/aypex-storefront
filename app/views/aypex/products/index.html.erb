@@ -12,7 +12,7 @@
     <% if params[:keywords] %>
       <div class="container d-md-flex pt-md-5">
         <div class="plp-results-text text-uppercase mx-md-auto py-md-5">
-          <%= "#{@products.total_count} #{I18n.t('aypex.storefront.plp.results_for')} '#{params[:keywords].upcase}'" %>
+          <%= "#{@products.total_count} #{I18n.t('aypex.storefront.results_for')} '#{params[:keywords].upcase}'" %>
         </div>
       </div>
     <% elsif not @category %>

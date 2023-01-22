@@ -5,7 +5,7 @@
     <div class="plp-scroll">
       <div class="container">
         <div class="plp-overlay-header">
-          <%= I18n.t('aypex.storefront.plp.filter_by') %>
+          <%= I18n.t('aypex.storefront.filter_by') %>
           <%= aypex_storefront_svg_tag 'close.svg', id: 'filter-by-overlay-hide-button' %>
         </div>
       </div>
@@ -57,7 +57,7 @@
 
         <div class="card plp-overlay-card">
           <div class="card-header text-uppercase <%= 'collapsed' if params[:price].blank? %> plp-overlay-card-header" id="headingFour" data-toggle="collapse" data-target="#collapseFour" aria-expanded="true" aria-controls="collapseFour" role="heading" aria-level="3">
-            <%= I18n.t('aypex.storefront.plp.price') %>
+            <%= I18n.t('aypex.storefront.price') %>
             <%= aypex_storefront_svg_tag('arrow-right.svg',
                     class: 'aypex-icon-arrow aypex-icon-arrow-right mt-1 float-end arrow plp-overlay-card-header-arrow',
                     width: 16,
@@ -88,6 +88,6 @@
 
   <div class="container position-absolute text-center plp-overlay-buttons pt-3">
     <%= clear_all_filters_link(permitted_params) %>
-    <%= link_to I18n.t('aypex.storefront.plp.done'), permitted_params, id: 'filterProductsButtonMobile', class: 'btn btn-primary aypex-btn w-100 done-btn', data: { params: permitted_params } %>
+    <%= link_to I18n.t('aypex.storefront.done'), permitted_params, id: 'filterProductsButtonMobile', class: 'btn btn-primary aypex-btn w-100 done-btn', data: { params: permitted_params } %>
   </div>
 </div>

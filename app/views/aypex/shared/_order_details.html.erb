@@ -43,7 +43,7 @@
           </dd>
           <dd>
             <% if !@order.complete? && @order.using_store_credit? %>
-              <%= button_tag I18n.t('aypex.storefront.store_credit.remove'), name: 'remove_store_credit', class: 'continue btn' %>
+              <%= button_tag I18n.t('aypex.storefront.remove'), name: 'remove_store_credit', class: 'continue btn' %>
             <% end %>
           </dd>
         </div>

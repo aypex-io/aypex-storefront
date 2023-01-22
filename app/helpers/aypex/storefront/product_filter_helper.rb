@@ -110,7 +110,7 @@ module Aypex
         opts[:css_class] ||= CLEAR_ALL_FILTERS_LINK_CSS_CLASSES
         sort_by_param = permitted_params.slice(:sort_by)
 
-        link_to I18n.t("aypex.storefront.plp.clear_all"), sort_by_param, class: opts[:css_class], data: {params: sort_by_param}
+        link_to I18n.t("aypex.storefront.clear_all"), sort_by_param, class: opts[:css_class], data: {params: sort_by_param}
       end
 
       private
