@@ -1,29 +1,29 @@
-require 'spec_helper'
+require "spec_helper"
 
-describe 'Products filtering', :js do
+describe "Products filtering", :js do
   let(:store) { Aypex::Store.default }
   let!(:category) { create :category }
 
-  let!(:size) { create :option_type, name: 'size', presentation: 'Size' }
-  let!(:s_size) { create :option_value, option_type: size, name: 's', presentation: 'S' }
-  let!(:m_size) { create :option_value, option_type: size, name: 'm', presentation: 'M' }
+  let!(:size) { create :option_type, name: "size", presentation: "Size" }
+  let!(:s_size) { create :option_value, option_type: size, name: "s", presentation: "S" }
+  let!(:m_size) { create :option_value, option_type: size, name: "m", presentation: "M" }
 
-  let!(:color) { create :option_type, name: 'color', presentation: 'Color' }
-  let!(:green_color) { create :option_value, option_type: color, name: 'green', presentation: 'Green' }
+  let!(:color) { create :option_type, name: "color", presentation: "Color" }
+  let!(:green_color) { create :option_value, option_type: color, name: "green", presentation: "Green" }
 
-  let!(:manufacturer) { create :property, name: 'manufacturer', presentation: 'Manufacturer', filterable: true }
-  let!(:wilson_manufacturer) { create :product_property, value: 'Wilson', property: manufacturer }
+  let!(:manufacturer) { create :property, name: "manufacturer", presentation: "Manufacturer", filterable: true }
+  let!(:wilson_manufacturer) { create :product_property, value: "Wilson", property: manufacturer }
 
-  let!(:brand) { create :property, name: 'brand', presentation: 'Brand', filterable: true }
-  let!(:zeta_brand) { create :product_property, value: 'Zeta', property: brand }
-  let!(:alpha_brand) { create :product_property, value: 'Alpha', property: brand }
+  let!(:brand) { create :property, name: "brand", presentation: "Brand", filterable: true }
+  let!(:zeta_brand) { create :product_property, value: "Zeta", property: brand }
+  let!(:alpha_brand) { create :product_property, value: "Alpha", property: brand }
 
-  let!(:property_3) { create :property, name: 'collection', presentation: 'Collection', filterable: true }
+  let!(:property_3) { create :property, name: "collection", presentation: "Collection", filterable: true }
 
-  let!(:product_1) { create :product, name: 'First shirt', option_types: [size, color], product_properties: [zeta_brand], categories: [category], stores: [store] }
+  let!(:product_1) { create :product, name: "First shirt", option_types: [size, color], product_properties: [zeta_brand], categories: [category], stores: [store] }
   let!(:variant_1_1) { create :variant, product: product_1, option_values: [s_size, green_color] }
 
-  let!(:product_2) { create :product, name: 'Second shirt', option_types: [size], product_properties: [wilson_manufacturer, alpha_brand], categories: [category], stores: [store] }
+  let!(:product_2) { create :product, name: "Second shirt", option_types: [size], product_properties: [wilson_manufacturer, alpha_brand], categories: [category], stores: [store] }
   let!(:variant_2_1) { create :variant, product: product_2, option_values: [m_size] }
 
   def visit_categories_page(category)
@@ -31,20 +31,20 @@ describe 'Products filtering', :js do
   end
 
   def change_currency_to(currency)
-    find('.internationalization-options').click
-    select currency, from: 'switch_to_currency'
+    find(".internationalization-options").click
+    select currency, from: "switch_to_currency"
   end
 
   def search_by(text)
-    find('.search-icons').click
-    fill_in 'keywords', with: "#{text}\n"
+    find(".search-icons").click
+    fill_in "keywords", with: "#{text}\n"
   end
 
   def click_on_filter(filter_name, value: nil)
-    filter_element = find('.plp-filters-card', text: filter_name)
-    filter_header_element = filter_element.find('.plp-filters-card-header')
+    filter_element = find(".plp-filters-card", text: filter_name)
+    filter_header_element = filter_element.find(".plp-filters-card-header")
 
-    filter_header_element.click if filter_header_element[:class].include?('collapsed')
+    filter_header_element.click if filter_header_element[:class].include?("collapsed")
 
     if value.present?
       filter_element.click_link(value)
@@ -53,91 +53,91 @@ describe 'Products filtering', :js do
   end
 
   def have_selected_filter_with(value:)
-    have_css '.plp-overlay-card-item--selected', text: value
+    have_css ".plp-overlay-card-item--selected", text: value
   end
 
   def have_filter_with(value:)
-    have_css '.plp-overlay-card-item', text: value.upcase
+    have_css ".plp-overlay-card-item", text: value.upcase
   end
 
   def expect_working_filters_clearing
-    click_on 'CLEAR ALL'
-    expect(page).to have_content 'First shirt'
-    expect(page).to have_content 'Second shirt'
-    expect(page).not_to have_css('.plp-overlay-card-item--selected')
+    click_on "CLEAR ALL"
+    expect(page).to have_content "First shirt"
+    expect(page).to have_content "Second shirt"
+    expect(page).not_to have_css(".plp-overlay-card-item--selected")
   end
 
   def filters
-    find('#plp-filters-accordion')
+    find("#plp-filters-accordion")
   end
 
-  it 'correctly filters Products' do
+  it "correctly filters Products" do
     visit aypex.nested_categories_path(category)
 
-    expect(page).not_to have_content('CLEAR ALL')
+    expect(page).not_to have_content("CLEAR ALL")
 
-    search_by 'shirt'
-    expect(page).to have_content 'First shirt'
-    expect(page).to have_content 'Second shirt'
+    search_by "shirt"
+    expect(page).to have_content "First shirt"
+    expect(page).to have_content "Second shirt"
 
-    click_on_filter 'Size', value: 'm'
-    expect(page).not_to have_content 'First shirt'
-    expect(page).to have_content 'Second shirt'
-    expect(page).to have_selected_filter_with(value: 'M')
+    click_on_filter "Size", value: "m"
+    expect(page).not_to have_content "First shirt"
+    expect(page).to have_content "Second shirt"
+    expect(page).to have_selected_filter_with(value: "M")
 
-    click_on_filter 'Size', value: 's'
-    expect(page).to have_content 'First shirt'
-    expect(page).to have_content 'Second shirt'
-    expect(page).to have_selected_filter_with(value: 'M')
-    expect(page).to have_selected_filter_with(value: 'S')
+    click_on_filter "Size", value: "s"
+    expect(page).to have_content "First shirt"
+    expect(page).to have_content "Second shirt"
+    expect(page).to have_selected_filter_with(value: "M")
+    expect(page).to have_selected_filter_with(value: "S")
 
-    click_on_filter 'Manufacturer', value: 'Wilson'
-    expect(page).not_to have_content 'First shirt'
-    expect(page).to have_content 'Second shirt'
-    expect(page).to have_selected_filter_with(value: 'WILSON')
+    click_on_filter "Manufacturer", value: "Wilson"
+    expect(page).not_to have_content "First shirt"
+    expect(page).to have_content "Second shirt"
+    expect(page).to have_selected_filter_with(value: "WILSON")
 
-    click_on_filter 'Brand', value: 'Zeta'
-    expect(page).to have_content 'No results'
-    expect(page).to have_selected_filter_with(value: 'WILSON')
-    expect(page).to have_selected_filter_with(value: 'ZETA')
+    click_on_filter "Brand", value: "Zeta"
+    expect(page).to have_content "No results"
+    expect(page).to have_selected_filter_with(value: "WILSON")
+    expect(page).to have_selected_filter_with(value: "ZETA")
 
-    click_on_filter 'Brand', value: 'Alpha'
-    expect(page).not_to have_content 'First shirt'
-    expect(page).to have_content 'Second shirt'
-    expect(page).to have_selected_filter_with(value: 'WILSON')
-    expect(page).to have_selected_filter_with(value: 'ZETA')
-    expect(page).to have_selected_filter_with(value: 'ALPHA')
+    click_on_filter "Brand", value: "Alpha"
+    expect(page).not_to have_content "First shirt"
+    expect(page).to have_content "Second shirt"
+    expect(page).to have_selected_filter_with(value: "WILSON")
+    expect(page).to have_selected_filter_with(value: "ZETA")
+    expect(page).to have_selected_filter_with(value: "ALPHA")
 
-    click_on_filter 'Price'
-    fill_in "$ #{Aypex.t(:min)}", with: '19'
-    fill_in "$ #{Aypex.t(:max)}", with: '20'
-    click_on 'DONE'
-    expect(page).to have_content 'Second shirt'
+    click_on_filter "Price"
+    fill_in "$ #{Aypex.t(:min)}", with: "19"
+    fill_in "$ #{Aypex.t(:max)}", with: "20"
+    click_on "DONE"
+    expect(page).to have_content "Second shirt"
 
     expect_working_filters_clearing
 
-    click_on_filter 'Price', value: '$50 - $100'
-    expect(page).to have_content 'No results'
+    click_on_filter "Price", value: "$50 - $100"
+    expect(page).to have_content "No results"
 
     expect_working_filters_clearing
 
     expect(current_path).to eq aypex.products_path
   end
 
-  context 'option type filters' do
-    let!(:length) { create :option_type, name: 'length', presentation: 'Length', filterable: true }
-    let!(:mini_length) { create :option_value, option_type: length, name: 'mini', presentation: 'MINI' }
+  context "option type filters" do
+    let!(:length) { create :option_type, name: "length", presentation: "Length", filterable: true }
+    let!(:mini_length) { create :option_value, option_type: length, name: "mini", presentation: "MINI" }
 
     let!(:product_3) { create :product, categories: [category], stores: [create(:store)], option_types: [length] }
     let!(:variant_3) { create :variant, product: product_3, option_values: [mini_length] }
 
-    it 'does not display option types for products assigned to the other store' do
+    it "does not display option types for products assigned to the other store" do
       visit aypex.nested_categories_path(category)
 
-      expect(filters).not_to have_content('Length')
+      expect(filters).not_to have_content("Length")
     end
 
-    it 'displays filterable option types' do
+    it "displays filterable option types" do
       visit aypex.nested_categories_path(category)
 
       %w[Size Color].each do |option_type_name|
@@ -145,27 +145,27 @@ describe 'Products filtering', :js do
       end
     end
 
-    it 'does not display unfilterable option types' do
+    it "does not display unfilterable option types" do
       color.update!(filterable: false)
       visit aypex.nested_categories_path(category)
 
-      expect(filters).not_to have_content('Color')
+      expect(filters).not_to have_content("Color")
     end
   end
 
-  context 'property filters' do
+  context "property filters" do
     let!(:material) { create :property, :material, filterable: true }
-    let!(:cotton_material) { create :product_property, value: 'Cotton', property: material }
+    let!(:cotton_material) { create :product_property, value: "Cotton", property: material }
 
     let!(:product_3) { create :product, categories: [category], stores: [create(:store)], product_properties: [cotton_material] }
 
-    it 'does not display properties for products assigned to the other store' do
+    it "does not display properties for products assigned to the other store" do
       visit aypex.nested_categories_path(category)
 
-      expect(filters).not_to have_content('Material')
+      expect(filters).not_to have_content("Material")
     end
 
-    it 'displays filterable properties' do
+    it "displays filterable properties" do
       visit aypex.nested_categories_path(category)
 
       %w[Manufacturer Brand].each do |property_name|
@@ -173,234 +173,234 @@ describe 'Products filtering', :js do
       end
     end
 
-    it 'does not display unfilterable properties' do
+    it "does not display unfilterable properties" do
       brand.update!(filterable: false)
       visit aypex.nested_categories_path(category)
 
-      expect(filters).not_to have_content('Brand')
+      expect(filters).not_to have_content("Brand")
     end
 
-    it 'does not display properties that do not have values' do
+    it "does not display properties that do not have values" do
       visit aypex.nested_categories_path(category)
 
-      expect(filters).not_to have_content('Collection')
+      expect(filters).not_to have_content("Collection")
     end
 
-    it 'shows products that match property filter' do
+    it "shows products that match property filter" do
       visit aypex.products_path
 
-      click_on_filter 'Brand', value: 'Alpha'
+      click_on_filter "Brand", value: "Alpha"
 
-      expect(page).not_to have_content('First shirt')
-      expect(page).to have_content('Second shirt')
+      expect(page).not_to have_content("First shirt")
+      expect(page).to have_content("Second shirt")
     end
   end
 
-  context 'with cached filters' do
-    context 'when after visiting products page new filters were added or deleted' do
-      let(:jersey_manufacturer) { create(:product_property, value: 'Jerseys', property: manufacturer) }
-      let!(:product_3) { create(:product, name: 'Third shirt', categories: [category], stores: [store]) }
-      let(:beta_brand) { create(:product_property, value: 'Beta', property: brand) }
+  context "with cached filters" do
+    context "when after visiting products page new filters were added or deleted" do
+      let(:jersey_manufacturer) { create(:product_property, value: "Jerseys", property: manufacturer) }
+      let!(:product_3) { create(:product, name: "Third shirt", categories: [category], stores: [store]) }
+      let(:beta_brand) { create(:product_property, value: "Beta", property: brand) }
 
-      let(:xl_size) { create(:option_value, option_type: size, name: 'xl', presentation: 'XL') }
+      let(:xl_size) { create(:option_value, option_type: size, name: "xl", presentation: "XL") }
       let!(:variant_1_2) { create(:variant, product: product_1, option_values: [green_color]) }
 
-      it 'correctly displays filterable properties' do
+      it "correctly displays filterable properties" do
         visit_categories_page(category)
 
-        click_on 'Manufacturer'
-        expect(page).to have_filter_with(value: 'Wilson')
+        click_on "Manufacturer"
+        expect(page).to have_filter_with(value: "Wilson")
 
-        click_on 'Brand'
-        expect(page).to have_filter_with(value: 'Zeta')
-        expect(page).to have_filter_with(value: 'Alpha')
+        click_on "Brand"
+        expect(page).to have_filter_with(value: "Zeta")
+        expect(page).to have_filter_with(value: "Alpha")
 
         product_1.product_properties << jersey_manufacturer
         product_3.product_properties << beta_brand
 
         visit_categories_page(category)
 
-        click_on 'Manufacturer'
-        expect(page).to have_filter_with(value: 'Wilson')
-        expect(page).to have_filter_with(value: 'Jerseys')
+        click_on "Manufacturer"
+        expect(page).to have_filter_with(value: "Wilson")
+        expect(page).to have_filter_with(value: "Jerseys")
 
-        click_on 'Brand'
-        expect(page).to have_filter_with(value: 'Zeta')
-        expect(page).to have_filter_with(value: 'Alpha')
-        expect(page).to have_filter_with(value: 'Beta')
+        click_on "Brand"
+        expect(page).to have_filter_with(value: "Zeta")
+        expect(page).to have_filter_with(value: "Alpha")
+        expect(page).to have_filter_with(value: "Beta")
       end
 
-      it 'correctly displays filterable options' do
+      it "correctly displays filterable options" do
         visit_categories_page(category)
 
-        click_on 'Size'
-        expect(page).to have_filter_with(value: 'S')
-        expect(page).to have_filter_with(value: 'M')
-        expect(page).not_to have_filter_with(value: 'XL')
+        click_on "Size"
+        expect(page).to have_filter_with(value: "S")
+        expect(page).to have_filter_with(value: "M")
+        expect(page).not_to have_filter_with(value: "XL")
 
         variant_1_2.update(option_values: [green_color, xl_size])
 
         visit_categories_page(category)
 
-        click_on 'Size'
-        expect(page).to have_filter_with(value: 'S')
-        expect(page).to have_filter_with(value: 'M')
-        expect(page).to have_filter_with(value: 'XL')
+        click_on "Size"
+        expect(page).to have_filter_with(value: "S")
+        expect(page).to have_filter_with(value: "M")
+        expect(page).to have_filter_with(value: "XL")
 
         variant_1_2.update(option_values: [green_color])
 
         visit_categories_page(category)
 
-        click_on 'Size'
-        expect(page).to have_filter_with(value: 'S')
-        expect(page).to have_filter_with(value: 'M')
-        expect(page).not_to have_filter_with(value: 'XL')
+        click_on "Size"
+        expect(page).to have_filter_with(value: "S")
+        expect(page).to have_filter_with(value: "M")
+        expect(page).not_to have_filter_with(value: "XL")
       end
     end
 
-    context 'when switching between currencies' do
-      let(:eur) { 'EUR' }
+    context "when switching between currencies" do
+      let(:eur) { "EUR" }
 
-      let!(:gamma_brand) { create(:product_property, value: 'Gamma', property: brand) }
-      let!(:xl_size) { create(:option_value, option_type: size, name: 'xl', presentation: 'XL') }
+      let!(:gamma_brand) { create(:product_property, value: "Gamma", property: brand) }
+      let!(:xl_size) { create(:option_value, option_type: size, name: "xl", presentation: "XL") }
 
-      let!(:product_3) { create(:product, name: '3rd shirt', product_properties: [gamma_brand], categories: [category], stores: [store], currency: eur) }
+      let!(:product_3) { create(:product, name: "3rd shirt", product_properties: [gamma_brand], categories: [category], stores: [store], currency: eur) }
       let!(:variant_3) { create(:variant, product: product_3, currency: eur, option_values: [xl_size]) }
 
-      it 'correctly displays filterable properties' do
+      it "correctly displays filterable properties" do
         visit_categories_page(category)
 
-        click_on 'Manufacturer'
-        expect(page).to have_filter_with(value: 'Wilson')
+        click_on "Manufacturer"
+        expect(page).to have_filter_with(value: "Wilson")
 
-        click_on 'Brand'
-        expect(page).to have_filter_with(value: 'Zeta')
-        expect(page).to have_filter_with(value: 'Alpha')
+        click_on "Brand"
+        expect(page).to have_filter_with(value: "Zeta")
+        expect(page).to have_filter_with(value: "Alpha")
 
         change_currency_to(eur)
 
-        expect(page).not_to have_content('Manufacturer')
+        expect(page).not_to have_content("Manufacturer")
 
-        click_on 'Brand'
-        expect(page).to have_filter_with(value: 'Gamma')
-        expect(page).not_to have_filter_with(value: 'Zeta')
-        expect(page).not_to have_filter_with(value: 'Alpha')
+        click_on "Brand"
+        expect(page).to have_filter_with(value: "Gamma")
+        expect(page).not_to have_filter_with(value: "Zeta")
+        expect(page).not_to have_filter_with(value: "Alpha")
       end
 
-      it 'correctly displays filterable options' do
+      it "correctly displays filterable options" do
         visit_categories_page(category)
 
-        expect(page).to have_content('Color')
+        expect(page).to have_content("Color")
 
-        click_on 'Size'
-        expect(page).to have_filter_with(value: 'S')
-        expect(page).to have_filter_with(value: 'M')
+        click_on "Size"
+        expect(page).to have_filter_with(value: "S")
+        expect(page).to have_filter_with(value: "M")
 
         change_currency_to(eur)
 
-        expect(page).not_to have_content('Color')
+        expect(page).not_to have_content("Color")
 
-        click_on 'Size'
-        expect(page).to have_filter_with(value: 'XL')
-        expect(page).not_to have_filter_with(value: 'S')
-        expect(page).not_to have_filter_with(value: 'M')
+        click_on "Size"
+        expect(page).to have_filter_with(value: "XL")
+        expect(page).not_to have_filter_with(value: "S")
+        expect(page).not_to have_filter_with(value: "M")
       end
     end
 
-    context 'when switching between categories' do
+    context "when switching between categories" do
       let!(:other_category) { create(:category) }
 
-      let!(:xl_size) { create(:option_value, option_type: size, name: 'xl', presentation: 'XL') }
-      let!(:gamma_brand) { create(:product_property, value: 'Gamma', property: brand) }
+      let!(:xl_size) { create(:option_value, option_type: size, name: "xl", presentation: "XL") }
+      let!(:gamma_brand) { create(:product_property, value: "Gamma", property: brand) }
 
-      let!(:product_3) { create(:product, name: '3rd shirt', product_properties: [gamma_brand], categories: [other_category]) }
+      let!(:product_3) { create(:product, name: "3rd shirt", product_properties: [gamma_brand], categories: [other_category]) }
       let!(:variant_3) { create(:variant, product: product_3, option_values: [xl_size]) }
 
-      let!(:wannabe_manufacturer) { create(:product_property, value: 'Wannabe', property: manufacturer) }
-      let!(:product_4) { create(:product, name: '4th shirt', product_properties: [wannabe_manufacturer], categories: [other_category]) }
+      let!(:wannabe_manufacturer) { create(:product_property, value: "Wannabe", property: manufacturer) }
+      let!(:product_4) { create(:product, name: "4th shirt", product_properties: [wannabe_manufacturer], categories: [other_category]) }
 
-      it 'correctly displays filterable properties' do
+      it "correctly displays filterable properties" do
         visit_categories_page(category)
 
-        click_on 'Manufacturer'
-        expect(page).to have_filter_with(value: 'Wilson')
+        click_on "Manufacturer"
+        expect(page).to have_filter_with(value: "Wilson")
 
-        click_on 'Brand'
-        expect(page).to have_filter_with(value: 'Zeta')
-        expect(page).to have_filter_with(value: 'Alpha')
+        click_on "Brand"
+        expect(page).to have_filter_with(value: "Zeta")
+        expect(page).to have_filter_with(value: "Alpha")
 
         visit_categories_page(other_category)
 
-        click_on 'Manufacturer'
-        expect(page).to have_filter_with(value: 'Wannabe')
-        expect(page).not_to have_filter_with(value: 'Wilson')
+        click_on "Manufacturer"
+        expect(page).to have_filter_with(value: "Wannabe")
+        expect(page).not_to have_filter_with(value: "Wilson")
 
-        click_on 'Brand'
-        expect(page).to have_filter_with(value: 'Gamma')
-        expect(page).not_to have_filter_with(value: 'Alpha')
-        expect(page).not_to have_filter_with(value: 'Zeta')
+        click_on "Brand"
+        expect(page).to have_filter_with(value: "Gamma")
+        expect(page).not_to have_filter_with(value: "Alpha")
+        expect(page).not_to have_filter_with(value: "Zeta")
       end
 
-      it 'correctly displays filterable options' do
+      it "correctly displays filterable options" do
         visit_categories_page(category)
 
-        expect(page).to have_content('Color')
+        expect(page).to have_content("Color")
 
-        click_on 'Size'
-        expect(page).to have_filter_with(value: 'S')
-        expect(page).to have_filter_with(value: 'M')
+        click_on "Size"
+        expect(page).to have_filter_with(value: "S")
+        expect(page).to have_filter_with(value: "M")
 
         visit_categories_page(other_category)
 
-        expect(page).not_to have_content('Color')
+        expect(page).not_to have_content("Color")
 
-        click_on 'Size'
-        expect(page).to have_filter_with(value: 'XL')
-        expect(page).not_to have_filter_with(value: 'S')
-        expect(page).not_to have_filter_with(value: 'M')
+        click_on "Size"
+        expect(page).to have_filter_with(value: "XL")
+        expect(page).not_to have_filter_with(value: "S")
+        expect(page).not_to have_filter_with(value: "M")
       end
     end
 
-    context 'when after visiting products page new products were added to the same category' do
+    context "when after visiting products page new products were added to the same category" do
       let!(:material) { create(:property, :material, filterable: true) }
-      let!(:cotton_material) { create(:product_property, value: 'Cotton', property: material) }
+      let!(:cotton_material) { create(:product_property, value: "Cotton", property: material) }
 
-      let!(:xl_size) { create(:option_value, option_type: size, name: 'xl', presentation: 'XL') }
+      let!(:xl_size) { create(:option_value, option_type: size, name: "xl", presentation: "XL") }
 
-      it 'correctly displays filterable properties' do
+      it "correctly displays filterable properties" do
         visit_categories_page(category)
 
-        click_on 'Manufacturer'
-        expect(page).to have_filter_with(value: 'Wilson')
+        click_on "Manufacturer"
+        expect(page).to have_filter_with(value: "Wilson")
 
-        click_on 'Brand'
-        expect(page).to have_filter_with(value: 'Zeta')
-        expect(page).to have_filter_with(value: 'Alpha')
+        click_on "Brand"
+        expect(page).to have_filter_with(value: "Zeta")
+        expect(page).to have_filter_with(value: "Alpha")
 
-        create(:product, name: '3rd shirt', product_properties: [cotton_material], categories: [category], stores: [store])
+        create(:product, name: "3rd shirt", product_properties: [cotton_material], categories: [category], stores: [store])
 
         visit_categories_page(category)
 
-        click_on 'Material'
-        expect(page).to have_filter_with(value: 'Cotton')
+        click_on "Material"
+        expect(page).to have_filter_with(value: "Cotton")
       end
 
-      it 'correctly displays filterable options' do
+      it "correctly displays filterable options" do
         visit_categories_page(category)
 
-        expect(page).to have_content('Color')
+        expect(page).to have_content("Color")
 
-        click_on 'Size'
-        expect(page).to have_filter_with(value: 'S')
-        expect(page).to have_filter_with(value: 'M')
+        click_on "Size"
+        expect(page).to have_filter_with(value: "S")
+        expect(page).to have_filter_with(value: "M")
 
-        product = create(:product, name: '3rd shirt', categories: [category], stores: [store])
+        product = create(:product, name: "3rd shirt", categories: [category], stores: [store])
         create(:variant, product: product, option_values: [xl_size])
 
         visit_categories_page(category)
 
-        click_on 'Size'
-        expect(page).to have_filter_with(value: 'XL')
+        click_on "Size"
+        expect(page).to have_filter_with(value: "XL")
       end
     end
   end

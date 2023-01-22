@@ -14,7 +14,7 @@ module Aypex
       end
 
       def store_currency_symbol(store = nil)
-        store ||= current_store  if defined?(current_store)
+        store ||= current_store if defined?(current_store)
         return unless store&.default_currency
 
         ::Money::Currency.find(store.default_currency).symbol

@@ -339,10 +339,6 @@ module Aypex
         @checkout_available_payment_methods ||= @order.available_payment_methods
       end
 
-      def checkout_available_payment_methods
-        @checkout_available_payment_methods ||= @order.available_payment_methods
-      end
-
       def color_option_type_name
         @color_option_type_name ||= Aypex::OptionType.color&.name
       end

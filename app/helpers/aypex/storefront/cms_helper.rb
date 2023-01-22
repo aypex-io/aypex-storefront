@@ -9,9 +9,9 @@ module Aypex
         inner_content = content_tag(:div, class: section.css_classes, &block)
 
         if section.fullscreen?
-          content_tag(:div, inner_content, class: 'container-fluid')
+          content_tag(:div, inner_content, class: "container-fluid")
         else
-          content_tag(:div, inner_content, class: 'container')
+          content_tag(:div, inner_content, class: "container")
         end
       end
 

@@ -1,9 +1,9 @@
-require 'spec_helper'
+require "spec_helper"
 
-describe 'Free shipping promotions', type: :feature, js: true do
+describe "Free shipping promotions", type: :feature, js: true do
   let(:store) { Aypex::Store.default }
   let(:country) { store.default_country }
-  let!(:state) { create(:state, name: 'Alabama', country: country) }
+  let!(:state) { create(:state, name: "Alabama", country: country) }
 
   before do
     create(:zone)
@@ -20,50 +20,50 @@ describe 'Free shipping promotions', type: :feature, js: true do
     promotion.reload # so that promotion.actions is available
   end
 
-  context 'free shipping promotion automatically applied' do
-    let!(:mug) { create(:product, name: 'RoR Mug', price: 20, stores: [store]) }
+  context "free shipping promotion automatically applied" do
+    let!(:mug) { create(:product, name: "RoR Mug", price: 20, stores: [store]) }
     let(:promotion) do
       create(:promotion,
-             name: 'Free Shipping',
-             starts_at: 1.day.ago,
-             expires_at: 1.day.from_now)
+        name: "Free Shipping",
+        starts_at: 1.day.ago,
+        expires_at: 1.day.from_now)
     end
 
-    include_context 'proceed to payment step'
+    include_context "proceed to payment step"
 
     # Regression test for #4428
-    it 'applies the free shipping promotion' do
-      within('#checkout-summary') do
-        page.has_text? 'SHIPPING: $10.00'
-        page.has_text? 'Promotion (Free Shipping): -$10.00'
+    it "applies the free shipping promotion" do
+      within("#checkout-summary") do
+        page.has_text? "SHIPPING: $10.00"
+        page.has_text? "Promotion (Free Shipping): -$10.00"
       end
     end
   end
 
-  context 'when free shipping promotion applies for order total in defined range' do
+  context "when free shipping promotion applies for order total in defined range" do
     let(:promotion) do
       create(:free_shipping_promotion_with_item_total_rule,
-             name: 'Free Shipping',
-             starts_at: 1.day.ago,
-             expires_at: 1.day.from_now)
+        name: "Free Shipping",
+        starts_at: 1.day.ago,
+        expires_at: 1.day.from_now)
     end
 
-    include_context 'proceed to payment step'
+    include_context "proceed to payment step"
 
-    context 'when order total is less than defined range' do
-      let!(:mug) { create(:product, name: 'RoR Mug', price: 5, stores: [store]) }
+    context "when order total is less than defined range" do
+      let!(:mug) { create(:product, name: "RoR Mug", price: 5, stores: [store]) }
 
-      it 'does not apply the free shipping promotion' do
-        page.has_text? 'SHIPPING: $10.00'
-        page.has_text? 'Promotion (Free Shipping): -$10.00'
+      it "does not apply the free shipping promotion" do
+        page.has_text? "SHIPPING: $10.00"
+        page.has_text? "Promotion (Free Shipping): -$10.00"
       end
     end
 
-    context 'when order total is greater than defined range' do
-      let!(:mug) { create(:product, name: 'RoR Mug', price: 60, stores: [store]) }
+    context "when order total is greater than defined range" do
+      let!(:mug) { create(:product, name: "RoR Mug", price: 60, stores: [store]) }
 
-      it 'applies the free shipping promotion' do
-        page.has_text? 'SHIPPING: FREE'
+      it "applies the free shipping promotion" do
+        page.has_text? "SHIPPING: FREE"
       end
     end
   end

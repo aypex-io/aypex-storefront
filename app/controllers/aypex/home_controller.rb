@@ -24,7 +24,7 @@ module Aypex
     def etag_index
       [
         store_etag,
-        last_modified_index,
+        last_modified_index
       ]
     end
 

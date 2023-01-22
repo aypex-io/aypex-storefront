@@ -38,7 +38,7 @@ module Aypex
 
     def related
       if product_relation_types.any?
-        render template: 'aypex/products/related', layout: false
+        render template: "aypex/products/related", layout: false
       else
         head :no_content
       end
@@ -71,20 +71,20 @@ module Aypex
 
       request_opts = request.query_parameters[:options].values
       @variant = Aypex::Variants::Find.new(variants: @variants,
-                                           options: request_opts,
-                                           return_object: true).execute
+        options: request_opts,
+        return_object: true).execute
     end
 
     def load_variants
-      @variants = @product.
-                  variants_including_master.
-                  aypex_base_scopes.
-                  active(current_currency).
-                  includes(
-                    :default_price,
-                    option_values: [:option_value_variants],
-                    images: { attachment_attachment: :blob }
-                  )
+      @variants = @product
+        .variants_including_master
+        .aypex_base_scopes
+        .active(current_currency)
+        .includes(
+          :default_price,
+          option_values: [:option_value_variants],
+          images: {attachment_attachment: :blob}
+        )
     end
 
     def load_filtered_images
@@ -100,7 +100,7 @@ module Aypex
     end
 
     def load_option_images(option_id)
-      variants = @variants.where(option_values: { id: option_id.to_s })
+      variants = @variants.where(option_values: {id: option_id.to_s})
       @option_images = variants.map(&:images).flatten
     end
 
@@ -119,21 +119,21 @@ module Aypex
         @product,
         @category,
         @product.possible_promotion_ids,
-        @product.possible_promotions.maximum(:updated_at),
+        @product.possible_promotions.maximum(:updated_at)
       ]
     end
 
-    alias product_etag etag_show
+    alias_method :product_etag, :etag_show
 
     def last_modified_index
-      products_last_modified      = @products.maximum(:updated_at)&.utc if @products.respond_to?(:maximum)
+      products_last_modified = @products.maximum(:updated_at)&.utc if @products.respond_to?(:maximum)
       current_store_last_modified = current_store.updated_at.utc
 
       [products_last_modified, current_store_last_modified].compact.max
     end
 
     def last_modified_show
-      product_last_modified       = @product.updated_at.utc
+      product_last_modified = @product.updated_at.utc
       current_store_last_modified = current_store.updated_at.utc
 
       [product_last_modified, current_store_last_modified].compact.max

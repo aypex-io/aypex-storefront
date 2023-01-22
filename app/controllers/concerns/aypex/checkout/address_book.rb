@@ -11,12 +11,12 @@ module Aypex
       protected
 
       def set_addresses
-        return unless params[:order] && params[:state] == 'address'
+        return unless params[:order] && params[:state] == "address"
 
         if params[:order][:ship_address_id].to_i > 0
           params[:order].delete(:ship_address_attributes)
 
-          Aypex::Address.find(params[:order][:ship_address_id]).user_id != try_aypex_current_user&.id && raise('Storefront address forging')
+          Aypex::Address.find(params[:order][:ship_address_id]).user_id != try_aypex_current_user&.id && raise("Storefront address forging")
         else
           params[:order].delete(:ship_address_id)
         end
@@ -24,16 +24,16 @@ module Aypex
         if params[:order][:bill_address_id].to_i > 0
           params[:order].delete(:bill_address_attributes)
 
-          Aypex::Address.find(params[:order][:bill_address_id]).user_id != try_aypex_current_user&.id && raise('Storefront address forging')
+          Aypex::Address.find(params[:order][:bill_address_id]).user_id != try_aypex_current_user&.id && raise("Storefront address forging")
         else
           params[:order].delete(:bill_address_id)
         end
       end
 
       def normalize_addresses
-        return unless params[:state] == 'address' && @order.bill_address_id
+        return unless params[:state] == "address" && @order.bill_address_id
 
-        if @order.checkout_steps.include?('delivery')
+        if @order.checkout_steps.include?("delivery")
           return unless @order.ship_address_id
         end
 

@@ -1,10 +1,10 @@
 require "spec_helper"
 
-describe Aypex::Storefront::AddressesHelper, type: :helper do
-  class SampleClass
-    include Aypex::Storefront::AddressesHelper
-  end
+class SampleClass
+  include Aypex::Storefront::AddressesHelper
+end
 
+describe Aypex::Storefront::AddressesHelper, type: :helper do
   describe "#user_available_addresses" do
     subject { SampleClass.new.user_available_addresses }
 

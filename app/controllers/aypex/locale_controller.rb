@@ -1,6 +1,6 @@
 module Aypex
   class LocaleController < Aypex::StoreController
-    REDIRECT_TO_ROOT = /\/(pages)\//.freeze
+    REDIRECT_TO_ROOT = /\/(pages)\//
 
     def index
       render :index, layout: false
@@ -12,7 +12,7 @@ module Aypex
       if new_locale.present? && supported_locale?(new_locale)
         if should_build_new_url?
           redirect_to BuildLocalizedRedirectUrl.call(
-            url: request.env['HTTP_REFERER'],
+            url: request.env["HTTP_REFERER"],
             locale: new_locale,
             default_locale: current_store.default_locale
           ).value
@@ -27,10 +27,10 @@ module Aypex
     private
 
     def should_build_new_url?
-      if request.env['HTTP_REFERER'].match(REDIRECT_TO_ROOT)
+      if request.env["HTTP_REFERER"].match(REDIRECT_TO_ROOT)
         false
       else
-        request.env['HTTP_REFERER'].present? && request.env['HTTP_REFERER'] != request.env['REQUEST_URI']
+        request.env["HTTP_REFERER"].present? && request.env["HTTP_REFERER"] != request.env["REQUEST_URI"]
       end
     end
   end

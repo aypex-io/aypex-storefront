@@ -32,6 +32,4 @@ Gem::Specification.new do |spec|
   spec.add_dependency "inline_svg"
   spec.add_dependency "responders"
   spec.add_dependency "turbo-rails"
-
-  spec.add_development_dependency "capybara-accessible"
 end

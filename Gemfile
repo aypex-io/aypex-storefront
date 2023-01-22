@@ -1,23 +1,23 @@
-source 'https://rubygems.org'
+source "https://rubygems.org"
 
-gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw]
+gem "tzinfo-data", platforms: [:mingw, :mswin, :x64_mingw]
 
 %w[
   actionmailer actionpack actionview activejob activemodel activerecord
   activestorage activesupport railties
 ].each do |rails_gem|
-  gem rails_gem, ENV.fetch('RAILS_VERSION', '~> 7.0.0'), require: false
+  gem rails_gem, ENV.fetch("RAILS_VERSION", "~> 7.0.0"), require: false
 end
 
 platforms :jruby do
-  gem 'jruby-openssl'
+  gem "jruby-openssl"
 end
 
 platforms :ruby do
-  if ENV['DB'] == 'mysql'
-    gem 'mysql2'
+  if ENV["DB"] == "mysql"
+    gem "mysql2"
   else
-    gem 'pg', '~> 1.1'
+    gem "pg", "~> 1.1"
   end
 end
 
@@ -57,7 +57,7 @@ group :development do
   gem "erb_lint"
 end
 
-gem 'aypex', github: "aypex-io/aypex"
-gem 'aypex-api', github: "aypex-io/aypex-api"
+gem "aypex", github: "aypex-io/aypex"
+gem "aypex-api", github: "aypex-io/aypex-api"
 
 gemspec

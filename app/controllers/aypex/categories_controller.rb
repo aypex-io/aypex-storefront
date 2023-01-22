@@ -15,7 +15,7 @@ module Aypex
       if !http_cache_enabled? || stale?(etag: carousel_etag, last_modified: last_modified, public: true)
         load_products
         if @products.reload.any?
-          render template: 'aypex/categories/product_carousel', layout: false
+          render template: "aypex/categories/product_carousel", layout: false
         else
           head :no_content
         end

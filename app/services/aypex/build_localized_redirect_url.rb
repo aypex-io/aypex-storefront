@@ -1,12 +1,12 @@
-require 'uri'
+require "uri"
 
 module Aypex
   class BuildLocalizedRedirectUrl
     prepend Aypex::ServiceModule::Base
 
-    LOCALE_REGEX = /^\/[A-Za-z]{2}\/|^\/[A-Za-z]{2}-[A-Za-z]{2}\/|^\/[A-Za-z]{2}$|^\/[A-Za-z]{2}-[A-Za-z]{2}$/.freeze
+    LOCALE_REGEX = /^\/[A-Za-z]{2}\/|^\/[A-Za-z]{2}-[A-Za-z]{2}\/|^\/[A-Za-z]{2}$|^\/[A-Za-z]{2}-[A-Za-z]{2}$/
 
-    SUPPORTED_PATHS_REGEX = /\/(products|t\/|cart|checkout|addresses|content|pages)/.freeze
+    SUPPORTED_PATHS_REGEX = /\/(products|t\/|cart|checkout|addresses|content|pages)/
 
     # rubocop:disable Lint/UnusedMethodArgument
     def call(url:, locale:, default_locale: nil)
@@ -39,10 +39,10 @@ module Aypex
       end
 
       new_path = if default_locale_supplied
-                   maches_locale_regex?(url.path) ? url.path.gsub(LOCALE_REGEX, '/') : url.path
-                 else
-                   maches_locale_regex?(url.path) ? url.path.gsub(LOCALE_REGEX, "/#{locale}/") : "/#{locale}#{url.path}"
-                 end
+        maches_locale_regex?(url.path) ? url.path.gsub(LOCALE_REGEX, "/") : url.path
+      else
+        maches_locale_regex?(url.path) ? url.path.gsub(LOCALE_REGEX, "/#{locale}/") : "/#{locale}#{url.path}"
+      end
 
       success(
         url: url,
@@ -59,9 +59,9 @@ module Aypex
       query_params = Rack::Utils.parse_nested_query(url.query)
 
       if default_locale_supplied
-        query_params.delete('locale')
+        query_params.delete("locale")
       else
-        query_params.merge!('locale' => locale)
+        query_params["locale"] = locale
       end
 
       query_string = query_params.any? ? query_params.to_query : nil
@@ -77,13 +77,13 @@ module Aypex
     private
 
     def supported_path?(path)
-      return true if path.blank? || path == '/' || maches_locale_regex?(path)
+      return true if path.blank? || path == "/" || maches_locale_regex?(path)
 
       path.match(SUPPORTED_PATHS_REGEX)
     end
 
     def maches_locale_regex?(path)
-      path.match(LOCALE_REGEX)[0].gsub('/', '') if path.match(LOCALE_REGEX)
+      path.match(LOCALE_REGEX)[0].delete("/") if path.match(LOCALE_REGEX)
     end
 
     def default_locale_supplied?(locale, default_locale)
@@ -91,11 +91,11 @@ module Aypex
     end
 
     def cleanup_path(path)
-      path.chomp('/').gsub('//', '/')
+      path.chomp("/").gsub("//", "/")
     end
 
     def builder_class(url)
-      url.scheme == 'http' ? URI::HTTP : URI::HTTPS
+      (url.scheme == "http") ? URI::HTTP : URI::HTTPS
     end
   end
 end

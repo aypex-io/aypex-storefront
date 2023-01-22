@@ -9,12 +9,12 @@ module Aypex
           CategoriesHelper is deprecated and will be removed in Aypex 5.0.
           Please remove any `helper 'aypex/categories'` from your controllers.
         DEPRECATION
-        products = category.active_products.distinct.select('aypex_products.*, aypex_products_categories.position').limit(max)
+        products = category.active_products.distinct.select("aypex_products.*, aypex_products_categories.position").limit(max)
         if products.size < max
           products_arel = Aypex::Product.arel_table
           category.descendants.each do |child|
             to_get = max - products.length
-            products += child.active_products.distinct.select('aypex_products.*, aypex_products_categories.position').where(products_arel[:id].not_in(products.map(&:id))).limit(to_get)
+            products += child.active_products.distinct.select("aypex_products.*, aypex_products_categories.position").where(products_arel[:id].not_in(products.map(&:id))).limit(to_get)
             break if products.size >= max
           end
         end

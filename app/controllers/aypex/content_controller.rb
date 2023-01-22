@@ -3,7 +3,8 @@ module Aypex
     # Don't serve local files or static assets
     after_action :fire_visited_path, except: :cvv
 
-    def test; end
+    def test
+    end
 
     def cvv
       render layout: false

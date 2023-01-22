@@ -2,9 +2,9 @@ module Aypex
   module Variants
     class Find
       def initialize(variants: nil, options: nil, return_object: false)
-        @variants       = variants
-        @options        = options
-        @return_object  = return_object
+        @variants = variants
+        @options = options
+        @return_object = return_object
       end
 
       def execute
@@ -20,11 +20,11 @@ module Aypex
       def find_by_option_value_ids
         return @variants unless option_value_ids?
 
-        vars = @variants.
-               joins(:option_values).
-               where(option_values: { id: @options }).
-               group('aypex_variants.id').
-               having('COUNT(distinct option_values.id) = ?', @options.count)
+        vars = @variants
+          .joins(:option_values)
+          .where(option_values: {id: @options})
+          .group("aypex_variants.id")
+          .having("COUNT(distinct option_values.id) = ?", @options.count)
 
         if @return_object
           vars.first
