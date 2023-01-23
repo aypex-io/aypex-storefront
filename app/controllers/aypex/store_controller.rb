@@ -87,7 +87,6 @@ module Aypex
     # You can set the layout you want to render inside your Aypex configuration with the +:layout+ option.
     #
     # Default layout is: +app/views/aypex/layouts/aypex_application+
-    #
     def get_layout
       Aypex::Storefront::Config.layout
     end

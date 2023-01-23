@@ -5,18 +5,15 @@ Gem::Specification.new do |spec|
   spec.name = "aypex-storefront"
   spec.version = Aypex::Storefront.version
   spec.authors = ["Matthew Kennedy"]
-  spec.email = "hello@aypexcommerce.org"
+  spec.email = "info@aypex-io"
   spec.summary = "The default Storefront built with Rails and Turbo/Hotwire for Aypex eCommerce platform"
   spec.description = spec.summary
-  spec.homepage = "https://aypexcommerce.org"
+  spec.homepage = "https://aypex.io"
   spec.license = "BSD-3-Clause"
 
-  spec.metadata = {
-    "bug_tracker_uri" => "https://github.com/aypex/aypex/issues",
-    "changelog_uri" => "https://github.com/aypex/aypex/releases/tag/v#{spec.version}",
-    "documentation_uri" => "https://dev-docspec.aypexcommerce.org/",
-    "source_code_uri" => "https://github.com/aypex/aypex/tree/v#{spec.version}"
-  }
+  spec.metadata["homepage_uri"] = spec.homepage
+  spec.metadata["source_code_uri"] = "https://github.com/aypex-io/aypex-storefront/tree/v#{spec.version}"
+  spec.metadata["changelog_uri"] = "https://github.com/aypex-io/aypex-storefront/releases/tag/v#{spec.version}"
 
   spec.required_ruby_version = ">= 3.2"
 
@@ -26,8 +23,6 @@ Gem::Specification.new do |spec|
 
   spec.add_dependency "aypex"
   spec.add_dependency "aypex-api"
-
-  spec.add_dependency "babel-transpiler"
   spec.add_dependency "canonical-rails"
   spec.add_dependency "inline_svg"
   spec.add_dependency "responders"
