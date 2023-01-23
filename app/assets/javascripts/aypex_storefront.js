@@ -13604,9 +13604,13 @@ const defaultWait$1 = 200;
 const debounce = (fn, wait = defaultWait$1) => {
   let timeoutId = null;
   return function() {
-    const args = arguments;
+    const args = Array.from(arguments);
     const context = this;
-    const callback = () => fn.apply(context, args);
+    const params = args.map((arg => arg.params));
+    const callback = () => {
+      args.forEach(((arg, index) => arg.params = params[index]));
+      return fn.apply(context, args);
+    };
     if (timeoutId) {
       clearTimeout(timeoutId);
     }
