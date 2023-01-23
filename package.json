@@ -1,5 +1,5 @@
 {
-  "name": "@matthewkennedy/aypex-storefront",
+  "name": "@aypex/aypex-storefront",
   "version": "0.0.4",
   "description": "A Modern Rails Storefront For Aypex",
   "main": "app/assets/javascripts/aypex_storefront.js",
