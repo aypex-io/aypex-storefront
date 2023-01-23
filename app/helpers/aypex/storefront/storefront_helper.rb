@@ -17,7 +17,7 @@ module Aypex
           img = if image_path.present?
             create_product_image_tag image_path, product, options, style
           else
-            aypex_storefront_svg_tag "aypex-logo.svg", class: "noimage", size: "60px"
+            aypex_storefront_svg_tag "logo.svg", class: "noimage", size: "60px"
           end
 
           content_tag(:div, img, class: "product-image-container #{style}-img")
@@ -46,7 +46,7 @@ module Aypex
         image_path ||= if logo_attachment&.attached? && logo_attachment&.variable?
           main_app.cdn_image_url(logo_attachment.variant(resize_to_limit: [244, 104]))
         else
-          asset_path("aypex/storefront/aypex-logo.svg")
+          asset_path("aypex/storefront/logo.svg")
         end
 
         path = aypex.respond_to?(:root_path) ? aypex.root_path : main_app.root_path
@@ -143,7 +143,7 @@ module Aypex
         image_url = if image.present?
           main_app.cdn_image_url(image.url("plp"))
         else
-          asset_path("aypex/storefront/aypex-logo.svg", width: "30px")
+          asset_path("aypex/storefront/logo.svg", width: "30px")
         end
 
         image_style = image&.style(:plp)
