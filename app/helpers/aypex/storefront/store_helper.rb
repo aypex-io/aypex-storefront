@@ -25,7 +25,7 @@ module Aypex
         return unless store
         return store.name if store.default_locale.blank?
 
-        locale_full_name(store.default_locale)
+        localized_language_name(store.default_locale)
       end
 
       def should_render_store_chooser?
