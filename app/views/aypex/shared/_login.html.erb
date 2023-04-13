@@ -1,36 +1,34 @@
-<div class="col-lg-11 mx-auto">
-  <h3 class="aypex-mb-large aypex-mt-large aypex-header"><%= I18n.t('aypex.storefront.log_in_to_continue') %></h3>
-  <%= form_for Aypex::Config.user_class.new, as: :aypex_user, url: aypex_login_path, data: { turbo: false } do |f| %>
-    <div id="password-credentials" class="mb-4">
-      <div class="form-group mb-4">
-        <p class="form-group checkout-content-inner-field">
-          <%= f.email_field :email, class: 'aypex-flat-input', placeholder: I18n.t('aypex.storefront.email'), value: params.dig(:aypex_user, :email) %>
-        </p>
-      </div>
-      <div class="form-group mb-4">
-        <p class="form-group checkout-content-inner-field">
-          <%= f.password_field :password, class: 'aypex-flat-input', placeholder: I18n.t('aypex.storefront.password') %>
-        </p>
-      </div>
-    </div>
+<div class="row">
+  <div class="col">
+    <h3><%= I18n.t('aypex.storefront.log_in_to_continue') %></h3>
 
-    <% if Aypex::Storefront::Config.remember_me_enabled %>
-      <div class="aypex-checkbox-container mt-4 mt-sm-5 mt-lg-4 aypex-mb-medium">
-        <div class="aypex-checkbox">
-          <%= f.check_box :remember_me %>
-          <%= f.label :remember_me, '' %>
+    <%= form_for Aypex::Config.user_class.new, as: :aypex_user, url: aypex_login_path, data: { turbo: false } do |f| %>
+      <div id="password-credentials" class="mb-4">
+        <div class="form-floating mb-3">
+          <%= f.email_field :email, class: 'form-control', placeholder: I18n.t('aypex.storefront.email'), value: params.dig(:aypex_user, :email) %>
+          <%= f.label :email, I18n.t('aypex.storefront.email') %>
         </div>
 
-        <%= f.label :remember_me, I18n.t('aypex.storefront.remember_me'), class: 'aypex-checkbox-label' %>
+        <div class="form-floating mb-3">
+          <%= f.password_field :password, class: 'form-control', placeholder: I18n.t('aypex.storefront.password') %>
+          <%= f.label :password, I18n.t('aypex.storefront.password') %>
+
+          <% if aypex.respond_to?(:recover_password_path) %>
+            <div class="text-end">
+              <%= link_to I18n.t('aypex.storefront.forgot_password'), aypex.recover_password_path %>
+            </div>
+          <% end %>
+        </div>
       </div>
+      <%= f.hidden_field :store_id, value: current_store.id %>
+      <%= f.submit I18n.t('aypex.storefront.login'), class: 'btn btn-primary' %>
+
+      <% if Aypex::Storefront::Config.remember_me_enabled %>
+        <div class="form-check">
+          <%= f.check_box :remember_me, class: "form-check-input" %>
+          <%= f.label :remember_me, I18n.t('aypex.storefront.remember_me'), class: 'form-check-label' %>
+        </div>
+      <% end %>
     <% end %>
-
-    <%= f.submit I18n.t('aypex.storefront.login'), class: 'btn btn-primary btn-block aypex-btn mt-2' %>
-  <% end %>
-
-  <% if aypex.respond_to?(:recover_password_path) %>
-    <div class="text-center forgot-password mb-4">
-      <%= link_to I18n.t('aypex.storefront.forgot_password'), aypex.recover_password_path %>
-    </div>
-  <% end %>
+  </div>
 </div>
