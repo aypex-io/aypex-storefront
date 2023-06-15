@@ -1,12 +1,12 @@
 <% if section.gutters? %>
   <% section_one_padding = 'pe-md-2' %>
   <% section_two_padding = 'ps-md-2' %>
-  <% if section.fullscreen? %>
+  <% if section.full_screen? %>
     <% section_one_padding = 'px-3 pe-md-2' %>
     <% section_two_padding = 'px-3 ps-md-2' %>
   <% end %>
 <% else %>
-  <% if section.fullscreen? %>
+  <% if section.full_screen? %>
     <% section_one_padding = 'px-0' %>
     <% section_two_padding = 'px-0' %>
   <% else %>

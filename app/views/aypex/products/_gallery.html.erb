@@ -8,7 +8,7 @@
         <div style='--aspect-ratio:4/5;'>
           <%# ASPECT RATIO CALC ->    https://andrew.hedges.name/experiments/aspect_ratio    %>
 
-          <%= image_tag main_app.cdn_image_url(image.url(:large)), width: img_width, height: img_height, loading: :lazy, class: "w-100 h-100 lazy" %>
+          <%= image_tag(image.generate_url(size: "600x600"), alt: image.alt) %>
         </div>
       </div>
     <% end %>
@@ -23,7 +23,7 @@
         <div class="col-6 mb-4">
           <%= image.private_metadata[:variant_ids] %>
           <div style='--aspect-ratio:4/5;'>
-            <%= image_tag main_app.cdn_image_url(image.url(:large)), width: img_width, height: img_height, loading: :lazy, data: { src: main_app.cdn_image_url(image.url(:pdp_large)) }, class: "w-100 h-100" %>
+            <%= image_tag(image.generate_url(size: "600x600"), alt: image.alt) %>
           </div>
         </div>
       <% end %>

@@ -3,11 +3,21 @@
     <div class="container d-flex ">
       <div class="flex-fill"></div>
       <div>
-        <% if defined?(aypex.account_link_path) %>
-        <small>
-          <%= link_to I18n.t('aypex.storefront.login'), aypex.account_link_path %>
+        <% if defined?(aypex.account_link_path) && aypex_user_signed_in? %>
+          <small>
+            <%= link_to I18n.t('aypex.storefront.account'), aypex.account_path(try_aypex_current_user) %>
           </small>
-        <% end %>|
+        <% end %>
+
+        <% if defined?(aypex_login_path) && !aypex_user_signed_in? %>
+          <small>
+            <%= link_to I18n.t('aypex.storefront.login'), aypex_login_path %>
+          </small>
+        <% end %>
+
+        <% if defined?(aypex_logout_path) && aypex_user_signed_in? %>
+          <%= button_to I18n.t('aypex.storefront.logout'), aypex_logout_path, method: :delete %>
+        <% end %>
       </div>
     </div>
   </div>
@@ -20,6 +30,7 @@
         <div class="logo" style="width: 110px">
           <%= logo %>
         </div>
+
         <%= render partial: 'aypex/shared/main_nav_bar' %>
         <%= render partial: 'aypex/shared/nav_bar' %>
 
