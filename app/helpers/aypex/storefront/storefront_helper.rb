@@ -129,14 +129,6 @@ module Aypex
         flashes.html_safe
       end
 
-      def asset_exists?(path)
-        if Rails.configuration.assets.compile
-          Rails.application.precompiled_assets.include? path
-        else
-          Rails.application.assets_manifest.assets[path].present?
-        end
-      end
-
       def plp_and_carousel_image(product, image_class = "")
         image = default_image_for_product_or_variant(product)
 
