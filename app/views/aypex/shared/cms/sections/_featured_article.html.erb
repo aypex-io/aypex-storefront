@@ -1,27 +1,13 @@
-<% if section.gutters? %>
+<% if section.has_gutters %>
   <% section_padding = 'px-3' %>
 <% else %>
   <% section_padding = 'px-0' %>
 <% end %>
 
 <div class="col-12 <%= section_padding %>">
-  <div class="text-center homepage-fashion-trends-box">
-    <% if section.title.present? %>
-      <div class="homepage-fashion-trends-box-summer-text mb-1"><%= section.title %></div>
+  <div class="text-center">
+    <% section.cms_components.each do |component| %>
+      <%= component.body %>
     <% end %>
-
-    <% if section.subtitle.present? %>
-      <div class="homepage-fashion-trends-box-fashion-trends-text mb-2"><%= section.subtitle %></div>
-    <% end %>
-
-    <div class="homepage-fashion-trends-box-description-text text-center mb-3">
-      <div class="mb-3">
-        <%= raw section.rte_content %>
-      </div>
-
-      <% if section.button_text.present? && section.link.present? %>
-        <%= link_to section.button_text, aypex_localized_link(section), class: 'btn text-center aypex-btn btn-outline-primary w-75' %>
-      <% end %>
-    </div>
   </div>
 </div>

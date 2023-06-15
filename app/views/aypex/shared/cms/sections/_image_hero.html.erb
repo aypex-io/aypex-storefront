@@ -1,0 +1,71 @@
+<div class="splide" data-controller="slider">
+  <div class="splide__track">
+    <ul class="splide__list">
+      <% section.cms_components.each do |component| %>
+        <% next unless component.image&.attachment&.attached? %>
+
+        <li class="splide__slide">
+          <div class="bg-light" style="--aspect-ratio:12/5;">
+            <noscript class="loading-lazy">
+                <%= image_tag(component.image.generate_url(width: 600),
+                              alt: component.image.alt,
+                              class: "w-100",
+                              data: {
+                                splide_lazy_srcset: "
+                                  #{component.image.generate_url(width: 100)} 100w,
+                                  #{component.image.generate_url(width: 200)} 200w,
+                                  #{component.image.generate_url(width: 300)} 300w,
+                                  #{component.image.generate_url(width: 400)} 400w,
+                                  #{component.image.generate_url(width: 500)} 500w,
+                                  #{component.image.generate_url(width: 600)} 600w,
+                                  #{component.image.generate_url(width: 750)} 750w,
+                                  #{component.image.generate_url(width: 900)} 900w,
+                                  #{component.image.generate_url(width: 1200)} 1200w,
+                                  #{component.image.generate_url(width: 2000)} 2000w,
+                                  #{component.image.generate_url(width: 3000)} 3000w,
+                                  #{component.image.generate_url(width: 3500)} 3500w,
+                                  #{component.image.generate_url(width: 4000)} 4000w,",
+                                splide_lazy: component.image.generate_url(width: 600)
+                              },
+                              srcset: {
+                                component.image.generate_url(width: 100) => "100w",
+                                component.image.generate_url(width: 200) => "200w",
+                                component.image.generate_url(width: 300) => "300w",
+                                component.image.generate_url(width: 400) => "400w",
+                                component.image.generate_url(width: 600) => "600w",
+                                component.image.generate_url(width: 750) => "750w",
+                                component.image.generate_url(width: 900) => "900w",
+                                component.image.generate_url(width: 1200) => "1200w",
+                                component.image.generate_url(width: 2000) => "2000w",
+                                component.image.generate_url(width: 4000) => "4000w"
+                              },
+                              sizes: image_size(section, component),
+                              loading: :lazy) %>
+
+            </noscript>
+
+            <div class="hero-content position-absolute bottom-0 p-2 p-md-3 p-lg-5 w-100 bg-white opacity-75">
+              <% if component.headline.present? %>
+                <div class="homepage-hero-image-text">
+                  <h1 class="text-success"><%= component.headline %></h1>
+                </div>
+              <% end %>
+
+              <% if component.subtitle.present? %>
+                <div class="pb-0 pb-sm-2 pb-md-3">
+                  <h4><%= component.subtitle %></h4>
+                </div>
+              <% end %>
+
+              <% if component.link.present? && component.button_text.present? %>
+                <div>
+                  <%= link_to component.button_text, aypex_localized_link(component), class: 'btn btn-primary btn-lg px-5' %>
+                </div>
+              <% end %>
+            </div>
+          </div>
+        </li>
+      <% end %>
+    </ul>
+  </div>
+</div>

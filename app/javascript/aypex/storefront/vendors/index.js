@@ -1,3 +1,3 @@
 import './bootstrap'
 import './mmenu'
-import './vanilla_lazyload'
+import './loading_attribute_polyfill'

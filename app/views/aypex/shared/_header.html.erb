@@ -3,11 +3,21 @@
     <div class="container d-flex ">
       <div class="flex-fill"></div>
       <div>
-        <% if defined?(aypex.account_link_path) %>
-        <small>
-          <%= link_to I18n.t('aypex.storefront.login'), aypex.account_link_path %>
+        <% if defined?(aypex.account_link_path) && aypex_user_signed_in? %>
+          <small>
+            <%= link_to I18n.t('aypex.storefront.account'), aypex.account_path(try_aypex_current_user) %>
           </small>
-        <% end %>|
+        <% end %>
+
+        <% if defined?(aypex.login_path) && !aypex_user_signed_in? %>
+          <small>
+            <%= link_to I18n.t('aypex.storefront.login'), aypex.login_path %>
+          </small>
+        <% end %>
+
+        <% if defined?(aypex.logout_path) && aypex_user_signed_in? %>
+          <%= button_to I18n.t('aypex.storefront.logout'), aypex.logout_path, method: :delete %>
+        <% end %>
       </div>
     </div>
   </div>

@@ -1,4 +1,6 @@
+import '@rails/actiontext'
 import '@hotwired/turbo-rails'
+
 import './vendors'
 import './controllers'
 import './utilities'

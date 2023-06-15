@@ -1,9 +1,29 @@
 module Aypex
   module Storefront
     class Configuration
-      attr_writer :additional_filters_partials, :always_put_site_name_in_title, :coupon_codes_enabled,
+      attr_writer :user_account_name, :user_account_controller, :additional_filters_partials, :always_put_site_name_in_title, :coupon_codes_enabled,
         :http_cache_enabled, :layout, :locale, :products_filters, :remember_me_enabled, :show_raw_product_description,
         :show_quantity_input_on_product_page, :show_store_selector, :title_site_name_separator
+
+      def user_account_name
+        self.user_account_name = "account" unless @user_account_name
+
+        if @user_account_name.is_a?(String)
+          @user_account_name
+        else
+          raise "Aypex::Storefront::Config.user_account_name MUST be an String"
+        end
+      end
+
+      def user_account_controller
+        self.user_account_controller = "users" unless @user_account_controller
+
+        if @user_account_controller.is_a?(String)
+          @user_account_controller
+        else
+          raise "Aypex::Storefront::Config.user_account_controller MUST be an String"
+        end
+      end
 
       def locale
         self.locale = nil unless @locale

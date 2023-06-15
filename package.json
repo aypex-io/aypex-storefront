@@ -15,11 +15,15 @@
     "@hotwired/stimulus": "^3.2.1",
     "@hotwired/turbo-rails": "^7.3.0",
     "@popperjs/core": "^2.11.7",
-    "bootstrap": "5.3.0-alpha3",
+    "@rails/actiontext": "^7.0.4-3",
+    "@splidejs/splide": "^4.1.4",
+    "bootstrap": "^5.3.0",
     "cleave.js": "^1.6.0",
+    "hotkeys-js": "^3.10.2",
+    "loading-attribute-polyfill": "^2.1.1",
     "mmenu-light": "^3.2.2",
-    "stimulus-use": "^0.52.0",
-    "vanilla-lazyload": "^17.8.3"
+    "stimulus-scroll-to": "^4.1.0",
+    "stimulus-use": "^0.52.0"
   },
   "devDependencies": {
     "@rollup/plugin-node-resolve": "^15.0.1",
@@ -37,7 +41,11 @@
     "rollup-plugin-postcss": "^4.0.2",
     "sass": "^1.57.1",
     "standard": "^17.0.0",
-    "stylelint": "^14.16.1",
+    "stylelint": "^15.4.0",
+    "stylelint-config-prettier": "^9.0.5",
+    "stylelint-config-prettier-scss": "^0.0.1",
+    "stylelint-config-standard": "^32.0.0",
+    "stylelint-config-standard-scss": "^8.0.0",
     "stylus": "^0.59.0"
   },
   "scripts": {

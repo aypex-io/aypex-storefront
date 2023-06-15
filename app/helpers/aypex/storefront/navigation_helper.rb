@@ -13,17 +13,6 @@ module Aypex
         Digest::MD5.hexdigest(keys.join("-"))
       end
 
-      def main_nav_image(image_path, title = "")
-        image_url = asset_path(asset_exists?(image_path) ? image_path : "noimage/plp.svg")
-
-        lazy_image(
-          src: image_url,
-          alt: title,
-          width: 350,
-          height: 234
-        )
-      end
-
       def aypex_menu(location = "header")
         method_name = "for_#{location}"
 
