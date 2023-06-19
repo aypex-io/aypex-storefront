@@ -1,7 +1,21 @@
 ---
 en:
   aypex:
+    auth:
+      account_updated: Account updated
+      confirm_new_password: Confirm new password
+      confirm_password: Confirm password
+      email: Email
+      existing_password: Existing password
+      first_name: First name
+      language: Language
+      last_name: Last name
+      my_account: My account
+      new_password: New password
+      password: Password
+      update_password: Update password
     storefront:
+      account: Account
       account_info: Account info
       active: Active
       add_new_address: Add new address
@@ -25,6 +39,9 @@ en:
       cancel: Cancel
       cart: Cart
       category_missing_alt: Category missing alt
+      change_email: Change email
+      change_password: Change password
+      change_your_password: Change your password
       checkout: Checkout
       choose_currency: Choose currency
       city: City
@@ -49,6 +66,8 @@ en:
       draft: Draft
       draft_mode: Draft mode
       edit_address: Edit address
+      edit_password: Edit password
+      edit_user_information: Edit user information
       editing_user: Editing user
       email: Email
       empty_info: Empty info
@@ -140,6 +159,9 @@ en:
       total: Total
       tracking: Tracking
       update: Update
+      update_details: Update details
+      update_your_details: Update your details
+      update_your_email: Update your email
       view_cart: View cart
       we_are_busy_updating: We are busy updating
       we_will_be_back: We will be back

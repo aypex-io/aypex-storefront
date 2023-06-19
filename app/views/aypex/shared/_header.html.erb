@@ -1,24 +1,26 @@
 <% cache aypex_menu_cache_key('header') do %>
-  <div id="microNav" class="bg-light d-flex align-items-center position-fixed top-0 start-0 w-100" style="z-index: 1050;">
+  <div id="microNav" class="bg-light d-flex align-items-center position-sticky top-0 start-0 w-100" style="z-index: 1050;">
     <div class="container d-flex ">
       <div class="flex-fill"></div>
       <div>
         <% if defined?(aypex.account_link_path) && aypex_user_signed_in? %>
           <small>
-            <%= link_to I18n.t('aypex.storefront.account'), aypex.account_path(try_aypex_current_user) %>
+            <%= link_to I18n.t('aypex.storefront.account'), aypex.account_path, class: "btn btn-link btn-sm" %>
           </small>
         <% end %>
 
         <% if defined?(aypex_login_path) && !aypex_user_signed_in? %>
           <small>
-            <%= link_to I18n.t('aypex.storefront.login'), aypex_login_path %>
+            <%= link_to I18n.t('aypex.storefront.login'), aypex_login_path, class: "btn btn-link btn-sm" %>
           </small>
         <% end %>
-
-        <% if defined?(aypex_logout_path) && aypex_user_signed_in? %>
-          <%= button_to I18n.t('aypex.storefront.logout'), aypex_logout_path, method: :delete %>
-        <% end %>
       </div>
+
+      <% if defined?(aypex_logout_path) && aypex_user_signed_in? %>
+        <div class="border-start">
+          <%= button_to I18n.t('aypex.storefront.logout'), aypex_logout_path, method: :delete, class: "btn btn-link btn-sm" %>
+        </div>
+      <% end %>
     </div>
   </div>
 
@@ -28,7 +30,7 @@
     <div class="container h-100">
       <div class="d-flex h-100 w-100 align-items-center">
         <div class="logo" style="width: 110px">
-          <%= logo %>
+          <%= store_logo %>
         </div>
 
         <%= render partial: 'aypex/shared/main_nav_bar' %>

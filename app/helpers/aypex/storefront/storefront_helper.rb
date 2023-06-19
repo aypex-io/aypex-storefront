@@ -38,24 +38,6 @@ module Aypex
         @body_class
       end
 
-      def logo(image_path = nil, options = {})
-        logo_attachment = if defined?(Aypex::StoreLogo) && current_store.logo.is_a?(Aypex::StoreLogo)
-          current_store.logo.attachment
-        end
-
-        image_path ||= if logo_attachment&.attached? && logo_attachment&.variable?
-          main_app.cdn_image_url(logo_attachment.variant(resize_to_limit: [244, 104]))
-        else
-          asset_path("aypex/storefront/logo.svg")
-        end
-
-        path = aypex.respond_to?(:root_path) ? aypex.root_path : main_app.root_path
-
-        link_to path, "aria-label": current_store.name, method: options[:method] do
-          image_tag image_path, alt: current_store.name, title: current_store.name, class: "mw-100"
-        end
-      end
-
       def aypex_breadcrumbs(category, _separator = "", product = nil)
         return "" if current_page?("/") || category.nil?
 
