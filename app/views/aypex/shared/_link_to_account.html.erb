@@ -1,5 +1,5 @@
 <% if try_aypex_current_user %>
-  <%= link_to I18n.t('aypex.storefront.my_account').upcase, aypex.account_path, class: 'dropdown-item' if aypex.respond_to?(:account_path) %>
+  <%= link_to I18n.t('aypex.storefront.my_account').upcase, aypex_account_path, class: 'dropdown-item' defined?(aypex_account_path) %>
   <% if aypex.respond_to?(:admin_orders_path) %>
     <%= link_to I18n.t('aypex.storefront.admin_panel'), aypex.admin_orders_path(locale: nil), class: 'dropdown-item text-uppercase' if try_aypex_current_user.has_aypex_role?(:admin) %>
   <% end %>

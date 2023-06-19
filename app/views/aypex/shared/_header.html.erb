@@ -3,15 +3,9 @@
     <div class="container d-flex ">
       <div class="flex-fill"></div>
       <div>
-        <% if defined?(aypex.account_link_path) && aypex_user_signed_in? %>
+        <% if defined?(aypex_account_path) %>
           <small>
-            <%= link_to I18n.t('aypex.storefront.account'), aypex.account_path, class: "btn btn-link btn-sm" %>
-          </small>
-        <% end %>
-
-        <% if defined?(aypex_login_path) && !aypex_user_signed_in? %>
-          <small>
-            <%= link_to I18n.t('aypex.storefront.login'), aypex_login_path, class: "btn btn-link btn-sm" %>
+            <%= link_to I18n.t('aypex.storefront.account'), aypex_account_path, class: "btn btn-link btn-sm" %>
           </small>
         <% end %>
       </div>

@@ -58,7 +58,7 @@ RSpec.describe Aypex::UsersController do
         end
 
         it "redirects to correct path" do
-          expect(response).to redirect_to aypex.account_path
+          expect(response).to redirect_to aypex_account_path
         end
       end
 
@@ -70,7 +70,7 @@ RSpec.describe Aypex::UsersController do
         end
 
         it "persists locale when redirecting to account" do
-          expect(response).to redirect_to aypex.account_path(locale: :fr)
+          expect(response).to redirect_to aypex_account_path(locale: :fr)
         end
       end
 

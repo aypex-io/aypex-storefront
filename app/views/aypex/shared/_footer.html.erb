@@ -76,8 +76,8 @@
               <%= I18n.t('aypex.storefront.my_account') %>
             </div>
             <div class="pt-2">
-              <% if defined?(aypex.account_link_path) && aypex_user_signed_in? %>
-                <%= link_to I18n.t('aypex.storefront.my_orders').upcase, aypex.account_path(try_aypex_current_user) %>
+              <% if defined?(aypex_account_path) && aypex_user_signed_in? %>
+                <%= link_to I18n.t('aypex.storefront.my_orders').upcase, aypex_account_path %>
               <% end %>
             </div>
           </div>

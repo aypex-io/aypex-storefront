@@ -6,7 +6,7 @@ module Aypex
       @address = try_aypex_current_user.addresses.build(address_params)
       if create_service.call(user: try_aypex_current_user, address_params: @address.attributes).success?
         flash[:notice] = I18n.t("aypex.storefront.successfully_created")
-        redirect_to aypex.account_path
+        redirect_to aypex_account_path if defined?(aypex_account_path)
       else
         render action: "new", status: :unprocessable_entity
       end
